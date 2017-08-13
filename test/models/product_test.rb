@@ -4,6 +4,7 @@ class ProductTest < ActiveSupport::TestCase
 
   def setup
     @product = products(:one)
+    @order = Order.create()
   end
 
   test "name should be present" do
@@ -20,5 +21,12 @@ class ProductTest < ActiveSupport::TestCase
     @same_product = @product.dup
     @same_product.save
     assert_not @same_product.valid?
+  end
+
+  test "dependent destroy with order product" do 
+    @product.order_products.create(quantity: 1, order_id: @order.id)
+    assert_difference 'OrderProduct.count', -1 do 
+      @product.destroy
+    end
   end
 end
