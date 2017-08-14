@@ -6,4 +6,6 @@ class Customer < ApplicationRecord
                     format:     { with: VALID_EMAIL_REGEX }
   validates :phone,  presence: true, length: { maximum: 11 }
   has_many :orders
+
+  
 end
