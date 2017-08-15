@@ -46,7 +46,7 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "phone number should not be too long" do
-    @customer.phone = "1" * 12
+    @customer.phone = "1" * 16
     assert_not @customer.valid?
   end
 end
