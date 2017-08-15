@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(Product_params)
+    @product = Product.new(product_params)
     if @product.save
       render :show, status: :created, location: @product
     else
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
 
   private 
     def set_product 
-      @products= Product.find_by_id(params[:id])
+      @product = Product.find_by_id(params[:id])
     end
 
     def product_params
