@@ -23,3 +23,16 @@ User.create(email: 'user@example.com',
     address: address
     )
 end
+
+5.times do |n|
+  name =  Faker::Name.name
+  code = Faker::Code.imei 
+  price = "1000$"
+  categori = Faker::Color.color_name
+  Product.create!(
+    name: name,
+    code: code,
+    categori: categori,
+    price_sale: price
+    )
+end	
