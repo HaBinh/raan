@@ -9,6 +9,7 @@ RSpec.describe CustomersController, :type => :controller do
     render_views
     fixtures :customers
     it 'returns correct types' do
+      byebug
       get :index, @user_auth_headers, :format => :json
       expect_json_types(customers: :array)
       expect_json_types('customers.*', name: :string, email: :string, 
