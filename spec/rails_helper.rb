@@ -39,6 +39,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -79,7 +80,6 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  config.include Devise::Test::ControllerHelpers, type: :controller
   config.before(:all, type: :controller) do
     @user = create(:user)
   end
@@ -87,6 +87,7 @@ RSpec.configure do |config|
   config.before(:each, type: :controller) do 
     @user_auth_headers = @user.create_new_auth_token    
   end
+
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end

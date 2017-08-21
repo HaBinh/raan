@@ -62,8 +62,9 @@ RSpec.describe 'Customers API', type: :request do
 
   describe 'GET /customers/:id ' do 
     before { 
-      request.headers.merge! @user_auth_headers
-      get "/customers/#{customer_id}.json" 
+      user = create(:user)
+      user_auth_headers = user.create_new_auth_token
+      get "/customers/#{customer_id}.json", params: {}, headers: user_auth_headers
     }
 
     context 'when the record not exists ' do
@@ -83,7 +84,11 @@ RSpec.describe 'Customers API', type: :request do
     let(:valid_attributes) { { name: 'Thuan' }}
 
     context 'when the record exists' do 
-      before { put "/customers/#{customer_id}", params: valid_attributes }
+      before { 
+        user = create(:user)
+        user_auth_headers = user.create_new_auth_token
+        put "/customers/#{customer_id}", params: valid_attributes, headers: user_auth_headers 
+      }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -96,7 +101,11 @@ RSpec.describe 'Customers API', type: :request do
   end
 
   describe 'DELETE /customers/:id' do
-    before { delete "/customers/#{customer_id}" }
+    before { 
+      user = create(:user)
+      user_auth_headers = user.create_new_auth_token
+      delete "/customers/#{customer_id}", params: {}, headers: user_auth_headers 
+    }
 
     it 'return status code 200' do 
       expect_status 200
