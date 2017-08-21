@@ -9,14 +9,15 @@ RSpec.describe CustomersController, :type => :controller do
     render_views
     fixtures :customers
     it 'returns correct types' do
-      byebug
-      get :index, @user_auth_headers, :format => :json
+      request.headers.merge! @user_auth_headers
+      get :index, params: {}, :format => :json
       expect_json_types(customers: :array)
       expect_json_types('customers.*', name: :string, email: :string, 
                                        phone: :string, addres: :string_or_null)
     end
 
     it 'return correct data' do 
+      request.headers.merge! @user_auth_headers
       get :index, :format => :json
       expect_json('customers.0', { :id => customer_id, :name => customer.name })
       expect_status(200)
@@ -27,6 +28,7 @@ RSpec.describe CustomersController, :type => :controller do
     fixtures :customers
     render_views 
     it 'returns correct types' do 
+      request.headers.merge! @user_auth_headers
       get :show, params: { id: customer_id}, :format => :json
       expect_json_types('customer', name: :string, email: :string, 
                                        phone: :string, addres: :string_or_null)
@@ -34,6 +36,7 @@ RSpec.describe CustomersController, :type => :controller do
     end
 
     it 'returns correct data' do 
+      request.headers.merge! @user_auth_headers
       get :show, params: { id: customer_id}, :format => :json
       expect_json('customer', { :id => customer_id, :name => customer.name })
     end
@@ -43,6 +46,7 @@ RSpec.describe CustomersController, :type => :controller do
     render_views 
     fixtures :customers 
     it 'return correct types' do
+      request.headers.merge! @user_auth_headers
       body = { 'name' => 'thuan', :email => 'doan274@gmail.com', :phone => '01237546997'} 
       post :create, params: body, :format => :json
       expect_status(201)
@@ -57,7 +61,10 @@ RSpec.describe 'Customers API', type: :request do
   let(:customer_id) { customers.first.id }
 
   describe 'GET /customers/:id ' do 
-    before { get "/customers/#{customer_id}.json" }
+    before { 
+      request.headers.merge! @user_auth_headers
+      get "/customers/#{customer_id}.json" 
+    }
 
     context 'when the record not exists ' do
       let(:customer_id) { 100 }

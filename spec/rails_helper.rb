@@ -60,10 +60,6 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:all, type: [:controller, :request]) do
-    @user = create(:user)
-    @user_auth_headers = @user.create_new_auth_token
-  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -82,6 +78,15 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.before(:all, type: :controller) do
+    @user = create(:user)
+  end
+
+  config.before(:each, type: :controller) do 
+    @user_auth_headers = @user.create_new_auth_token    
+  end
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
