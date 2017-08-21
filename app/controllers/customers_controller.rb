@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :update, :destroy]
-
+  
   def index
     @customers = Customer.all
   end
@@ -15,7 +15,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def update
@@ -31,6 +31,9 @@ class CustomersController < ApplicationController
   private 
     def set_customer 
       @customer = Customer.find_by_id(params[:id])
+      if @customer.nil? 
+        render json: { message: 'Not found'}, status: :not_found
+      end
     end
 
     def customer_params
