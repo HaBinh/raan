@@ -80,13 +80,13 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  config.before(:all, type: :controller) do
-    @user = create(:user)
-  end
+  # config.before(:all, type: :controller) do
+  #   @user = create(:user)
+  # end
 
-  config.before(:each, type: :controller) do 
-    @user_auth_headers = @user.create_new_auth_token    
-  end
+  # config.before(:each, type: :controller) do 
+  #   @user_auth_headers = @user.create_new_auth_token    
+  # end
 
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
