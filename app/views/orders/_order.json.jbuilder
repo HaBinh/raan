@@ -1,7 +1,6 @@
 json.customer do 
   customer = Customer.find_by_id(order.customer_id)
-  byebug
-  json.partial "customers/customer", customer: customer
+  json.extract! customer, :id, :name, :email, :phone, :address
 end
 
 json.order_items do 
