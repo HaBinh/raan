@@ -29,10 +29,14 @@ end
   code = Faker::Code.imei 
   price = "1000$"
   categori = Faker::Color.color_name
-  Product.create!(
+  product = Product.create!(
     name: name,
     code: code,
     categori: categori,
     price_sale: price
     )
+
+  product.articles.create!(
+    quantity: 10)
 end	
+

@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: [:show]
+
   def index
     
   end
@@ -24,9 +26,9 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:customer_id)
   end
 
-  def get_order 
+  def set_order 
     @order = Order.find_by_id(params[:id])
-    if @customer.nil? 
+    if @order.nil? 
       render json: { message: 'Not found'}, status: :not_found
     end
   end

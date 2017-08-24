@@ -1,5 +1,5 @@
 class OrderItem < ApplicationRecord
-  before_save :calculate_amount
+  # before_save :calculate_amount
   belongs_to :order
   belongs_to :article
   validates :quantity, numericality: { greater_than: 0 }

@@ -1,5 +1,7 @@
 json.customer do 
-  json.partial "customers/customer", customer: Customer.find_by_id(order.customer_id)
+  customer = Customer.find_by_id(order.customer_id)
+  byebug
+  json.partial "customers/customer", customer: customer
 end
 
 json.order_items do 
