@@ -10,13 +10,16 @@ RSpec.describe 'Orders API', type: :request do
 
   let(:quantity) { 5 }
 
-  let(:valid_params) { { order: { customer_id: customer_id },
-                         order_items: [
+  let(:valid_params) { { 
+                          order: { customer_id: customer_id },
+                          order_items: [
                             {
                               article_id: article_id, 
                               quantity: quantity 
                             }
-                         ]} }
+                          ]
+                        } 
+                      }
 
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }         
