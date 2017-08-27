@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+<<<<<<< HEAD
 
   def setup
     @product = products(:one)
@@ -29,4 +30,9 @@ class ProductTest < ActiveSupport::TestCase
       @product.destroy
     end
   end
+=======
+  # test "the truth" do
+  #   assert true
+  # end
+>>>>>>> 5f14d4eeeb632f48a1958b8e7ba5803ba3aba648
 end
