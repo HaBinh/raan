@@ -1,23 +1,32 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show]
+  before_action :set_order, only: [:show, :update, :destroy]
 
   def index
-    
+    @orders = Order.all
   end
 
   def create
     @order = Order.create!(order_params)
+    total_amount = 0
     if params[:order_items]
       params[:order_items].each do |item| 
-        @order.order_items.create!(article_id: item[:article_id], 
+        order_item = @order.order_items.create!(article_id: item[:article_id], 
                                    quantity: item[:quantity])
+        order_item.calculate_amount(item[:price_sale].to_f)
+        total_amount += order_item.amount
       end
     end
-    head :ok
+    @order.update_attributes(total_amount: total_amount)
+    render json: { order: @order }, status: :created
   end
 
   def show 
-    @order_items = @order.order_items
+
+  end
+
+  def destroy 
+    @order.destroy 
+    head :ok
   end
 
   private 
