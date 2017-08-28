@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 gem 'dotenv-rails'
+gem 'yajl-ruby', require: 'yajl'
+gem 'oj'
+gem 'fuubar'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,7 +46,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
-
+  gem 'minitest-reporters',       '1.1.16'
 end
 
 group :development do

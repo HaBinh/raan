@@ -4,10 +4,10 @@ one:
   name: MyText
   code: MyText
   categori: MyText
-  price_sale: MyText
+  price: MyText
 
 two:
   name: MyText
   code: MyText
   categori: MyText
-  price_sale: MyText
+  price: MyText

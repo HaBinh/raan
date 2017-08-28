@@ -6,19 +6,22 @@ RSpec.describe ProductsController, :type => :controller do
   let!(:product) { create(:product) }
   let(:product_id) { product.id }
 
+  let(:user) { create(:user) }
+  let(:user_auth_headers) { user.create_new_auth_token }
+
   describe 'GET index' do
     render_views
     fixtures :products
     it 'returns correct types' do
-      request.headers.merge! @user_auth_headers
+      request.headers.merge! user_auth_headers
       get :index, :format => :json
       expect_json_types(products: :array)
       expect_json_types('products.*', name: :string, code: :string, 
-                                       categori: :string, price_sale: :float)
+                                       categori: :string, price: :float)
     end
 
     it 'return correct data' do 
-      request.headers.merge! @user_auth_headers
+      request.headers.merge! user_auth_headers
       get :index, :format => :json
       expect_json('products.0', { :id => product_id, :name => product.name })
       expect_status(200)
@@ -29,15 +32,15 @@ RSpec.describe ProductsController, :type => :controller do
     fixtures :products
     render_views 
     it 'returns correct types' do 
-      request.headers.merge! @user_auth_headers
+      request.headers.merge! user_auth_headers
       get :show, params: { id: product_id}, :format => :json
       expect_json_types('product',  name: :string, code: :string, 
-                                       categori: :string, price_sale: :float)
+                                       categori: :string, price: :float)
       expect_status(200)
     end
 
     it 'returns correct data' do 
-      request.headers.merge! @user_auth_headers
+      request.headers.merge! user_auth_headers
       get :show, params: { id: product_id}, :format => :json
       expect_json('product', { :id => product_id, :name => product.name })
     end
@@ -47,12 +50,12 @@ RSpec.describe ProductsController, :type => :controller do
     render_views 
     fixtures :products 
     it 'return correct types' do
-      request.headers.merge! @user_auth_headers
-      body = { 'name' => 'iphone', :code => '123456789', :categori => 'red', :price_sale => '1000'} 
+      request.headers.merge! user_auth_headers
+      body = { 'name' => 'iphone', :code => '123456789', :categori => 'red', :price => '1000'} 
       post :create, params: body, :format => :json
       expect_status(201)
       expect_json_types('product', name: :string, code: :string, 
-                                       categori: :string, price_sale: :float)
+                                       categori: :string, price: :float)
     end
   end
 end
@@ -61,10 +64,11 @@ RSpec.describe 'Products API', type: :request do
   let!(:products) { create_list(:product, 10) }
   let(:product_id) { products.first.id }
 
+  let(:user) { create(:user) }
+  let(:user_auth_headers) { user.create_new_auth_token }
+
   describe 'GET /products/:id ' do 
     before { 
-      user = create(:user)
-      user_auth_headers = user.create_new_auth_token
       get "/products/#{product_id}.json", params: {}, headers: user_auth_headers 
     }
 
@@ -86,8 +90,6 @@ RSpec.describe 'Products API', type: :request do
 
     context 'when the record exists' do 
       before { 
-        user = create(:user)
-        user_auth_headers = user.create_new_auth_token
         put "/products/#{product_id}", params: valid_attributes, headers: user_auth_headers  }
 
       it 'updates the record' do
@@ -102,8 +104,6 @@ RSpec.describe 'Products API', type: :request do
 
   describe 'DELETE /products/:id' do
     before { 
-      user = create(:user)
-      user_auth_headers = user.create_new_auth_token
       delete "/products/#{product_id}", params: {}, headers: user_auth_headers 
     }
 

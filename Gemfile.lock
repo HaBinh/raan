@@ -44,12 +44,17 @@ GEM
       rack-test (~> 0.6, >= 0.6.2)
       rest-client (>= 1.7.3, < 3.0)
       rspec (~> 3.1)
+    ansi (1.5.0)
     arel (8.0.0)
     bcrypt (3.1.11)
+    bcrypt (3.1.11-java)
+    bcrypt (3.1.11-x64-mingw32)
+    bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
+    concurrent-ruby (1.0.5-java)
     database_cleaner (1.6.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -76,6 +81,12 @@ GEM
     faker (1.8.4)
       i18n (~> 0.5)
     ffi (1.9.18)
+    ffi (1.9.18-java)
+    ffi (1.9.18-x64-mingw32)
+    ffi (1.9.18-x86-mingw32)
+    fuubar (2.2.0)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
@@ -100,17 +111,32 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    minitest-reporters (1.1.16)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.12.1)
     netrc (0.11.0)
     nio4r (2.1.0)
+    nio4r (2.1.0-java)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    nokogiri (1.8.0-java)
+    nokogiri (1.8.0-x64-mingw32)
+      mini_portile2 (~> 2.2.0)
+    nokogiri (1.8.0-x86-mingw32)
+      mini_portile2 (~> 2.2.0)
+    oj (3.3.5)
     omniauth (1.6.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
     orm_adapter (0.5.0)
     pg (0.21.0)
+    pg (0.21.0-x64-mingw32)
+    pg (0.21.0-x86-mingw32)
     puma (3.10.0)
+    puma (3.10.0-java)
     rack (2.0.3)
     rack-cors (1.0.1)
     rack-test (0.6.3)
@@ -149,6 +175,21 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rest-client (2.0.2-x64-mingw32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    rest-client (2.0.2-x86-mingw32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    rest-client (2.0.2-x86-mswin32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -170,6 +211,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
     shoulda (2.11.3)
     shoulda-matchers (3.1.2)
@@ -188,11 +230,17 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.20.0)
     thread_safe (0.3.6)
+    thread_safe (0.3.6-java)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
+    unf (0.1.4-java)
     unf_ext (0.0.7.4)
+    unf_ext (0.0.7.4-x64-mingw32)
+    unf_ext (0.0.7.4-x86-mingw32)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -202,10 +250,17 @@ GEM
       railties (>= 5.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
+    websocket-driver (0.6.5-java)
+      websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    yajl-ruby (1.3.0)
 
 PLATFORMS
+  java
   ruby
+  x64-mingw32
+  x86-mingw32
+  x86-mswin32
 
 DEPENDENCIES
   airborne
@@ -215,9 +270,12 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.0)
   faker
+  fuubar
   jbuilder (~> 2.5)
   jwt
   listen (>= 3.0.5, < 3.2)
+  minitest-reporters (= 1.1.16)
+  oj
   omniauth
   pg (~> 0.18)
   puma (~> 3.7)
@@ -230,6 +288,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   web-console (= 3.5.1)
+  yajl-ruby
 
 BUNDLED WITH
    1.15.4
