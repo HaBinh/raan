@@ -37,7 +37,7 @@ RSpec.describe 'Orders API', type: :request do
       @before_order_item  = OrderItem.count
       post "/orders", params: valid_params, headers: user_auth_headers 
     }
-
+    
     it 'return status 201' do 
       expect_status 201
     end
