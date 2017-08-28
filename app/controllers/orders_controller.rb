@@ -10,8 +10,9 @@ class OrdersController < ApplicationController
     total_amount = 0
     if params[:order_items]
       params[:order_items].each do |item| 
-        order_item = @order.order_items.create!(article_id: item[:article_id], 
-                                   quantity: item[:quantity])
+        params_article = item.permit(:article_id, :quantity)
+        order_item = @order.order_items.create!(params_article)
+        
         order_item.calculate_amount(item[:price_sale].to_f)
         total_amount += order_item.amount
       end
