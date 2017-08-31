@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
       private 
     
       def article_params
-        params.permit(:quantity, :price_sale, :product_id)
+        params.permit(:quantity, :imported_price, :product_id)
       end
     
       def set_article
