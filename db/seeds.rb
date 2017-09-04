@@ -27,7 +27,7 @@ end
 5.times do |n|
   name =  Faker::Name.name
   code = Faker::Code.imei 
-  price = "1000"
+  price = 1000
   category = Faker::Color.color_name
   product = Product.create!(
     name: name,
