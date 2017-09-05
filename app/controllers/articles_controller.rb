@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
       end
       def update
         @article.update_attributes(article_params)
+        render json: { article: @article }, status: :updated
         head :ok
       end
     
