@@ -13,6 +13,10 @@ class ArticlesController < ApplicationController
           render json: @article.errors, status: :unprocessable_entity
         end
       end
+      def update
+        @article.update_attributes(article_params)
+        head :ok
+      end
     
       def show 
     
