@@ -12,7 +12,7 @@ RSpec.describe 'Orders API', type: :request do
   let!(:article) { create(:article) }
   let(:article_id) { article.id }
 
-  let(:quantity) { 5 }
+  let(:status) { 5 }
   let(:price_sale) { 1000 }
 
   let(:valid_params) { { 
@@ -20,7 +20,7 @@ RSpec.describe 'Orders API', type: :request do
                           order_items: [
                             {
                               article_id: article_id, 
-                              quantity: quantity,
+                              status: status,
                               price_sale: price_sale
                             }
                           ]
@@ -44,7 +44,7 @@ RSpec.describe 'Orders API', type: :request do
 
     it 'return correct types' do 
       expect_json_types('order', customer_id: :integer, total_amount: :float)
-      expect_json('order', { :customer_id => customer_id, :total_amount => price_sale * quantity })
+      expect_json('order', { :customer_id => customer_id, :total_amount => price_sale * status })
     end
 
     it 'should add complete ' do 
@@ -92,7 +92,7 @@ RSpec.describe 'Orders API', type: :request do
 
       expect_json_types('order.customer', name: :string, email: :string, phone: :string,
                                           address: :string_or_null)
-      expect_json_types('order.order_items.*', quantity: :integer, product: :object)
+      expect_json_types('order.order_items.*', status: :string, product: :object)
     end
   end
 end

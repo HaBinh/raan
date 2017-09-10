@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :article do
     product 
-    quantity { 10 }
+    status { true }
     imported_price { 1500 }
   end
 end

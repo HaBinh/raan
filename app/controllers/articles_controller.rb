@@ -6,7 +6,11 @@ class ArticlesController < ApplicationController
       end
     
       def create
-        @article = Article.new(article_params)
+        for i in (1..3)
+          @article = Article.new(article_params)
+          @article.save
+          # byebug
+        end
         if @article.save
           render json: { article: @article }, status: :created
         else
@@ -28,9 +32,8 @@ class ArticlesController < ApplicationController
       end
     
       private 
-    
       def article_params
-        params.permit(:quantity, :imported_price, :product_id)
+        params.permit(:status, :imported_price, :product_id)
       end
     
       def set_article
