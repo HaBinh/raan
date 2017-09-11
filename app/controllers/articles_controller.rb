@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
       end
     
       def create
-        for i in (1..3)
+        for i in (1..params[:quantity].to_i)
           @article = Article.new(article_params)
           @article.save
           # byebug

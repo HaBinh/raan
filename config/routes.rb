@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :products
   resources :orders, expect: :update
   resources :articles
+  resources :stores
 end
