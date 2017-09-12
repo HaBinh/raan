@@ -4,10 +4,9 @@ module Status
 end
 class Article < ApplicationRecord
   belongs_to :product
-  has_one :order_item
 
-  def beSold
-    update_attributes(status: Status::SOLD)
+  def beSold(order_item_id)
+    update_attributes(status: Status::SOLD, order_item_id: order_item_id)
   end
 end
   

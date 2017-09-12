@@ -37,8 +37,10 @@ end
     default_sale_price: price + 1500
     )
 
-  product.articles.create!(
-    status: true,
+  10.times do |m| 
+    product.articles.create!(
+    status: 'exist',
     imported_price: 1500)
+  end
 end	
 

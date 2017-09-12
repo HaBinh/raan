@@ -13,16 +13,14 @@ class OrdersController < ApplicationController
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
         if articles.count < item[:quantity].to_i 
-          render json: { message: 'not enough quantity' }, status: :unprocessable_entity
+          render_not_enough and return
         end
 
+        order_item = @order.order_items.create!(quantity: item[:quantity])
+        order_item.calculate_amount(item[:price_sale].to_f)
+        total_amount += order_item.amount
         item[:quantity].times do |n|
-          byebug
-          articles[n].isSold
-          order_item = @order.order_items.create!(article_id: articles[n].id)
-          
-          order_item.calculate_amount(item[:price_sale].to_f)
-          total_amount += order_item.amount
+          articles[n].beSold(order_item.id)
         end
       end
     end
@@ -50,5 +48,9 @@ class OrdersController < ApplicationController
     if @order.nil? 
       render json: { message: 'Not found'}, status: :not_found
     end
+  end
+
+  def render_not_enough 
+    render( json: { message: 'not enough quantity' }, status: :unprocessable_entity )    
   end
 end
