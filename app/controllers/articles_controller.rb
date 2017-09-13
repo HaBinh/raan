@@ -2,7 +2,20 @@ class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :update, :destroy]
     
       def index
-        @articles = Article.all
+        @articles = Array.new
+        @exists  = Array.new
+        Product.all.each do |p|
+          @product=p.name
+          @quantity = Article.where(product_id:p.id).count
+          @store = Article.where(product_id: p.id).order(:created_at).last
+          if Article.where(product_id:p.id, status: "f").count > 0
+            @store.product.category = false
+          else 
+            @store.product.category = true
+          end
+          @store.status = @quantity
+          @articles << @store
+        end
       end
     
       def create
