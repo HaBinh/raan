@@ -12,9 +12,11 @@ class ArticlesController < ApplicationController
             @store.product.category = false
           else 
             @store.product.category = true
-          end
-          @store.status = @quantity
-          @articles << @store
+          end 
+          # unless @store.nil?
+            @store.status = @quantity
+            @articles << @store
+          # end
         end
       end
     

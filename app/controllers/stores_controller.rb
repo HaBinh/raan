@@ -6,9 +6,10 @@ class StoresController < ApplicationController
           @product=p.name
           @quantity = Article.where(product_id:p.id, status: "t").count
           @store = Article.where(product_id: p.id, status: "t").order(:created_at).last
-          # byebug
-          @store.status = @quantity
-          @stores << @store
+          unless @store.nil?
+            @store.status = @quantity
+            @stores << @store
+          end
         end
       end
 end
