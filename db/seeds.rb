@@ -41,4 +41,20 @@ end
     status: true,
     imported_price: 1500)
 end	
+5.times do |n|
+  name =  Faker::Name.name
+  code = Faker::Code.imei 
+  price = "1000"
+  category = Faker::Color.color_name
+  product = Product.create!(
+    name: name,
+    code: code,
+    category: category,
+    default_imported_price: price,
+    default_sale_price: price
+    )
 
+  product.articles.create!(
+    status: false,
+    imported_price: 1234)
+end	
