@@ -1,15 +1,17 @@
 class StoresController < ApplicationController
-      def index
-        @articles = Article.all
-        @stores = Array.new
-        Product.all.each do |p|
-          @product=p.name
-          @quantity = Article.where(product_id:p.id).count
-          @store = Article.where(product_id: p.id).order(:created_at).last
+    def index
+      @articles = Article.all
+      @stores = Array.new
+      Product.all.each do |p|
+        @product=p.name
+        @quantity = Article.where(product_id:p.id).count
+        @store = Article.where(product_id: p.id).order(:created_at).last
+        unless @store.nil?
           @store.status = @quantity
-          @stores << @store
-        end
+          @stores << @store              
+        end   
       end
+    end
 end
 # Code good, try it
 # @stores = Array.new
