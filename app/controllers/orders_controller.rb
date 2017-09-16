@@ -6,7 +6,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    customer_id = params[:order][:customer_id]
+    if customer_id.nil?
+      params_customer = params.require(:order).permit(:name, :phone, :email, :address)
+      customer = Customer.create!(params_customer)
+      customer_id = customer.id
+    end
+    @order = Order.new(customer_id: customer_id)
     total_amount = 0
     if params[:order_items]
       params[:order_items].each do |item|
