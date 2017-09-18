@@ -3,11 +3,10 @@ class ArticlesController < ApplicationController
       def index
         @articles = Array.new
         @exists  = Array.new
-        Product.all.each do |p|
-          @product=p.name
-          @quantity = Article.where(product_id:p.id).count
-          @sold = Article.where(product_id:p.id, status: "f").count
-          @store = Article.where(product_id: p.id).order(:created_at).last
+        Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
+          @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
+          @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: "f").count
+          @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
           unless @store.nil?
             if @sold > 0
               @store.product.category = false
@@ -37,6 +36,7 @@ class ArticlesController < ApplicationController
       end
 
       def update
+        # byebug
         @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old])
         @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "f").count  
         if @sold === 0
@@ -60,16 +60,15 @@ class ArticlesController < ApplicationController
               for i in (1..params[:new_quantity].to_i - @article.count)
                 @article = Article.new(article_params)
                 @article.save
-                render json: { message: 'updated'}, status: :updated
+                render json: { message: 'Not found'}, status: :not_found
               end
             else
               Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
             end
           else
-            render json: { message: 'error'}, status: :error
+            render json: { message: 'Not found'}, status: :not_found
           end
         end
-        @article.update_attributes(article_params)
         head :ok
       end
     
@@ -78,15 +77,14 @@ class ArticlesController < ApplicationController
       end
 
       def destroy 
-        byebug
         @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price])
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else
-          render json: { message: 'Deleted'}, status: :deleted
+          render json: { message: 'Not found'}, status: :not_found
+          @article.delete_all
+          head :ok
         end
-        @article.delete_all
-        head :ok
       end
     
       private 
