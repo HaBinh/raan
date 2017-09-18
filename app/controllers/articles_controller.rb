@@ -37,38 +37,33 @@ class ArticlesController < ApplicationController
       end
 
       def update
-        @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price])
-        @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price], status: "f").count
-        # byebug
+        @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old])
+        @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "f").count  
         if @sold === 0
-          # @article.update_attributes(article_params)
-          if @sold < params[:quantity].to_i
-            for i in (1..params[:quantity].to_i - @quantity)
+          if @article.count < params[:new_quantity].to_i      
+            for i in (1..params[:new_quantity].to_i - @article.count)
               @article = Article.new(article_params)
-              @article.save
-              byebug
-            end
-            Article.where(product_id: params[:product_id], imported_price: params[:imported_price]).update_all("imported_price = params[:new_price]")
+              @article.save    
+            end  
+            Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
+            render json: { message: 'updated'}, status: :updated
           else
-            byebug
-            @article.limit(params[:quantity].to_i - @sold).delete_all
-            Article.where(product_id: params[:product_id], imported_price: params[:imported_price]).update_all("imported_price = params[:new_price]")
+            # byebug
+            @article.limit(@article.count - params[:new_quantity].to_i).destroy_all
+            Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
+            render json: { message: 'updated'}, status: :updated
           end
         else
           if params[:new_quantity].to_i > @sold 
             # @article.update_attributes(article_params)
-            
-            if params[:new_quantity].to_i >= Article.where(product_id: params[:product_id], imported_price: params[:imported_price]).count
+            if params[:new_quantity].to_i >= Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).count
               for i in (1..params[:new_quantity].to_i - @article.count)
-                byebug
                 @article = Article.new(article_params)
                 @article.save
+                render json: { message: 'updated'}, status: :updated
               end
-              Article.where(product_id: params[:product_id], imported_price: params[:imported_price]).update_all("imported_price = params[:new_price]")
             else
-              @article.limit(params[:new_quantity].to_i - @sold).delete_all
-              Article.where(product_id: params[:product_id], imported_price: params[:imported_price]).update_all("imported_price = params[:new_price]")
-              byebug
+              Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
             end
           else
             render json: { message: 'error'}, status: :error
@@ -83,6 +78,7 @@ class ArticlesController < ApplicationController
       end
 
       def destroy 
+        byebug
         @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price])
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
