@@ -8,7 +8,7 @@ RSpec.describe 'Acticles API', type: :request do
   let!(:product) { create(:product) }
   let(:product_id) { product.id } 
   
-  let(:quantity) { 5 }
+  let(:status) { true }
   let(:price_sale) { 1000 }
   
   let(:user) { create(:user) }
@@ -16,7 +16,7 @@ RSpec.describe 'Acticles API', type: :request do
   
   let(:valid_params) {
     {
-        quantity: quantity,
+        status: status,
         imported_price: price_sale,
         product_id: product_id
     }
@@ -63,10 +63,8 @@ RSpec.describe 'Acticles API', type: :request do
       end
   
       it 'return correct types' do 
-        expect_json_types('article', quantity: :integer, imported_price: :float )
-  
-        expect_json_types('article.product', name: :string, code: :string, default_imported_price: :float,
-                                                                           default_sale_price: :float)
+        expect_json_types('article', status: :string, imported_price: :float,product_id: :integer,name: :string, code: :string, default_imported_price: :float,
+        default_sale_price: :float )
       end
     end
 end

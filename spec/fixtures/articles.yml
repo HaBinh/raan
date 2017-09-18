@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  quantity: 1000
+  status: true
   price_sale: 1600
   product: one
 
 two:
-  quantity: 1000
+  status: true
   price_sale: 1600
   product: two

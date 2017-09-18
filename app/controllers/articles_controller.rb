@@ -6,12 +6,20 @@ class ArticlesController < ApplicationController
       end
     
       def create
-        @article = Article.new(article_params)
+        for i in (1..params[:quantity].to_i)
+          @article = Article.new(article_params)
+          @article.save
+          # byebug
+        end
         if @article.save
           render json: { article: @article }, status: :created
         else
           render json: @article.errors, status: :unprocessable_entity
         end
+      end
+      def update
+        @article.update_attributes(article_params)
+        head :ok
       end
     
       def show 
@@ -24,9 +32,8 @@ class ArticlesController < ApplicationController
       end
     
       private 
-    
       def article_params
-        params.permit(:quantity, :imported_price, :product_id)
+        params.permit(:status, :imported_price, :product_id)
       end
     
       def set_article
