@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :orders, expect: :update
   resources :articles
   resources :stores
+  get '/get_products', to: 'stores#get_products'
 end
