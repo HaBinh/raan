@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
     @order = Order.new(customer_id: customer_id)
     total_amount = 0
     if params[:order_items]
+
       params[:order_items].each do |item|
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
@@ -22,12 +23,13 @@ class OrdersController < ApplicationController
           render_not_enough and return
         end
       end
+
       @order.save
       params[:order_items].each do |item| 
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
-
-        order_item = @order.order_items.create!(quantity: item[:quantity])
+        order_item = @order.order_items.create!(quantity: item[:quantity], 
+                                                discounted_rate: item[:discounted_rate])
         order_item.calculate_amount(item[:price_sale].to_f)
         total_amount += order_item.amount
         item[:quantity].times do |n|
