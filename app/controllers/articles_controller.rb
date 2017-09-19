@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    # before_action :set_article, only: [:show, :update]
+  before_action :set_article, only: [:show]
       def index
         @articles = Array.new
         @exists  = Array.new
@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
       end
     
       def create
+        params.permit(:status, :imported_price, :product_id)
         for i in (1..params[:quantity].to_i)
           @article = Article.new(article_params)
           @article.save
