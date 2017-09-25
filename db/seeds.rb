@@ -11,7 +11,7 @@ User.create(email: 'user@example.com',
             password: "monkey67",
             password_confirmation: "monkey67")
 
-5.times do |n|
+50.times do |n|
   name =  Faker::Name.name
   email = Faker::Internet.email
   phone = "01237546997"
@@ -24,21 +24,30 @@ User.create(email: 'user@example.com',
     )
 end
 
-5.times do |n|
-  name =  Faker::Name.name
+50.times do |n|
+  name =  Faker::Food.dish
   code = Faker::Code.imei 
-  price = "1000"
+  price = 1000
   category = Faker::Color.color_name
   product = Product.create!(
     name: name,
     code: code,
     category: category,
     default_imported_price: price,
-    default_sale_price: price
+    default_sale_price: price + 1500
     )
 
-  product.articles.create!(
-    status: true,
+  10.times do |m| 
+    product.articles.create!(
+    status: 'exist',
     imported_price: 1500)
+  end
 end	
 
+rates = [0, 0.02, 0.05, 0.1, 0.2, 0.5]
+
+rates.each do |rate|
+  DiscountedRate.create!(
+    rate: rate
+  )
+end
