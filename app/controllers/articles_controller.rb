@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
         @exists  = Array.new
         Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
           @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
-          @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: "f").count
+          @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
           @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
           unless @store.nil?
             if @sold > 0
@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
       def update
         # byebug
         @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old])
-        @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "f").count  
+        @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: Status::SOLD).count  
         if @sold === 0
           if @article.count < params[:new_quantity].to_i      
             for i in (1..params[:new_quantity].to_i - @article.count)

@@ -1,5 +1,12 @@
+module Status
+  EXIST = 'exist'
+  SOLD = 'sold'
+end
 class Article < ApplicationRecord
   belongs_to :product
-  has_many :order_items
+
+  def beSold(order_item_id)
+    update_attributes(status: Status::SOLD, order_item_id: order_item_id)
+  end
 end
   
