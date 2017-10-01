@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :rates
   put 'rates/update', to: 'rates#update'
   get '/get_products', to: 'stores#get_products'
+  get '/customers_in_debt', to: 'customers#get_in_debt'
 end
