@@ -25,7 +25,6 @@ class OrdersController < ApplicationController
       end
 
       @order.save
-      
       params[:order_items].each do |item| 
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
@@ -40,7 +39,6 @@ class OrdersController < ApplicationController
     end
     
     @order.update_attributes(total_amount: total_amount)
-    @order.set_fully_paid(params[:order][:customer_paid].to_f)
     render json: { order: @order }, status: :created
   end
 

@@ -11,5 +11,4 @@ Rails.application.routes.draw do
   put 'articles/update', to: 'articles#update'
   resources :rates, only: :index
   get '/get_products', to: 'stores#get_products'
-  get '/customers_in_debt', to: 'customers#get_in_debt'
 end

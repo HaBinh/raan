@@ -1,4 +1,4 @@
-json.extract! order, :id, :total_amount, :customer_paid, :fully_paid, :debt, :created_at
+json.extract! order, :id, :total_amount, :created_at
 
 json.customer do 
   customer = Customer.find_by_id(order.customer_id)
