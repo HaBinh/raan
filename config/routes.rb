@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :stores
   resources :dashboards
   put 'articles/update', to: 'articles#update'
-  resources :rates, only: :index
+  resources :rates
+  put 'rates/update', to: 'rates#update'
   get '/get_products', to: 'stores#get_products'
   get '/customers_in_debt', to: 'customers#get_in_debt'
 end
