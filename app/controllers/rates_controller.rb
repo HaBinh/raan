@@ -3,21 +3,20 @@ class RatesController < ApplicationController
     @rates = DiscountedRate.all
   end
 
+  def creat
+    @rate = DiscountedRate.new(params)
+  end
+
   def update
-    if params[:rate2] != 'undefined'
-      @rate2 = DiscountedRate.find_by_id(2).update(rate: params[:rate2])
-    end
-    if params[:rate3] != 'undefined'
-      @rate3 = DiscountedRate.find_by_id(3).update(rate: params[:rate3])
-    end
-    if params[:rate4] != 'undefined'
-      @rate4 = DiscountedRate.find_by_id(4).update(rate: params[:rate4])
-    end
-    if params[:rate5] != 'undefined'
-      @rate5 = DiscountedRate.find_by_id(5).update(rate: params[:rate5])
-    end
-    if params[:rate6] != 'undefined'
-      @rate6 = DiscountedRate.find_by_id(6).update(rate: params[:rate6])
+    DiscountedRate.find_by_id(params[:rate_id]).update(rate: params[:rate])
+    
+  end
+
+  def delete
+    @rate = DiscountedRate.find_by_id(params[:id])
+    if @rate.nil? 
+      render json: { message: 'Not found'}, status: :not_found
     end
   end
+
 end
