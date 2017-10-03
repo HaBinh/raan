@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    byebug
     customer_id = params[:order][:customer_id]
     if customer_id.nil?
       params_customer = params.require(:order).permit(:name, :phone, :email, :address)
@@ -46,6 +47,11 @@ class OrdersController < ApplicationController
 
   def show 
 
+  end
+
+  def update 
+    @order.pay_debt(params[:payment].to_f)
+    render json: { order: @order }
   end
 
   def destroy 

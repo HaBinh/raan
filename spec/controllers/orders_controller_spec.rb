@@ -9,19 +9,23 @@ RSpec.describe 'Orders API', type: :request do
   let!(:customer) { create(:customer) }
   let(:customer_id) { customer.id } 
 
-  let!(:article) { create(:article) }
-  let(:article_id) { article.id }
+  let!(:product) { create(:product) }
+  let(:product_id) { product.id }
 
+  let!(:articles) { create_list(:article, 10)}
   let(:status) { 5 }
-  let(:price_sale) { 1000 }
+  let(:price_sale) { 2000 }
+  let(:quantity) { 5 }
+  let(:discounted_rate) { 0 }
 
   let(:valid_params) { { 
                           order: { customer_id: customer_id },
                           order_items: [
                             {
-                              article_id: article_id, 
-                              status: status,
-                              price_sale: price_sale
+                              product_id: product_id,
+                              quantity: quantity,
+                              price_sale: price_sale,
+                              discounted_rate: discounted_rate
                             }
                           ]
                         } 

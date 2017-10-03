@@ -19,4 +19,13 @@ class Order < ApplicationRecord
       self.total_amount - self.customer_paid 
     end
   end
+
+  def pay_debt(payment) 
+    self.customer_paid += payment 
+    if (self.customer_paid >= self.total_amount) 
+      self.fully_paid = true;
+    end
+
+    self.save
+  end
 end

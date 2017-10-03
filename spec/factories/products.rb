@@ -4,6 +4,6 @@ FactoryGirl.define do
     code { Faker::Code.imei  }
     category { Faker::Color.color_name}
     default_imported_price { "1000" }
-    default_sale_price { "1000" }    
+    default_sale_price { "1500" }    
   end
 end
