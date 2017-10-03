@@ -4,7 +4,7 @@ RSpec.describe 'Orders API', type: :request do
 
   let!(:order) { create(:order) }
   let(:order_id) { order.id }
-  let!(:order_item) { create(:order_item, order_id: order_id) }
+  let!(:order_item) { create(:order_item, order_id: order_id, quantity: 2) }
 
   let!(:customer) { create(:customer) }
   let(:customer_id) { customer.id } 
@@ -12,14 +12,19 @@ RSpec.describe 'Orders API', type: :request do
   let!(:product) { create(:product) }
   let(:product_id) { product.id }
 
-  let!(:articles) { create_list(:article, 10)}
-  let(:status) { 5 }
+  let!(:articles) { create_list(:article, 10, product_id: product_id)}
+  let(:status) { 'exist' }
   let(:price_sale) { 2000 }
-  let(:quantity) { 5 }
+  let(:quantity) { 1 }
   let(:discounted_rate) { 0 }
 
+  let(:customer_paid_fully) { price_sale * quantity }
+
   let(:valid_params) { { 
-                          order: { customer_id: customer_id },
+                          order: { 
+                            customer_id: customer_id,  
+                            customer_paid: customer_paid_fully
+                          },
                           order_items: [
                             {
                               product_id: product_id,
@@ -47,8 +52,13 @@ RSpec.describe 'Orders API', type: :request do
     end
 
     it 'return correct types' do 
-      expect_json_types('order', customer_id: :integer, total_amount: :float)
-      expect_json('order', { :customer_id => customer_id, :total_amount => price_sale * status })
+      expect_json_types('order',
+                                 total_amount: :float, 
+                                 customer_paid: :float, 
+                                 fully_paid: :boolean)
+      expect_json('order', { :customer_id => customer_id, 
+                             :total_amount => price_sale * quantity,
+                             fully_paid: true })
     end
 
     it 'should add complete ' do 

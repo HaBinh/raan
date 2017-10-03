@@ -8,7 +8,7 @@ RSpec.describe 'Acticles API', type: :request do
   let!(:product) { create(:product) }
   let(:product_id) { product.id } 
   
-  let(:status) { true }
+  let(:status) { 'exist' }
   let(:price_sale) { 1000 }
   
   let(:user) { create(:user) }
@@ -18,7 +18,8 @@ RSpec.describe 'Acticles API', type: :request do
     {
         status: status,
         imported_price: price_sale,
-        product_id: product_id
+        product_id: product_id,
+        quantity: 4
     }
   }
 
