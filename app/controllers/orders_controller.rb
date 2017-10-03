@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
 
   def update 
     @order.pay_debt(params[:payment].to_f)
-    render json: { order: @order }
+    render 'orders/order'
   end
 
   def destroy 
@@ -71,6 +71,6 @@ class OrdersController < ApplicationController
   end
 
   def render_not_enough 
-    render( json: { message: 'not enough quantity' }, status: :unprocessable_entity )    
+    render( json: { message: 'Not enough quantity' }, status: :unprocessable_entity )    
   end
 end
