@@ -24,8 +24,9 @@ class DashboardsController < ApplicationController
             end
             if @total_amount[n]['total'] === nil
                 @total_amount[n]['total'] = 0
-            end
-            @profit<<{month: @total_amount[n]['month'], total: @total_amount[n]['total'] - @imported_price[n]['total']}            
+            end 
+            @profit<<{month: @total_amount[n]['month'][0..6] , total: @total_amount[n]['total'] - @imported_price[n]['total']}           
+            
         end
         @result << {profit: @profit}
         

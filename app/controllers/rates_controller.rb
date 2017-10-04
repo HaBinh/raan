@@ -3,20 +3,30 @@ class RatesController < ApplicationController
     @rates = DiscountedRate.all
   end
 
-  def creat
-    @rate = DiscountedRate.new(params)
+  def create
+    @rate = DiscountedRate.create(rate_params)
+    if @rate.save
+      render 'rates/show'
+    else
+      render json: @rate.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    DiscountedRate.find_by_id(params[:rate_id]).update(rate: params[:rate])
-    
+    DiscountedRate.find_by_id(params[:rate_id]).update(rate_params)
   end
 
-  def delete
-    @rate = DiscountedRate.find_by_id(params[:id])
+  def destroy
+    @rate = DiscountedRate.find_by_id(params[:id]).destroy 
     if @rate.nil? 
       render json: { message: 'Not found'}, status: :not_found
     end
+  end
+  private 
+
+
+  def rate_params
+    params.permit(:rate)
   end
 
 end
