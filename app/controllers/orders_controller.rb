@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
     @order = Order.new(customer_id: customer_id)
     total_amount = 0
     if params[:order_items]
-
       params[:order_items].each do |item|
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
@@ -33,7 +32,7 @@ class OrdersController < ApplicationController
                                                 discounted_rate: item[:discounted_rate])
         order_item.calculate_amount(item[:price_sale].to_f)
         total_amount += order_item.amount
-        item[:quantity].times do |n|
+        item[:quantity].to_i.times do |n|
           articles[n].beSold(order_item.id)
         end
       end
@@ -46,6 +45,11 @@ class OrdersController < ApplicationController
 
   def show 
 
+  end
+
+  def update 
+    @order.pay_debt(params[:payment].to_f)
+    render 'orders/order'
   end
 
   def destroy 
@@ -67,6 +71,6 @@ class OrdersController < ApplicationController
   end
 
   def render_not_enough 
-    render( json: { message: 'not enough quantity' }, status: :unprocessable_entity )    
+    render( json: { message: 'Not enough quantity' }, status: :unprocessable_entity )    
   end
 end

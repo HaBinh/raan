@@ -236,7 +236,8 @@ order1=Order.create!(
   customer_id: '1',
   customer_paid: '2233',
   fully_paid: 'TRUE',
-  created_at: '2016-11-03 09:29:13.77165'
+  created_at: '2016-11-03 09:29:13.77165',
+  total_amount: '2233'
 )
 order_item11=order1.order_items.create!(
   id: 1,

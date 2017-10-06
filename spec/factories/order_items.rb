@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :order_item do
-    status { true } 
-    article
+    order 
+    quantity { 1 }
+    amount { 1000 }
   end
 end
