@@ -240,7 +240,6 @@ order1=Order.create!(
   total_amount: '2233'
 )
 order_item11=order1.order_items.create!(
-  id: 1,
   order_id: order1.id,
   quantity: 1,
   amount: 999,
@@ -248,7 +247,6 @@ order_item11=order1.order_items.create!(
   discounted_rate: 0
 )
 order_item12=order1.order_items.create!(
-  id: 2,
   order_id: order1.id,
   quantity: 1,
   amount: 1234,
@@ -260,14 +258,14 @@ order_item11.articles.create!(
   imported_price: 901,
   product_id: 4,
   created_at: '2016-11-03 09:29:13.77165',
-  order_item_id: 1
+  order_item_id: order_item11.id
 )
 order_item12.articles.create!(
   status: 'sold',
   imported_price: 1000,
   product_id: 1,
   created_at: '2016-11-03 09:29:13.77165',
-  order_item_id: 2
+  order_item_id: order_item12.id
 )
 
 # order 2
@@ -280,7 +278,6 @@ order2=Order.create!(
   total_amount: 543
 )
 order_item21=order2.order_items.create!(
-  id: 3,
   order_id: order1.id,
   quantity: 1,
   amount: 99,
@@ -288,7 +285,6 @@ order_item21=order2.order_items.create!(
   discounted_rate: 0
 )
 order_item22=order2.order_items.create!(
-  id: 4,
   order_id: order1.id,
   quantity: 2,
   amount: 444,
@@ -300,7 +296,7 @@ order_item21.articles.create!(
   imported_price: 90,
   product_id: 10,
   created_at: '2016-12-03 09:29:13.77165',
-  order_item_id: 3
+  order_item_id: order_item21.id
 )
 2.times do |n|
   order_item22.articles.create!(
@@ -308,7 +304,7 @@ order_item21.articles.create!(
     imported_price: 200,
     product_id: 11,
     created_at: '2016-12-03 09:29:13.77165',
-    order_item_id: 4
+    order_item_id: order_item22.id
   )
 end
 # order 3
@@ -321,7 +317,6 @@ order3=Order.create!(
   total_amount: 327.1
 )
 order_item31=order3.order_items.create!(
-  id: 5,
   order_id: order1.id,
   quantity: 1,
   amount:127.3,
@@ -329,7 +324,6 @@ order_item31=order3.order_items.create!(
   discounted_rate: 0.05
 )
 order_item32=order3.order_items.create!(
-  id: 6,
   order_id: order1.id,
   quantity: 1,
   amount: 199.8,
@@ -341,7 +335,7 @@ order_item31.articles.create!(
   imported_price: 200,
   product_id: 11,
   created_at: '2017-01-03 09:29:13.77165',
-  order_item_id: 6
+  order_item_id: order_item31.id
 )
 
 order_item32.articles.create!(
@@ -349,5 +343,347 @@ order_item32.articles.create!(
     imported_price: 120,
     product_id: 9,
     created_at: '2017-01-03 09:29:13.77165',
-    order_item_id: 5
+    order_item_id: order_item32.id
+)
+# order4
+order4=Order.create!(
+  id: 'FE04D9',
+  customer_id: '5',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-02-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item41=order4.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-02-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item42=order4.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-02-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item41.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-02-03 09:29:13.77165',
+  order_item_id: order_item41.id
+)
+
+order_item42.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-02-03 09:29:13.77165',
+    order_item_id: order_item42.id
+)
+# order5
+order5=Order.create!(
+  id: 'FE05D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-03-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item51=order5.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-03-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item52=order5.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-03-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item51.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-03-03 09:29:13.77165',
+  order_item_id: order_item51.id
+)
+
+order_item52.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-03-03 09:29:13.77165',
+    order_item_id: order_item52.id
+)
+# order6
+order6=Order.create!(
+  id: 'FE06D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-04-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item61=order6.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-04-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item62=order6.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-04-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item61.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-04-03 09:29:13.77165',
+  order_item_id: order_item61.id
+)
+
+order_item62.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-04-03 09:29:13.77165',
+    order_item_id: order_item62.id
+)
+# order7
+order7=Order.create!(
+  id: 'FE07D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-05-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item71=order7.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-05-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item72=order7.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-05-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item71.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-05-03 09:29:13.77165',
+  order_item_id: order_item71.id
+)
+
+order_item72.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-05-03 09:29:13.77165',
+    order_item_id: order_item72.id
+)
+# order8
+order8=Order.create!(
+  id: 'FE08D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-06-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item81=order8.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-06-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item82=order8.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-06-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item81.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-06-03 09:29:13.77165',
+  order_item_id: order_item81.id
+)
+
+order_item82.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-06-03 09:29:13.77165',
+    order_item_id: order_item82.id
+)
+# order9
+order9=Order.create!(
+  id: 'FE09D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-07-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item91=order9.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-07-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item92=order9.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-07-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item91.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-07-03 09:29:13.77165',
+  order_item_id: order_item91.id
+)
+
+order_item92.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-07-03 09:29:13.77165',
+    order_item_id: order_item92.id
+)
+# order10
+order10=Order.create!(
+  id: 'FE10D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-08-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item101=order10.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-08-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item102=order10.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-08-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item101.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-08-03 09:29:13.77165',
+  order_item_id: order_item101.id
+)
+
+order_item102.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-08-03 09:29:13.77165',
+    order_item_id: order_item102.id
+)
+# order11
+order11=Order.create!(
+  id: 'FE11D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-09-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item111=order11.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-09-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item112=order11.order_items.create!(
+  order_id: order1.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-09-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item111.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-09-03 09:29:13.77165',
+  order_item_id: order_item111.id
+)
+
+order_item112.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-09-03 09:29:13.77165',
+    order_item_id: order_item112.id
+)
+# order12
+order12=Order.create!(
+  id: 'FE12D9',
+  customer_id: '4',
+  customer_paid: '300',
+  fully_paid: 'FALSE',
+  created_at: '2017-10-03 09:29:13.77165',
+  total_amount: 327.1
+)
+order_item121=order12.order_items.create!(
+  order_id: order12.id,
+  quantity: 1,
+  amount:127.3,
+  created_at: '2016-10-03 09:29:13.77165',
+  discounted_rate: 0.05
+)
+order_item122=order12.order_items.create!(
+  order_id: order12.id,
+  quantity: 1,
+  amount: 199.8,
+  created_at: '2017-10-03 09:29:13.77165',
+  discounted_rate: 0.1
+)
+order_item121.articles.create!(
+  status: 'sold',
+  imported_price: 200,
+  product_id: 11,
+  created_at: '2017-10-03 09:29:13.77165',
+  order_item_id: order_item121.id
+)
+
+order_item122.articles.create!(
+    status: 'sold',
+    imported_price: 120,
+    product_id: 9,
+    created_at: '2017-10-03 09:29:13.77165',
+    order_item_id: order_item122.id
 )
