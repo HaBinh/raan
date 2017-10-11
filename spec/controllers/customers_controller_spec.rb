@@ -7,7 +7,7 @@ RSpec.describe CustomersController, :type => :controller do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  describe 'GET index' do
+  xdescribe 'GET index' do
     render_views
     fixtures :customers
     it 'returns correct types' do
@@ -26,7 +26,7 @@ RSpec.describe CustomersController, :type => :controller do
     end
   end
 
-  describe 'GET show' do 
+  xdescribe 'GET show' do 
     fixtures :customers
     render_views 
     it 'returns correct types' do 
@@ -44,7 +44,7 @@ RSpec.describe CustomersController, :type => :controller do
     end
   end
 
-  describe 'POST create'  do 
+  xdescribe 'POST create'  do 
     render_views 
     fixtures :customers 
     it 'return correct types' do
@@ -64,7 +64,7 @@ RSpec.describe 'Customers API', type: :request do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  describe 'GET /customers/:id ' do 
+  xdescribe 'GET /customers/:id ' do 
     before { 
       get "/customers/#{customer_id}.json", params: {}, headers: user_auth_headers
     }
@@ -82,7 +82,7 @@ RSpec.describe 'Customers API', type: :request do
     end
   end
 
-  describe 'PUT /customers/:id ' do
+  xdescribe 'PUT /customers/:id ' do
     let(:valid_attributes) { { name: 'Thuan' }}
 
     context 'when the record exists' do 
@@ -100,7 +100,7 @@ RSpec.describe 'Customers API', type: :request do
     end
   end
 
-  describe 'DELETE /customers/:id' do
+  xdescribe 'DELETE /customers/:id' do
     before { 
       delete "/customers/#{customer_id}", params: {}, headers: user_auth_headers 
     }

@@ -23,7 +23,7 @@ RSpec.describe 'Acticles API', type: :request do
     }
   }
 
-    describe 'POST /articles' do
+    xdescribe 'POST /articles' do
       before { 
         post "/articles", params: valid_params, headers: user_auth_headers 
       }
@@ -33,7 +33,7 @@ RSpec.describe 'Acticles API', type: :request do
       end
     end
   
-    describe 'DELETE /articles/:id' do 
+    xdescribe 'DELETE /articles/:id' do 
       before { delete "/articles/#{article_id}", params: {}, headers: user_auth_headers }
   
       it 'should delete' do 
@@ -45,7 +45,7 @@ RSpec.describe 'Acticles API', type: :request do
       end
     end
   
-    describe 'GET /articles' do 
+    xdescribe 'GET /articles' do 
       before { get "/orders.json", params: {}, headers: user_auth_headers }
   
       it 'return status 200' do 
@@ -54,7 +54,7 @@ RSpec.describe 'Acticles API', type: :request do
 
     end
   
-    describe 'GET /articles/:id' do 
+    xdescribe 'GET /articles/:id' do 
       before { 
         get "/articles/#{article_id}.json", params: {}, headers: user_auth_headers
       }
