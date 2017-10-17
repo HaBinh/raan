@@ -2,9 +2,10 @@ class Order < ApplicationRecord
   before_create{ self.id = private_id }
   belongs_to :customer
   has_many :order_items, dependent: :destroy
+  validates_presence_of :customer_paid
+  validates :customer_paid, numericality: { greater_than: 0 }
 
-  def set_fully_paid(customer_paid)
-    self.customer_paid = customer_paid
+  def set_fully_paid
     if (customer_paid >= self.total_amount) 
       self.fully_paid = true;
     end
