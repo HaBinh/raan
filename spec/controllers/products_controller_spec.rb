@@ -8,7 +8,6 @@ RSpec.describe ProductsController, :type => :controller do
 
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
-
   describe 'GET index' do
     render_views
     fixtures :products
