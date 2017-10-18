@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RatesController, type: :controller do
+RSpec.describe RatesController, :type => :controller do
   let!(:rate) { create(:rate) }
   let(:rate_id) { rate.id }
 
