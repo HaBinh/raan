@@ -4,7 +4,6 @@ module Status
 end
 class Article < ApplicationRecord
   belongs_to :product
-
   def beSold(order_item_id)
     update_attributes(status: Status::SOLD, order_item_id: order_item_id)
   end
