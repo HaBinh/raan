@@ -7,7 +7,7 @@ RSpec.describe RatesController,:type => :controller do
 
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
-  byebug
+  
   describe 'GET index' do
     render_views
     fixtures :rates  

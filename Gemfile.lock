@@ -66,6 +66,7 @@ GEM
       devise (> 3.5.2, <= 4.3)
       rails (< 6)
     diff-lcs (1.3)
+    docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
@@ -96,6 +97,8 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    json (2.1.0)
+    json (2.1.0-java)
     jwt (1.5.6)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -216,6 +219,11 @@ GEM
     shoulda (2.11.3)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
+    simplecov (0.15.1)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -284,6 +292,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5)
   shoulda
   shoulda-matchers (~> 3.1)
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
@@ -291,4 +300,4 @@ DEPENDENCIES
   yajl-ruby
 
 BUNDLED WITH
-   1.15.4
+   1.16.0.pre.3
