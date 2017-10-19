@@ -18,6 +18,7 @@ RSpec.describe ProductsController, :type => :controller do
       expect_json_types('products.*', name: :string, code: :string, 
                                        category: :string, default_imported_price: :float,
                                        default_sale_price: :float)
+      # byebug
     end
 
     it 'return correct data' do 

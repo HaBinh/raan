@@ -47,6 +47,38 @@ RSpec.describe 'Orders API', type: :request do
       } 
     }
 
+    let(:paid_am1) { { 
+      order: { 
+        customer_id: customer_id,  
+        customer_paid: -1
+      },
+      order_items: [
+        {
+          product_id: product_id,
+          quantity: quantity,
+          price_sale: price_sale,
+          discounted_rate: discounted_rate
+        }
+      ]
+    } 
+  }
+
+  let(:quantity_less_than_0) { { 
+    order: { 
+      customer_id: customer_id,  
+      customer_paid: 1
+    },
+    order_items: [
+      {
+        product_id: product_id,
+        quantity: -1,
+        price_sale: price_sale,
+        discounted_rate: discounted_rate
+      }
+    ]
+  } 
+}
+
     let(:not_fully_paid_params) { { 
       order: { 
         customer_id: customer_id,  
@@ -94,6 +126,34 @@ RSpec.describe 'Orders API', type: :request do
         }
       ]
     }}
+
+    describe 'with customer paid < -1' do
+      before { 
+        post "/orders", params: paid_am1, headers: user_auth_headers 
+      }
+      
+      it 'return status 422' do 
+        expect_status 422
+      end
+  
+      it 'return correct types' do 
+        expect_json({ :message => "Customer paid should be greater than 0" })
+      end
+    end
+
+    describe 'with quantity <= 0' do 
+      before { 
+        post "/orders", params: quantity_less_than_0, headers: user_auth_headers 
+      }
+      
+      it 'return status 422' do 
+        expect_status 422
+      end
+  
+      it 'return correct types' do 
+        expect_json({ :message => "Quantity should be greater than 0" })
+      end
+    end
     describe 'with valid params' do 
       before { 
         @before_order_count = Order.count
