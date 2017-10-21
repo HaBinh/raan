@@ -18,9 +18,7 @@ class RatesController < ApplicationController
 
   def destroy
     @rate = DiscountedRate.find_by_id(params[:id]).destroy 
-    if @rate.nil? 
-      render json: { message: 'Not found'}, status: :not_found
-    end
+    head :ok
   end
   private 
 

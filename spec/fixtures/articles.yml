@@ -2,10 +2,10 @@
 
 one:
   status: true
-  price_sale: 1600
+  imported_price: 1600
   product: one
 
 two:
   status: true
-  price_sale: 1600
+  imported_price: 1600
   product: two

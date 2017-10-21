@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
               @store.product.category = false
               @store.product.name = @sold
             else 
+              # byebug
               @store.product.category = true
               @store.product.name = 0
             end
@@ -31,8 +32,8 @@ class ArticlesController < ApplicationController
         end
         if @article.save
           render json: { article: @article }, status: :created
-        else
-          render json: @article.errors, status: :unprocessable_entity
+        # else
+        #   render json: @article.errors, status: :unprocessable_entity
         end
       end
 
@@ -66,8 +67,8 @@ class ArticlesController < ApplicationController
             else
               Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
             end
-          else
-            render json: { message: 'Not found'}, status: :not_found
+          # else
+          #   render json: { message: 'Not found'}, status: :not_found
           end
         end
         head :ok

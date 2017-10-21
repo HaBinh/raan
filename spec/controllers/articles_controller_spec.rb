@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'rails_helper' 
 
-RSpec.describe 'Acticles API', type: :request do
+RSpec.describe 'Articles API', type: :request do
   
   let!(:article) { create(:article) }
   let(:article_id) { article.id }
@@ -8,7 +8,7 @@ RSpec.describe 'Acticles API', type: :request do
   let!(:product) { create(:product) }
   let(:product_id) { product.id } 
   
-  let(:status) { 'exist' }
+  let(:status) { 'sold' }
   let(:price_sale) { 1000 }
   
   let(:user) { create(:user) }
@@ -22,7 +22,14 @@ RSpec.describe 'Acticles API', type: :request do
         quantity: 4
     }
   }
-
+  let(:valid_params_add) {
+    { 
+        status: status,
+        imported_price: price_sale,
+        product_id: product_id,
+        new_quantity: 100
+    }
+  }
     describe 'POST /articles' do
       before { 
         post "/articles", params: valid_params, headers: user_auth_headers 
@@ -32,7 +39,25 @@ RSpec.describe 'Acticles API', type: :request do
         expect_status 201
       end
     end
-  
+
+    describe 'PUT /articles/update' do
+      before { 
+        put "/articles/update", params: valid_params, headers: user_auth_headers 
+      } 
+      it 'return status 200' do 
+        expect_status 200
+      end
+    end
+
+    describe 'PUT /articles/update' do  
+      before {      
+        put "/articles/update", params: valid_params_add, headers: user_auth_headers 
+      }
+      it 'return status 200' do 
+        expect_status 200
+      end
+    end
+     
     describe 'DELETE /articles/:id' do 
       before { delete "/articles/#{article_id}", params: {}, headers: user_auth_headers }
   
@@ -45,8 +70,8 @@ RSpec.describe 'Acticles API', type: :request do
       end
     end
   
-    describe 'GET /articles' do 
-      before { get "/orders.json", params: {}, headers: user_auth_headers }
+    describe 'GET /articles.json' do 
+      before { get "/articles.json", params: {}, headers: user_auth_headers }
   
       it 'return status 200' do 
         expect_status 200 
