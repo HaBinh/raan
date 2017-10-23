@@ -63,6 +63,10 @@ end
 RSpec.describe 'Customers API', type: :request do
   let!(:customers) { create_list(:customer, 10) }
   let(:customer_id) { customers.first.id }
+  let!(:product) { create(:product) }
+  let(:product_id) { product.id }
+  let!(:articles) { create_list(:article, 10, product_id: product_id) }
+  
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 

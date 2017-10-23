@@ -18,6 +18,7 @@ RSpec.describe 'Articles API', type: :request do
     {
         status: status,
         imported_price: price_sale,
+        imported_price_old: 1500,
         product_id: product_id,
         quantity: 4
     }
@@ -25,9 +26,19 @@ RSpec.describe 'Articles API', type: :request do
   let(:valid_params_add) {
     { 
         status: status,
+        imported_price_old: 1500,
         imported_price: price_sale,
         product_id: product_id,
         new_quantity: 100
+    }
+  }
+  let(:valid_params_add1) {
+    { 
+        status: status,
+        imported_price_old: 1500,
+        imported_price: price_sale,
+        product_id: product_id,
+        new_quantity: 5
     }
   }
     describe 'POST /articles' do
@@ -40,7 +51,7 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
 
-    describe 'PUT /articles/update' do
+    describe 'PUT /articles/update when sold = 0' do
       before { 
         put "/articles/update", params: valid_params, headers: user_auth_headers 
       } 
@@ -49,10 +60,21 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
 
-    describe 'PUT /articles/update' do  
+    describe 'PUT /articles/update when sold != 0' do  
+      let!(:articles) { create_list(:article, 10, product_id: product_id, status: 'sold') }
+      let(:article_id) { articles.first.id }
       before {      
         put "/articles/update", params: valid_params_add, headers: user_auth_headers 
       }
+      it 'return status 200' do 
+        expect_status 200
+      end
+    end
+
+    describe 'PUT /articles/update' do
+      before { 
+        put "/articles/update", params: valid_params_add1, headers: user_auth_headers 
+      } 
       it 'return status 200' do 
         expect_status 200
       end

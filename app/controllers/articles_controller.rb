@@ -57,12 +57,13 @@ class ArticlesController < ApplicationController
           end
         else
           if params[:new_quantity].to_i > @sold 
+            # byebug
             # @article.update_attributes(article_params)
             if params[:new_quantity].to_i >= Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).count
               for i in (1..params[:new_quantity].to_i - @article.count)
                 @article = Article.new(article_params)
                 @article.save
-                render json: { message: 'Not found'}, status: :not_found
+                # render json: { message: 'Not found'}, status: :not_found
               end
             else
               Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
@@ -83,7 +84,7 @@ class ArticlesController < ApplicationController
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else
-          render json: { message: 'Not found'}, status: :not_found
+          # render json: { message: 'Not found'}, status: :not_found
           @article.delete_all
           head :ok
         end
