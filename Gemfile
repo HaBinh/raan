@@ -32,7 +32,7 @@ gem 'dotenv-rails'
 gem 'yajl-ruby', require: 'yajl'
 gem 'oj'
 gem 'fuubar'
-
+gem 'rack-rewrite'
 gem 'simplecov', :require => false, :group => :test
 
 group :development, :test do
