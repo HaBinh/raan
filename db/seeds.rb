@@ -9,7 +9,20 @@ User.create(email: 'user@example.com',
             nickname: 'UOne', 
             name: 'User One', 
             password: "monkey67",
-            password_confirmation: "monkey67")
+            password_confirmation: "monkey67", 
+            role: "manager")
+User.create(email: 'admin@admin.com', 
+            nickname: 'Admin', 
+            name: 'Admin', 
+            password: "admin123",
+            password_confirmation: "admin123", 
+            role: "manager")
+
+User.create(email: 'staff1@staff.com', 
+            nickname: 'Staff 1', 
+            name: 'Staff 1', 
+            password: "staff1",
+            password_confirmation: "staff1")
 
 50.times do |n|
   name =  Faker::Name.name
