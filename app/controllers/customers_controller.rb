@@ -32,10 +32,9 @@ class CustomersController < ApplicationController
     # sql = "SELECT customer_id, id as order_id, name, phone, customer_paid
     #        FROM orders LEFT JOIN customers ON customers.id = orders.customer_id WHERE orders.fully_paid=false"
     # customers = Order.connection.select_all(sql).to_a 
-    # customers.each do |customer|
-      
+    # customers.each do |customer|     
     # end
-    # byebug
+  
     @customers_in_debt = Array.new
     customers = Customer.all 
     customers.each do |customer| 

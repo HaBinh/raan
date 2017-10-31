@@ -19,26 +19,23 @@ class ArticlesController < ApplicationController
             @store.status = @quantity
             @articles << @store
           end
-          # byebug
         end
       end
-    
+
       def create
         params.permit(:status, :imported_price, :product_id)
         for i in (1..params[:quantity].to_i)
           @article = Article.new(article_params)
           @article.save
-          # byebug
         end
         if @article.save
+          @article.id = params[:quantity].to_i
+          @article.status = @article.created_at.strftime("%A, %d/%m/%Y")
           render json: { article: @article }, status: :created
-        # else
-        #   render json: @article.errors, status: :unprocessable_entity
         end
       end
 
       def update
-        # byebug
         @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old])
         @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: Status::SOLD).count  
         if @sold === 0
@@ -50,26 +47,21 @@ class ArticlesController < ApplicationController
             Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
             render json: { message: 'updated'}, status: :updated
           else
-            # byebug
+          
             @article.limit(@article.count - params[:new_quantity].to_i).destroy_all
             Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
             render json: { message: 'updated'}, status: :updated
           end
         else
           if params[:new_quantity].to_i > @sold 
-            # byebug
-            # @article.update_attributes(article_params)
             if params[:new_quantity].to_i >= Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).count
               for i in (1..params[:new_quantity].to_i - @article.count)
                 @article = Article.new(article_params)
                 @article.save
-                # render json: { message: 'Not found'}, status: :not_found
               end
             else
               Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
             end
-          # else
-          #   render json: { message: 'Not found'}, status: :not_found
           end
         end
         head :ok
@@ -84,7 +76,6 @@ class ArticlesController < ApplicationController
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else
-          # render json: { message: 'Not found'}, status: :not_found
           @article.delete_all
           head :ok
         end
