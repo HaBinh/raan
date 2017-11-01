@@ -5,7 +5,7 @@ namespace :custom do
     on roles(:docker) do |host|
       execute "cp #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/"
       puts "================Starting Docker setup===================="
-      execute "cd #{deploy_to}/current && docker-compose down && docker-compose up &"
+      execute "cd #{deploy_to}/current && docker-compose down && docker-compose up"
     end
   end
 end
