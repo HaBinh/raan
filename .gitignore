@@ -18,3 +18,4 @@ config/database.yml
 db/schema.rb
 .idea
 coverage
+Gemfile.lock
