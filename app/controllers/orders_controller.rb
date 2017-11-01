@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = Order.all.order(created_at: :desc)
   end
 
   def create
