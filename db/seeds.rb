@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+prng = Random.new
 User.create(email: 'user@example.com', 
             nickname: 'UOne', 
             name: 'User One', 
@@ -18,12 +19,13 @@ User.create(email: 'admin@admin.com',
             password_confirmation: "admin123", 
             role: "manager")
 
-User.create(email: 'staff1@staff.com', 
-            nickname: 'Staff 1', 
-            name: 'Staff 1', 
+5.times do |n|
+  User.create(email: "staff#{n}@staff.com", 
+            nickname: "Staff #{n}", 
+            name: "Staff #{n}", 
             password: "staff123",
             password_confirmation: "staff123")
-
+end
 50.times do |n|
   name =  Faker::Name.name
   email = Faker::Internet.email
@@ -45,9 +47,11 @@ product=Product.create!(
   default_sale_price: 1234,
   created_at: '2016-11-03 09:29:13.77165'
 )
+user_id = prng.rand(1..7)
 5.times do |n|
 product.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 1000,
   created_at: '2016-11-03 09:29:13.77165')
 end
@@ -60,9 +64,11 @@ product1=Product.create!(
     default_sale_price: 919,
     created_at: '2016-12-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 6.times do |n|
 product1.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 900,
   created_at: '2016-12-03 09:29:13.77165')
 end
@@ -75,9 +81,11 @@ product2=Product.create!(
     default_sale_price: 456,
     created_at: '2017-01-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 7.times do |n|
 product2.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 345,
   created_at: '2017-01-03 09:29:13.77165')
 end
@@ -90,9 +98,11 @@ product3=Product.create!(
     default_sale_price: 999,
     created_at: '2017-02-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 8.times do |n|
 product3.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 901,
   created_at: '2017-02-03 09:29:13.77165')
 end
@@ -100,6 +110,7 @@ end
 1.times do |n|
 product3.articles.create!(
   status: 'sold',
+  created_by: user_id,
   imported_price: 901,
   created_at: '2017-02-03 09:29:13.77165')
 end
@@ -111,9 +122,11 @@ default_imported_price: 786,
 default_sale_price: 832,
 created_at: '2017-03-03 09:29:13.77165'
 )
+user_id = prng.rand(1..7)
 8.times do |n|
 product3.articles.create!(
 status: 'exist',
+created_by: user_id,
 imported_price: 802,
 created_at: '2017-03-03 09:29:13.77165')
 end
@@ -121,6 +134,7 @@ end
 1.times do |n|
 product3.articles.create!(
 status: 'sold',
+created_by: user_id,
 imported_price: 802,
 created_at: '2017-0-03 09:29:13.77165')
 end
@@ -133,9 +147,11 @@ product4=Product.create!(
     default_sale_price: 1200,
     created_at: '2017-04-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 9.times do |n|
 product4.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 1100,
   created_at: '2017-04-03 09:29:13.77165')   
 end
@@ -148,9 +164,11 @@ product5=Product.create!(
     default_sale_price: 2100,
     created_at: '2017-05-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 10.times do |n|
 product5.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 2010,
   created_at: '2017-05-03 09:29:13.77165')
 end
@@ -158,6 +176,7 @@ end
 2.times do |n|
 product5.articles.create!(
   status: 'sold',
+  created_by: user_id,
   imported_price: 2010,
   created_at: '2017-05-03 09:29:13.77165')
 end
@@ -170,9 +189,11 @@ product6=Product.create!(
     default_sale_price: 699,
     created_at: '2017-06-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 11.times do |n|
 product6.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 680,
   created_at: '2017-06-03 09:29:13.77165')
 end
@@ -185,9 +206,11 @@ product7=Product.create!(
     default_sale_price: 134,
     created_at: '2017-07-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 12.times do |n|
 product7.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 120,
   created_at: '2017-07-03 09:29:13.77165')
 end
@@ -195,6 +218,7 @@ end
 3.times do |n|
 product7.articles.create!(
   status: 'sold',
+  created_by: user_id,
   imported_price: 120,
   created_at: '2017-07-03 09:29:13.77165')
 end
@@ -207,9 +231,11 @@ product8=Product.create!(
     default_sale_price: 99,
     created_at: '2017-08-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 14.times do |n|
 product8.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 90,
   created_at: '2017-08-03 09:29:13.77165')
 end
@@ -222,9 +248,11 @@ product9=Product.create!(
     default_sale_price: 222,
     created_at: '2017-09-03 09:29:13.77165'
   )
+user_id = prng.rand(1..7)
 15.times do |n|
 product9.articles.create!(
   status: 'exist',
+  created_by: user_id,
   imported_price: 200,
   created_at: '2017-09-03 09:29:13.77165')
 end
@@ -232,6 +260,7 @@ end
 4.times do |n|
 product9.articles.create!(
   status: 'sold',
+  created_by: user_id,
   imported_price: 200,
   created_at: '2017-09-03 09:29:13.77165')
 end
@@ -267,8 +296,10 @@ order_item12=order1.order_items.create!(
   created_at: '2016-11-03 09:29:13.77165',
   discounted_rate: 0
 )
+user_id = prng.rand(1..7)
 order_item11.articles.create!(
   status: 'sold',
+  created_by: user_id,
   imported_price: 901,
   product_id: 4,
   created_at: '2016-11-03 09:29:13.77165',
@@ -278,13 +309,12 @@ order_item12.articles.create!(
   status: 'sold',
   imported_price: 1000,
   product_id: 1,
-
+  created_by: user_id,
   created_at: '2016-11-03 09:29:13.77165',
   order_item_id: order_item12.id
 )
 # imported_price = [999,888,345,899,786,1100,2009,678,123,90,200]
 pro = [2100,2000,750,1820,1620,2150,4050,1500,450,430,540]
-prng = Random.new
 
 12.times do |n|
     orderId = SecureRandom.hex(3).upcase
@@ -296,6 +326,7 @@ prng = Random.new
       total = 0
       arr_quantity=[]
       arr_rate=[]
+      user_id = prng.rand(1..7)
       countPro.times do |t|
         quantity = prng.rand(1..3)
         rate = rates[prng.rand(0..4)]
@@ -338,6 +369,7 @@ prng = Random.new
         arr_quantity[t].times do |h|
           article = order_item.articles.create!(
               status: 'sold',
+              created_by: user_id,
               imported_price:  proPrice[t]/2,
               product_id: product_id,
               created_at: time,

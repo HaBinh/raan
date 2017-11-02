@@ -3,24 +3,47 @@ class ArticlesController < ApplicationController
       def index
         @articles = Array.new
         @exists  = Array.new
-        Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-          @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
-          @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
-          @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
-          unless @store.nil?
-            if @sold > 0
-              @store.product.category = false
-              @store.product.name = @sold
-            else 
+        if current_user.isManager
+          Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
+            @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
+            @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
+            @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
+            unless @store.nil?
+              if @sold > 0
+                @store.product.category = false
+                @store.product.name = @sold
+              else 
+                # byebug
+                @store.product.category = true
+                @store.product.name = 0
+              end
+              @store.status = @quantity
+              
+              @articles << @store
               # byebug
-              @store.product.category = true
-              @store.product.name = 0
+              @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
             end
-            @store.status = @quantity
-            
-            @articles << @store
-            # byebug
-            @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
+          end
+        else
+          Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
+            @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).count
+            @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD, created_by: current_user.id).count
+            @store = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).order(:created_at).last
+            unless @store.nil?
+              if @sold > 0
+                @store.product.category = false
+                @store.product.name = @sold
+              else 
+                # byebug
+                @store.product.category = true
+                @store.product.name = 0
+              end
+              @store.status = @quantity
+              
+              @articles << @store
+              # byebug
+              @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
+            end
           end
         end
       end
@@ -29,6 +52,7 @@ class ArticlesController < ApplicationController
         params.permit(:status, :imported_price, :product_id)
         for i in (1..params[:quantity].to_i)
           @article = Article.new(article_params)
+          @article.created_by = current_user.id
           @article.save
         end
         if @article.save
