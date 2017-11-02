@@ -17,7 +17,10 @@ class ArticlesController < ApplicationController
               @store.product.name = 0
             end
             @store.status = @quantity
+            
             @articles << @store
+            # byebug
+            @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
           end
         end
       end

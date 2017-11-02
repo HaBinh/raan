@@ -11,6 +11,7 @@ class StoresController < ApplicationController
         @stores << @store
       end
     end
+    @stores = @stores.sort { |x,y| y.created_at <=> x.created_at }
   end
 
   def get_products 
