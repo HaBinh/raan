@@ -2,7 +2,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @products = Product.all
+    @product = Product.all
+    if !current_user.isManager
+         @product.each do |p|
+          p.default_imported_price = 0
+        end
+      end
+    @products=@product
   end
 
   def create
