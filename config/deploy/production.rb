@@ -1,4 +1,4 @@
-server 'vkh.novahub.vn', port: 2222, roles: %w{docker}, primary: true
+server 'vkh.novahub.vn', port: 22, roles: %w{docker}, primary: true
 
 namespace :custom do
   task :setup_container do
