@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       registrations: 'user/registrations'
     }
     
-    resources :users, only: [:index]
+    resources :users, only: [:index, :update]
     resources :customers
     resources :products
     resources :orders, expect: :update
