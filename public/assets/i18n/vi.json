@@ -48,7 +48,10 @@
     "totalAmount": "Tổng cộng",
     "totalDebt": "Tổng nợ",
     "unitPrice": "Đơn giá",
-    "user": "Người dùng"
+    "user": "Người dùng",
+    "passwordConfirmation": "Xác nhận mật khẩu",
+    "password": "Mật khẩu",
+    "role": "Vai trò"
   },
   "newOrder": {
     "title": "Các đơn hàng",
@@ -118,7 +121,8 @@
 		"createOrder": "Tạo đơn hàng",
 		"ordersHistory": "Lịch sử đơn hàng",
 		"customers": "Khách hàng",
-		"discountedRate": "Tỷ suất chiết khấu"
+    "discountedRate": "Tỷ suất chiết khấu",
+    "user-management": "Quản lý nhân viên"
   },
 
   "store": {
@@ -158,5 +162,24 @@
     "instruction": "Nhập thông tài khoản của bạn",
     "remember": "Ghi nhớ tôi",
     "login": "Login"
+  },
+  "errorMessage": {
+    "email": "Email không chính xác",
+    "matched": "Mật khẩu xác nhận không khớp",
+    "required": "Phần nhập bắt buộc"
+  },
+  "user-management": {
+    "title": "Quản lý nhân viên",
+    "small-title": "Danh sách",
+    "instruc1": "Bạn đã tạo mới thành công: ",
+    "instruc2": "Ghi nhớ lại! ",
+    "instruc3": "Vì ghi chú này sẽ bị xóa.",
+    "modal-title": "Tạo người dùng mới",
+    "modal-update-title": "Cập nhật thông tin",
+    "manager": "Quản lý",
+    "staff": "Nhân viên"
+  },
+  "modal": {
+    "update-btn": "Cập nhật"
   }
 }
