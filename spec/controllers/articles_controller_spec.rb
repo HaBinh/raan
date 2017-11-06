@@ -149,8 +149,8 @@ RSpec.describe 'Articles API', type: :request do
       it 'return status 200' do 
         expect_status 200 
       end
-    end
-      
+    end  
+    
     describe 'GET /api/articles/:id' do 
       before { 
         get "/api/articles/#{article_id}.json", params: {}, headers: user_auth_headers
