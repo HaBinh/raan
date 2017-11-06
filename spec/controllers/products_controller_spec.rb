@@ -15,7 +15,7 @@ RSpec.describe ProductsController, :type => :controller do
       get :index, :format => :json
       expect_json_types(products: :array)
       expect_json_types('products.*', name: :string, code: :string, 
-                                       category: :string, default_imported_price: :float,
+                                       unit: :string, default_imported_price: :float,
                                        default_sale_price: :float)
       # byebug
     end
@@ -35,7 +35,7 @@ RSpec.describe ProductsController, :type => :controller do
       request.headers.merge! user_auth_headers
       get :show, params: { id: product_id}, :format => :json
       expect_json_types('product',  name: :string, code: :string, 
-                                       category: :string, default_imported_price: :float,
+                                       unit: :string, default_imported_price: :float,
                                        default_sale_price: :float)
       expect_status(200)
     end
@@ -52,12 +52,12 @@ RSpec.describe ProductsController, :type => :controller do
     fixtures :products 
     it 'return correct types' do
       request.headers.merge! user_auth_headers
-      body = { 'name' => 'iphone', :code => '123456789', :category => 'red', :default_imported_price => 1001,
+      body = { 'name' => 'iphone', :code => '123456789', :unit => 'red', :default_imported_price => 1001,
                                    :default_sale_price => 1000 } 
       post :create, params: body, :format => :json
       expect_status(201)
       expect_json_types('product',  name: :string, code: :string, 
-                                    category: :string, default_imported_price: :float,
+                                    unit: :string, default_imported_price: :float,
                                     default_sale_price: :float)
 end
   end

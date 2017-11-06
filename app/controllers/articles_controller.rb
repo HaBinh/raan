@@ -11,10 +11,10 @@ class ArticlesController < ApplicationController
             @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
             unless @store.nil?
               if @sold > 0
-                @store.product.category = false
+                @store.product.unit = false
                 @store.product.name = @sold
               else 
-                @store.product.category = true
+                @store.product.unit = true
                 @store.product.name = 0
               end
               @store.status = @quantity
@@ -30,10 +30,10 @@ class ArticlesController < ApplicationController
             # byebug
             unless @store.nil?            
               if @sold > 0
-                @store.product.category = false
+                @store.product.unit = false
                 @store.product.name = @sold
               else 
-                @store.product.category = true
+                @store.product.unit = true
                 @store.product.name = 0
               end
               @store.status = @quantity          

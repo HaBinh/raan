@@ -42,7 +42,7 @@ end
 product=Product.create!(
   name: "iPhone X",
   code: "ASD-1234",
-  category: "128GB-GOLD",
+  unit: "Pieces",
   default_imported_price: 999,
   default_sale_price: 1234,
   created_at: '2016-11-03 09:29:13.77165'
@@ -59,7 +59,7 @@ end
 product1=Product.create!(
     name: "iPhone 8",
     code: "LCD-5634",
-    category: "64GB-GOLD",
+    unit: "Pieces",
     default_imported_price: 888,
     default_sale_price: 919,
     created_at: '2016-12-03 09:29:13.77165'
@@ -76,7 +76,7 @@ end
 product2=Product.create!(
     name: "OPPO F7",
     code: "OSE-4367",
-    category: "18MP-SELFIE",
+    unit: "Pieces",
     default_imported_price: 345,
     default_sale_price: 456,
     created_at: '2017-01-03 09:29:13.77165'
@@ -93,7 +93,7 @@ end
 product3=Product.create!(
     name: "Samsung Galaxy Note 8",
     code: "NOT-9384",
-    category: "64GB-GAME",
+    unit: "Pieces",
     default_imported_price: 899,
     default_sale_price: 999,
     created_at: '2017-02-03 09:29:13.77165'
@@ -117,7 +117,7 @@ end
 product3=Product.create!(
 name: "Samsung Galaxy Note 7",
 code: "NOT-3242",
-category: "64GB-SELF",
+unit: "Pieces",
 default_imported_price: 786,
 default_sale_price: 832,
 created_at: '2017-03-03 09:29:13.77165'
@@ -142,7 +142,7 @@ end
 product4=Product.create!(
     name: "Laptop Apple Macbook Air",
     code: "MMG-2352",
-    category: "128GB-2015",
+    unit: "Pieces",
     default_imported_price: 1100,
     default_sale_price: 1200,
     created_at: '2017-04-03 09:29:13.77165'
@@ -159,7 +159,7 @@ end
 product5=Product.create!(
     name: "Laptop Apple Macbook Pro",
     code: "MPX-3182",
-    category: "256GB-2017",
+    unit: "Pieces",
     default_imported_price: 2009,
     default_sale_price: 2100,
     created_at: '2017-05-03 09:29:13.77165'
@@ -184,7 +184,7 @@ end
 product6=Product.create!(
     name: "iPad Pro",
     code: "WIF-1056",
-    category: "64GB-2017",
+    unit: "Pieces",
     default_imported_price: 678,
     default_sale_price: 699,
     created_at: '2017-06-03 09:29:13.77165'
@@ -201,7 +201,7 @@ end
 product7=Product.create!(
     name: "Sony Smartwatch 2",
     code: "SON-2201",
-    category: "1.6Inch-Android",
+    unit: "Pieces",
     default_imported_price: 123,
     default_sale_price: 134,
     created_at: '2017-07-03 09:29:13.77165'
@@ -226,7 +226,7 @@ end
 product8=Product.create!(
     name: "USB 3.0",
     code: "IXP-3032",
-    category: "32GB-USB 3.0",
+    unit: "Pieces",
     default_imported_price: 90,
     default_sale_price: 99,
     created_at: '2017-08-03 09:29:13.77165'
@@ -243,7 +243,7 @@ end
 product9=Product.create!(
     name: "Bluetooth AirPods Apple",
     code: "MME-2450",
-    category: "3.5mm-Bluetooth",
+    unit: "Pieces",
     default_imported_price: 200,
     default_sale_price: 222,
     created_at: '2017-09-03 09:29:13.77165'
