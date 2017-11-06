@@ -11,7 +11,7 @@ services:
       - .:/raan    
     ports:
       - "3000:3000"
-    networks:
-      default:
-        external:
-          name: raan_web
+networks:
+  default:
+    external:
+      name: raan_web
