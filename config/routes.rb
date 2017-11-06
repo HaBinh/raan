@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
   scope '/api' do
-    mount_devise_token_auth_for 'User', at: 'auth'
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+      registrations: 'user/registrations'
+    }
     
-    resources :users, only: [:index]
+    resources :users, only: [:index, :update]
     resources :customers
     resources :products
     resources :orders, expect: :update
@@ -16,5 +18,5 @@ Rails.application.routes.draw do
     get '/get_products', to: 'stores#get_products'
     get '/customers_in_debt', to: 'customers#get_in_debt'
   end
-  get '*path' => redirect('/')
+  # get '*path' => redirect('/')
 end
