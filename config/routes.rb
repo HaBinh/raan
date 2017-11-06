@@ -18,5 +18,5 @@ Rails.application.routes.draw do
     get '/get_products', to: 'stores#get_products'
     get '/customers_in_debt', to: 'customers#get_in_debt'
   end
-  get '*path' => redirect('/')
+  # get '*path' => redirect('/')
 end
