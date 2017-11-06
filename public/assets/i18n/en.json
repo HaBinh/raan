@@ -48,7 +48,10 @@
     "totalAmount": "Total Amount",
     "totalDebt": "Total Debt",
     "unitPrice": "Unit Price",
-    "user": "User"
+    "user": "User",
+    "passwordConfirmation": "Password Confirmation",
+    "password": "Password",
+    "role": "Role"
   },
   "newOrder": {
     "title": "Orders",
@@ -118,7 +121,8 @@
 		"createOrder": "Create Order",
 		"ordersHistory": "Orders History",
 		"customers": "Customers",
-		"discountedRate": "Discounted Rate"
+    "discountedRate": "Discounted Rate",
+    "user-management": "Users Management"
   },
 
   "store": {
@@ -158,5 +162,24 @@
     "instruction": "Please Enter Your Information",
     "remember": "Remember me",
     "login": "Login"
+  },
+  "errorMessage": {
+    "email": "Email not correct",
+    "matched": "password confirmation doesn't match",
+    "required": "This field is required"
+  },
+  "user-management": {
+    "title": "Users Management",
+    "small-title": "List",
+    "instruc1": "You succeed to create new user with: ",
+    "instruc2": "Remember it!.",
+    "instruc3": " This note will not be longer.",
+    "modal-title": "Create New User",
+    "modal-update-title": "Update User",
+    "manager": "Manager",
+    "staff": "Staff"
+  },
+  "modal": {
+    "update-btn": "Update"
   }
 }
