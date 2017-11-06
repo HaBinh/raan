@@ -14,8 +14,12 @@ RSpec.describe 'Articles API', type: :request do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  let(:user1) { create(:user, role: 'manager') }
+  let(:user1) { create(:user,role: 'manager', name: 'hoc') }
   let(:user1_auth_headers) { user1.create_new_auth_token }
+
+  let!(:article1) { create(:article, created_by: user1.id ) }
+  let!(:article2) { create(:article, created_by: user.id ) }
+
   let(:valid_params) {
     {
         status: status,
@@ -43,10 +47,10 @@ RSpec.describe 'Articles API', type: :request do
         new_quantity: 5
     }
   }
-    describe 'POST /api/articles for staff ' do
+
+    describe 'POST /api/articles for manager' do
       before { 
-        post "/api/articles", params: valid_params, headers: user_auth_headers 
-        byebug
+        post "/api/articles", params: valid_params, headers: user1_auth_headers 
       }
   
       it 'return status 201' do 
@@ -54,9 +58,9 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
 
-    describe 'POST /api/articles for manager' do
+    describe 'POST /api/articles for staff ' do
       before { 
-        post "/api/articles", params: valid_params, headers: user1_auth_headers 
+        post "/api/articles", params: valid_params, headers: user_auth_headers 
       }
   
       it 'return status 201' do 
@@ -105,15 +109,48 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
   
-    describe 'GET /api/articles.json' do 
+    describe 'GET /api/articles.json for staff' do 
       before { get "/api/articles.json", params: {}, headers: user_auth_headers }
-  
+      
       it 'return status 200' do 
         expect_status 200 
       end
-
     end
-  
+
+    describe 'GET /api/articles.json for manager' do 
+      before { 
+          get "/api/articles.json", params: {}, headers: user1_auth_headers 
+          # byebug
+      }
+      
+      it 'return status 200' do 
+        expect_status 200 
+      end
+    end
+
+  # create article status = 0 to test when sold > 0 
+  let!(:article3) { create(:article, created_by: user1.id , status: 'sold') }
+  let!(:article4) { create(:article, created_by: user.id , status: 'sold') }
+
+    describe 'GET /api/articles.json when article sold for staff' do 
+      before { get "/api/articles.json", params: {}, headers: user_auth_headers }
+      
+      it 'return status 200' do 
+        expect_status 200 
+      end
+    end
+
+    describe 'GET /api/articles.json  when article sold for manager' do 
+      before { 
+          get "/api/articles.json", params: {}, headers: user1_auth_headers 
+          # byebug
+      }
+      
+      it 'return status 200' do 
+        expect_status 200 
+      end
+    end
+      
     describe 'GET /api/articles/:id' do 
       before { 
         get "/api/articles/#{article_id}.json", params: {}, headers: user_auth_headers

@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
       def index
         @articles = Array.new
         @exists  = Array.new
-        byebug
+        
         if current_user.isManager
           Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
             @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
@@ -27,7 +27,8 @@ class ArticlesController < ApplicationController
             @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).count
             @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD, created_by: current_user.id).count
             @store = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).order(:created_at).last
-            unless @store.nil?
+            # byebug
+            unless @store.nil?            
               if @sold > 0
                 @store.product.category = false
                 @store.product.name = @sold
