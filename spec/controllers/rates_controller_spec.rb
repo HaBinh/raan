@@ -43,11 +43,11 @@ RSpec.describe 'Rates API', type: :request do
     let(:user_auth_headers) { user.create_new_auth_token }
     let(:valid_attributes) { {rate_id: discounted_rate_id , rate: '0.23' }}
     
-    describe 'PUT /rates/update?${valid_attributes} ' do
+    describe 'PUT /api/rates/update?${valid_attributes} ' do
       context 'when the record exists' do 
         before { 
           # byebug
-          put "/rates/update", params: valid_attributes, headers: user_auth_headers  }
+          put "/api/rates/update", params: valid_attributes, headers: user_auth_headers  }
         it 'updates the record' do
           expect(response.body).to be_empty
         end
@@ -57,9 +57,9 @@ RSpec.describe 'Rates API', type: :request do
       end
     end
   
-    describe 'DELETE /rates/:id' do
+    describe 'DELETE /api/rates/:id' do
       before { 
-        delete "/rates/#{discounted_rate_id}.json", params: {}, headers: user_auth_headers }
+        delete "/api/rates/#{discounted_rate_id}.json", params: {}, headers: user_auth_headers }
       it 'return status code 200' do 
         expect_status 200
       end

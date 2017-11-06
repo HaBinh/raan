@@ -15,9 +15,9 @@ RSpec.describe 'Dashboards API', type: :request do
     let(:user) { create(:user) }
     let(:user_auth_headers) { user.create_new_auth_token }
   
-    describe 'GET /dashboards' do 
+    describe 'GET /api/dashboards' do 
       before { 
-        get "/dashboards.json", params: {}, headers: user_auth_headers 
+        get "/api/dashboards.json", params: {}, headers: user_auth_headers 
       }
   
       context 'when the record not exists ' do

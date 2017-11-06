@@ -13,7 +13,9 @@ RSpec.describe 'Articles API', type: :request do
   
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
-  
+
+  let(:user1) { create(:user, role: 'manager') }
+  let(:user1_auth_headers) { user1.create_new_auth_token }
   let(:valid_params) {
     {
         status: status,
@@ -41,9 +43,10 @@ RSpec.describe 'Articles API', type: :request do
         new_quantity: 5
     }
   }
-    describe 'POST /articles' do
+    describe 'POST /api/articles for staff ' do
       before { 
-        post "/articles", params: valid_params, headers: user_auth_headers 
+        post "/api/articles", params: valid_params, headers: user_auth_headers 
+        byebug
       }
   
       it 'return status 201' do 
@@ -51,37 +54,47 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
 
-    describe 'PUT /articles/update when sold = 0' do
+    describe 'POST /api/articles for manager' do
       before { 
-        put "/articles/update", params: valid_params, headers: user_auth_headers 
+        post "/api/articles", params: valid_params, headers: user1_auth_headers 
+      }
+  
+      it 'return status 201' do 
+        expect_status 201
+      end
+    end
+
+    describe 'PUT /api/articles/update when sold = 0' do
+      before { 
+        put "/api/articles/update", params: valid_params, headers: user_auth_headers 
       } 
       it 'return status 200' do 
         expect_status 200
       end
     end
 
-    describe 'PUT /articles/update when sold != 0' do  
+    describe 'PUT /api/articles/update when sold != 0' do  
       let!(:articles) { create_list(:article, 10, product_id: product_id, status: 'sold') }
       let(:article_id) { articles.first.id }
       before {      
-        put "/articles/update", params: valid_params_add, headers: user_auth_headers 
+        put "/api/articles/update", params: valid_params_add, headers: user_auth_headers 
       }
       it 'return status 200' do 
         expect_status 200
       end
     end
 
-    describe 'PUT /articles/update' do
+    describe 'PUT /api/articles/update' do
       before { 
-        put "/articles/update", params: valid_params_add1, headers: user_auth_headers 
+        put "/api/articles/update", params: valid_params_add1, headers: user_auth_headers 
       } 
       it 'return status 200' do 
         expect_status 200
       end
     end
      
-    describe 'DELETE /articles/:id' do 
-      before { delete "/articles/#{article_id}", params: {}, headers: user_auth_headers }
+    describe 'DELETE /api/articles/:id' do 
+      before { delete "/api/articles/#{article_id}", params: {}, headers: user_auth_headers }
   
       it 'should delete' do 
         expect(Article.count).not_to eq(@before_article_count)
@@ -92,8 +105,8 @@ RSpec.describe 'Articles API', type: :request do
       end
     end
   
-    describe 'GET /articles.json' do 
-      before { get "/articles.json", params: {}, headers: user_auth_headers }
+    describe 'GET /api/articles.json' do 
+      before { get "/api/articles.json", params: {}, headers: user_auth_headers }
   
       it 'return status 200' do 
         expect_status 200 
@@ -101,9 +114,9 @@ RSpec.describe 'Articles API', type: :request do
 
     end
   
-    describe 'GET /articles/:id' do 
+    describe 'GET /api/articles/:id' do 
       before { 
-        get "/articles/#{article_id}.json", params: {}, headers: user_auth_headers
+        get "/api/articles/#{article_id}.json", params: {}, headers: user_auth_headers
       }
   
       it 'return status 200' do 

@@ -70,9 +70,9 @@ RSpec.describe 'Products API', type: :request do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  describe 'GET /products/:id ' do 
+  describe 'GET /api/products/:id ' do 
     before { 
-      get "/products/#{product_id}.json", params: {}, headers: user_auth_headers 
+      get "/api/products/#{product_id}.json", params: {}, headers: user_auth_headers 
     }
 
     context 'when the record not exists ' do
@@ -88,12 +88,12 @@ RSpec.describe 'Products API', type: :request do
     end
   end
 
-  describe 'PUT /products/:id ' do
+  describe 'PUT /api/products/:id ' do
     let(:valid_attributes) { { name: 'iphone' }}
 
     context 'when the record exists' do 
       before { 
-        put "/products/#{product_id}", params: valid_attributes, headers: user_auth_headers  }
+        put "/api/products/#{product_id}", params: valid_attributes, headers: user_auth_headers  }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -105,9 +105,9 @@ RSpec.describe 'Products API', type: :request do
     end
   end
 
-  describe 'DELETE /products/:id' do
+  describe 'DELETE /api/products/:id' do
     before { 
-      delete "/products/#{product_id}", params: {}, headers: user_auth_headers 
+      delete "/api/products/#{product_id}", params: {}, headers: user_auth_headers 
     }
 
     it 'return status code 200' do 
