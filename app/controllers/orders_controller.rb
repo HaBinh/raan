@@ -63,6 +63,11 @@ class OrdersController < ApplicationController
     head :ok
   end
 
+  def search
+    @orders = Order.all.order(created_at: :desc)
+    render 'orders/search'
+  end
+
   private 
 
   def order_params

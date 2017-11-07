@@ -6,9 +6,10 @@ Rails.application.routes.draw do
     }
     
     resources :users, only: [:index, :update]
+    get 'search-orders', to: 'orders#search'
     resources :customers
     resources :products
-    resources :orders, expect: :update
+    resources :orders
     resources :articles
     resources :stores
     resources :dashboards
