@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :update, :destroy]
   
   def index
-    @customers = Customer.all
+    @customers = Customer.all.where(active: true)
   end
 
   def create
@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
   end
 
   def destroy 
-    @customer.destroy 
+    @customer.deactive
     head :ok
   end
 
