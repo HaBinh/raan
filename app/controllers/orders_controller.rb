@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
     @orders = Order.all.order(created_at: :desc)
@@ -56,6 +56,28 @@ class OrdersController < ApplicationController
   def update 
     @order.pay_debt(params[:payment].to_f)
     render 'orders/order'
+  end
+
+  def return_order
+    order_items = @order.order_items
+    total_amount = 0 
+    params[order_items].each do |item|
+      order_item = OrderItems.find_by_id(item[:id])
+      articles_be_sold = order_item.articles.order(created_at: :desc)
+
+      # Return article 
+
+      item[:quantity_return].times do |n| 
+        articles_be_sold[n].beReturn
+      end
+
+      total_amount += order_item.return_calculate_after_return(item[:quantity_return].to_i)
+      
+    end
+
+    @order.update_attributes(total_amount: total_amount.round(2))
+    @order.set_fully_paid
+    head :ok
   end
 
   def destroy 
