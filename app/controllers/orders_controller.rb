@@ -61,12 +61,11 @@ class OrdersController < ApplicationController
   def return_order
     order_items = @order.order_items
     total_amount = 0 
-    params[order_items].each do |item|
-      order_item = OrderItems.find_by_id(item[:id])
+    params[:order_items].each do |item|
+      order_item = OrderItem.find_by_id(item[:id])
       articles_be_sold = order_item.articles.order(created_at: :desc)
 
       # Return article 
-
       item[:quantity_return].times do |n| 
         articles_be_sold[n].beReturn
       end

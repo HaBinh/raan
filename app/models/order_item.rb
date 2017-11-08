@@ -11,7 +11,7 @@ class OrderItem < ApplicationRecord
 
   def return_calculate_after_return(quantity_return)
     self.amount = (self.amount / self.quantity ) * ( quantity - quantity_return )
-    self.quantity = self.quantity - quantity_return\
+    self.quantity = self.quantity - quantity_return
     self.save
     amount
   end

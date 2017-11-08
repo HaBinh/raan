@@ -9,7 +9,7 @@ class Article < ApplicationRecord
   end
 
   def beReturn
-    update_attributes(stats: Status::EXIST, order_item_id: null)
+    update_attributes(status: Status::EXIST, order_item_id: nil)
   end
 end
   

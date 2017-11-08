@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     
     resources :users, only: [:index, :update]
     get 'search-orders', to: 'orders#search'
-    put 'return-order', to: 'orders#return_order'
+    put 'return-order/:id', to: 'orders#return_order'
     resources :customers
     resources :products
     resources :orders
