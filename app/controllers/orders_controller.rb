@@ -60,23 +60,37 @@ class OrdersController < ApplicationController
 
   def return_order
     order_items = @order.order_items
-    total_amount = 0 
     params[:order_items].each do |item|
       order_item = OrderItem.find_by_id(item[:id])
       articles_be_sold = order_item.articles.order(created_at: :desc)
 
       # Return article 
-      item[:quantity_return].times do |n| 
+      item[:quantity_return].to_i.times do |n| 
         articles_be_sold[n].beReturn
       end
-
-      total_amount += order_item.return_calculate_after_return(item[:quantity_return].to_i)
+      if ( item[:quantity_return].to_i == order_item.quantity )
+        order_item.destroy
+      else
+        order_item.return_calculate_after_return(item[:quantity_return].to_i)
+      end
       
     end
 
-    @order.update_attributes(total_amount: total_amount.round(2))
+    total_amount = @order.total_amount
+    customer_paid = @order.customer_paid
+    new_total_amount = @order.order_items.sum(:amount)
+    @paid_return_user = 0 
+
+    if new_total_amount < @order.customer_paid
+      @paid_return_user = @order.customer_paid - new_total_amount
+      customer_paid = new_total_amount
+    end
+    
+
+    @order.update_attributes(total_amount: new_total_amount.round(2), customer_paid: customer_paid)
     @order.set_fully_paid
-    head :ok
+    
+    render 'orders/return_order'
   end
 
   def destroy 
@@ -90,10 +104,6 @@ class OrdersController < ApplicationController
   end
 
   private 
-
-  def order_params
-    params.require(:order).permit(:customer_id)
-  end
 
   def set_order 
     @order = Order.find_by_id(params[:id])

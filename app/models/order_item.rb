@@ -13,6 +13,5 @@ class OrderItem < ApplicationRecord
     self.amount = (self.amount / self.quantity ) * ( quantity - quantity_return )
     self.quantity = self.quantity - quantity_return
     self.save
-    amount
   end
 end
