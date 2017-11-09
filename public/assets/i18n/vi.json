@@ -83,7 +83,7 @@
     "THead": {
       "Name": "Tên sản phẩm",
       "Code": "Mã sản phẩm",
-      "Category": "Thể loại",
+      "Unit": "Đơn vị",
       "DefaultImportedPrice": "Giá nhập mặc định",
       "DefaultSalePrice": "Giá bán mặc định"
     },

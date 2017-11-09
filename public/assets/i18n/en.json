@@ -83,7 +83,7 @@
     "THead": {
       "Name": "Name",
       "Code": "Code",
-      "Category": "Category",
+      "Unit": "Unit",
       "DefaultImportedPrice": "Default imported price",
       "DefaultSalePrice": " Default sale price"
     },
