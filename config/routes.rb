@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :update]
     get 'search-orders', to: 'orders#search'
     put 'return-order/:id', to: 'orders#return_order'
+    post 'quote-price', to: 'orders#quote'
     resources :customers
     resources :products
     resources :orders

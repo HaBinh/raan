@@ -103,6 +103,10 @@ class OrdersController < ApplicationController
     render 'orders/search'
   end
 
+  def quote
+    OrderMailer.quote_price(params[:email], params[:code_html]).deliver_now
+  end
+
   private 
 
   def set_order 

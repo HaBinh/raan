@@ -8,6 +8,6 @@ class OrderMailer < ApplicationMailer
   def quote_price(email, code_html)
     @email = email 
     @html = code_html
-    mail to: "to@example.org"
+    mail to: email
   end
 end
