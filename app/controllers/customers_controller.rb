@@ -15,12 +15,13 @@ class CustomersController < ApplicationController
   end
 
   def show
-
+    
   end
 
   def update
-    @customer.update_attributes(customer_params)
-    head :ok
+    # byebug
+    Customer.find_by_id(params[:id]).update_attributes(name: params[:name], email: params[:email], phone: params[:phone], address: params[:address], level: params[:level])
+    render json: {customer: Customer.find_by_id(params[:id])}
   end
 
   def destroy 
@@ -62,6 +63,6 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-      params.permit(:name, :email, :phone, :address)
+      params.permit(:name, :email, :phone, :address, :level)
     end
 end

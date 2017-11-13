@@ -1,1 +1,1 @@
-json.extract! customer, :id, :name, :email, :phone, :address
+json.extract! customer, :id, :name, :email, :phone, :address, :level

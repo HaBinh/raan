@@ -26,16 +26,19 @@ User.create(email: 'admin@admin.com',
             password: "staff123",
             password_confirmation: "staff123")
 end
+
 50.times do |n|
   name =  Faker::Name.name
   email = Faker::Internet.email
   phone = Faker::PhoneNumber.phone_number
   address = Faker::Address.city
+  level = prng.rand(0..6)
   Customer.create!(
     name: name,
     email: email,
     phone: phone,
-    address: address
+    address: address,
+    level: level
     )
 end
 
@@ -266,12 +269,22 @@ product9.articles.create!(
 end
 
 
-rates = [0, 0.02, 0.05, 0.1, 0.2, 0.5]
+rates = [0, 0.02, 0.05, 0.1, 0.2,0.3, 0.5]
 
 rates.each do |rate|
   DiscountedRate.create!(
     rate: rate
   )
+end
+product_rates = [0.01,0.02,0.03,0.05,0.08,0.1,0.12,0.15,0.18,0.2,0.22,0.25,0.3,0.4,0.5]
+11.times do |n|
+    discountRates = product_rates.sample(6)
+    discountRates.push(0).sort!.each do |rate|
+      ProductDiscountedRate.create!(
+        rate: rate,
+        product_id: Product.ids[n]
+      )
+    end
 end
 # order 1
 order1=Order.create!(
