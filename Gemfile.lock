@@ -38,6 +38,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     airborne (0.2.13)
       activesupport
       rack
@@ -55,6 +57,8 @@ GEM
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
     concurrent-ruby (1.0.5-java)
+    css_parser (1.6.0)
+      addressable
     database_cleaner (1.6.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -93,6 +97,7 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
+    htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.6)
@@ -140,6 +145,14 @@ GEM
     pg (0.21.0)
     pg (0.21.0-x64-mingw32)
     pg (0.21.0-x86-mingw32)
+    premailer (1.11.0)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.9.7)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
+    public_suffix (3.0.1)
     puma (3.10.0)
     puma (3.10.0-java)
     rack (2.0.3)
@@ -290,6 +303,7 @@ DEPENDENCIES
   oj
   omniauth
   pg (~> 0.18)
+  premailer-rails
   puma (~> 3.7)
   rack-cors
   rack-rewrite
