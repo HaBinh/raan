@@ -88,7 +88,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
      address:              'smtp.gmail.com',
      port:                 465,
-     domain:               'gmail.com',
+     domain:               'raan-thuan-api.herokuapp.com',
      user_name:            'vkh@novahub.vn',
      password:             'RaanDemo',
      authentication:       'plain',
