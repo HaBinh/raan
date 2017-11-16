@@ -113,6 +113,7 @@ RSpec.describe 'Products API', type: :request do
     it 'return status code 200' do 
       expect_status 200
     end
+
   end
 
 
