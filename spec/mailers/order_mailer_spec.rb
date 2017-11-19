@@ -11,7 +11,7 @@ RSpec.describe OrderMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Quote price")
       expect(mail.to).to eq([email])
-      expect(mail.from).to eq(["noreplay@example.com"])
+      expect(mail.from).to eq(["vkh@novahub.vn"])
     end
 
     it "renders the body" do

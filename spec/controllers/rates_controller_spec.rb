@@ -23,17 +23,17 @@ RSpec.describe RatesController,:type => :controller do
       expect_status(200)
     end
   end 
-  describe 'POST create'  do 
-    render_views 
-    fixtures :discounted_rates 
-    it 'return correct types' do
-      request.headers.merge! user_auth_headers
-      body = { 'rate' => '0.23' } 
-      post :create, params: body, :format => :json
-      expect_status(200)
-      expect_json_types('rate',  rate: :float)
-    end
-  end
+  # describe 'POST create'  do 
+  #   render_views 
+  #   fixtures :discounted_rates 
+  #   xit 'return correct types' do
+  #     request.headers.merge! user_auth_headers
+  #     body = { 'rate' => '0.23' } 
+  #     post :create, params: body, :format => :json
+  #     expect_status(200)
+  #     expect_json_types('rate',  rate: :float)
+  #   end
+  # end
 end 
 RSpec.describe 'Rates API', type: :request do
     let!(:discounted_rates) { create_list(:discounted_rate, 10) }
@@ -57,11 +57,11 @@ RSpec.describe 'Rates API', type: :request do
       end
     end
   
-    describe 'DELETE /api/rates/:id' do
-      before { 
-        delete "/api/rates/#{discounted_rate_id}.json", params: {}, headers: user_auth_headers }
-      it 'return status code 200' do 
-        expect_status 200
-      end
-    end
+    # describe 'DELETE /api/rates/:id' do
+    #   before { 
+    #     delete "/api/rates/#{discounted_rate_id}.json", params: {}, headers: user_auth_headers }
+    #   xit 'return status code 200' do 
+    #     expect_status 200
+    #   end
+    # end
 end

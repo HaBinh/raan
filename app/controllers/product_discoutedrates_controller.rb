@@ -9,6 +9,7 @@ class ProductDiscoutedratesController < ApplicationController
     end
 
     def update
+        # byebug
         @discoutedRates.update_attributes(rate_params)
         render json: {discoutedRates: @discoutedRates}
     end

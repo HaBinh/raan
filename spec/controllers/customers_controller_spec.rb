@@ -107,7 +107,7 @@ RSpec.describe 'Customers API', type: :request do
       }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(response.body).not_to be_empty
       end
 
       it 'return status code 200' do 
