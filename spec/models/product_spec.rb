@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   describe 'Associations' do 
     it { should have_many(:articles) }
+    it { should have_many(:product_discounted_rates) }
   end
     
   describe 'Validates' do 

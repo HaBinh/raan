@@ -129,7 +129,7 @@ RSpec.describe 'Orders API', type: :request do
 
     describe 'with customer paid < -1' do
       before { 
-        post "/orders", params: paid_am1, headers: user_auth_headers 
+        post "/api/orders", params: paid_am1, headers: user_auth_headers 
       }
       
       it 'return status 422' do 
@@ -143,7 +143,7 @@ RSpec.describe 'Orders API', type: :request do
 
     describe 'with quantity <= 0' do 
       before { 
-        post "/orders", params: quantity_less_than_0, headers: user_auth_headers 
+        post "/api/orders", params: quantity_less_than_0, headers: user_auth_headers 
       }
       
       it 'return status 422' do 
@@ -158,7 +158,7 @@ RSpec.describe 'Orders API', type: :request do
       before { 
         @before_order_count = Order.count
         @before_order_item  = OrderItem.count
-        post "/orders", params: valid_params, headers: user_auth_headers 
+        post "/api/orders", params: valid_params, headers: user_auth_headers 
       }
       
       it 'return status 201' do 
@@ -185,7 +185,7 @@ RSpec.describe 'Orders API', type: :request do
       before { 
         @before_order_count = Order.count
         @before_order_item  = OrderItem.count
-        post "/orders", params: unvalid_params, headers: user_auth_headers 
+        post "/api/orders", params: unvalid_params, headers: user_auth_headers 
       }
 
       it 'return status 422' do 
@@ -204,7 +204,7 @@ RSpec.describe 'Orders API', type: :request do
     describe 'with new customer' do 
       before {
         @before_customer_count
-        post "/orders", params: new_customer_params, headers: user_auth_headers 
+        post "/api/orders", params: new_customer_params, headers: user_auth_headers 
       }
 
       it 'Should create new customer' do 
@@ -229,7 +229,7 @@ RSpec.describe 'Orders API', type: :request do
 
     describe 'with not fully paid params' do 
       before {
-        post "/orders", params: not_fully_paid_params, headers: user_auth_headers 
+        post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
       }
 
       it 'should return correct types' do 
@@ -247,7 +247,7 @@ RSpec.describe 'Orders API', type: :request do
 
   end
 
-  describe 'GET /orders' do 
+  describe 'GET /api/orders' do 
 
     let(:valid_params) { { 
         order: { 
@@ -265,8 +265,8 @@ RSpec.describe 'Orders API', type: :request do
       } 
     }
     before { 
-      post "/orders", params: valid_params, headers: user_auth_headers 
-      get "/orders.json", params: {}, headers: user_auth_headers }
+      post "/api/orders", params: valid_params, headers: user_auth_headers 
+      get "/api/orders.json", params: {}, headers: user_auth_headers }
 
     it 'return status 200' do 
       expect_status 200 
@@ -277,7 +277,7 @@ RSpec.describe 'Orders API', type: :request do
     end
   end
 
-  describe 'GET /orders/:id' do 
+  describe 'GET /api/orders/:id' do 
     let(:valid_params) { { 
         order: { 
           customer_id: customer_id,  
@@ -294,9 +294,9 @@ RSpec.describe 'Orders API', type: :request do
       } 
     }
     before { 
-      post "/orders", params: valid_params, headers: user_auth_headers 
+      post "/api/orders", params: valid_params, headers: user_auth_headers 
       order_id = Order.last.id
-      get "/orders/#{order_id}.json", params: {}, headers: user_auth_headers
+      get "/api/orders/#{order_id}.json", params: {}, headers: user_auth_headers
     }
 
     it 'return status 200' do 
@@ -349,7 +349,7 @@ RSpec.describe 'Orders API', type: :request do
     end
   end
 
-  describe 'PUT /orders/:id ( pay debt )' do 
+  describe 'PUT /api/orders/:id ( pay debt )' do 
     let(:not_fully_paid_params) { { 
       order: { 
         customer_id: customer_id,  
@@ -367,9 +367,9 @@ RSpec.describe 'Orders API', type: :request do
     }
 
     before {
-      post "/orders", params: not_fully_paid_params, headers: user_auth_headers 
+      post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
       order_id = Order.last.id 
-      put "/orders/#{order_id}.json", params: { payment: payment }, headers: user_auth_headers 
+      put "/api/orders/#{order_id}.json", params: { payment: payment }, headers: user_auth_headers 
     }
 
     it 'should return correct types' do 
@@ -385,5 +385,154 @@ RSpec.describe 'Orders API', type: :request do
                            fully_paid: false, 
                            total_amount: total_amount)
     end
+  end
+
+  describe 'Test return order ' do 
+    context ' with fully paid ' do 
+      let(:quantity) { 3 }
+      let(:quantity_return) { 1 }
+      let(:not_fully_paid_params) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: price_sale * quantity
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+        } 
+      }
+
+      let(:order_item_id) { 1 }
+      
+      before {
+        post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
+        order_id = Order.last.id 
+        order_item_id = Order.last.order_items.first.id 
+        return_params =  {
+              order_items: [
+                {
+                  id: order_item_id,
+                  quantity_return: quantity_return
+                }
+              ]
+            }
+        put "/api/return-order/#{order_id}.json", params: return_params, headers: user_auth_headers
+      }
+
+      it 'should return correct data' do 
+        expect_json('order', total_amount: price_sale * (quantity - quantity_return),
+                            paid_return_user: price_sale * quantity_return )
+      end
+    end
+
+    context 'with user debt and return product but still in debt :))' do 
+      let(:quantity) { 3 }
+      let(:quantity_return) { 1 }
+      let(:not_fully_paid_params) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: 1
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+        } 
+      }
+
+      let(:order_item_id) { 1 }
+      
+      before {
+        post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
+        order_id = Order.last.id 
+        order_item_id = Order.last.order_items.first.id 
+        return_params =  {
+              order_items: [
+                {
+                  id: order_item_id,
+                  quantity_return: quantity_return
+                }
+              ]
+            }
+        put "/api/return-order/#{order_id}.json", params: return_params, headers: user_auth_headers
+      }
+
+      it 'should return correct data' do 
+        expect_json('order', total_amount: price_sale * (quantity - quantity_return),
+                            paid_return_user: 0,
+                            debt: price_sale * (quantity - quantity_return) - 1 )
+      end
+    end
+
+    context 'with user buy one product and return that one ' do 
+      let(:quantity) { 1 }
+      let(:quantity_return) { 1 }
+      let(:not_fully_paid_params) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: price_sale * quantity 
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+        } 
+      }
+
+      let(:order_item_id) { 1 }
+      
+      before {
+        post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
+        order_id = Order.last.id 
+        order_item_id = Order.last.order_items.first.id 
+        return_params =  {
+              order_items: [
+                {
+                  id: order_item_id,
+                  quantity_return: quantity_return
+                }
+              ]
+            }
+        put "/api/return-order/#{order_id}.json", params: return_params, headers: user_auth_headers
+      }
+
+      it 'should return correct data' do 
+        expect_json('order', total_amount: 0,
+                            paid_return_user: price_sale * quantity,
+                            debt: 0 )
+      end
+
+      it 'order has no order items' do 
+        expect(Order.last.order_items.count).to equal(0)
+      end
+    end
+  end
+
+
+  describe 'cannot find order' do 
+    before {
+      get "/api/orders/#{1}", headers: user_auth_headers
+    }
+
+    it 'should return 404' do
+      expect_status 404
+    end
+
+    it 'should return correct message' do
+      expect_json('message', 'Not found')
+    end 
   end
 end

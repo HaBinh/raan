@@ -15,7 +15,7 @@ RSpec.describe ProductsController, :type => :controller do
       get :index, :format => :json
       expect_json_types(products: :array)
       expect_json_types('products.*', name: :string, code: :string, 
-                                       category: :string, default_imported_price: :float,
+                                       unit: :string, default_imported_price: :float,
                                        default_sale_price: :float)
       # byebug
     end
@@ -35,7 +35,7 @@ RSpec.describe ProductsController, :type => :controller do
       request.headers.merge! user_auth_headers
       get :show, params: { id: product_id}, :format => :json
       expect_json_types('product',  name: :string, code: :string, 
-                                       category: :string, default_imported_price: :float,
+                                       unit: :string, default_imported_price: :float,
                                        default_sale_price: :float)
       expect_status(200)
     end
@@ -52,12 +52,12 @@ RSpec.describe ProductsController, :type => :controller do
     fixtures :products 
     it 'return correct types' do
       request.headers.merge! user_auth_headers
-      body = { 'name' => 'iphone', :code => '123456789', :category => 'red', :default_imported_price => 1001,
+      body = { 'name' => 'iphone', :code => '123456789', :unit => 'red', :default_imported_price => 1001,
                                    :default_sale_price => 1000 } 
       post :create, params: body, :format => :json
       expect_status(201)
       expect_json_types('product',  name: :string, code: :string, 
-                                    category: :string, default_imported_price: :float,
+                                    unit: :string, default_imported_price: :float,
                                     default_sale_price: :float)
 end
   end
@@ -70,9 +70,9 @@ RSpec.describe 'Products API', type: :request do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  describe 'GET /products/:id ' do 
+  describe 'GET /api/products/:id ' do 
     before { 
-      get "/products/#{product_id}.json", params: {}, headers: user_auth_headers 
+      get "/api/products/#{product_id}.json", params: {}, headers: user_auth_headers 
     }
 
     context 'when the record not exists ' do
@@ -88,12 +88,12 @@ RSpec.describe 'Products API', type: :request do
     end
   end
 
-  describe 'PUT /products/:id ' do
+  describe 'PUT /api/products/:id ' do
     let(:valid_attributes) { { name: 'iphone' }}
 
     context 'when the record exists' do 
       before { 
-        put "/products/#{product_id}", params: valid_attributes, headers: user_auth_headers  }
+        put "/api/products/#{product_id}", params: valid_attributes, headers: user_auth_headers  }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -105,14 +105,15 @@ RSpec.describe 'Products API', type: :request do
     end
   end
 
-  describe 'DELETE /products/:id' do
+  describe 'DELETE /api/products/:id' do
     before { 
-      delete "/products/#{product_id}", params: {}, headers: user_auth_headers 
+      delete "/api/products/#{product_id}", params: {}, headers: user_auth_headers 
     }
 
     it 'return status code 200' do 
       expect_status 200
     end
+
   end
 
 

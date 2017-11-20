@@ -21,7 +21,7 @@
     "No": "Order No.",
     "address": "Địa chỉ",
     "amount": "Tiền",
-    "category": "Thể loại",
+    "unit": "Đơn vị",
     "createdAt": "Thời gian tạo",
     "customer": "Khách hàng",
     "code": "Mã sản phẩm",
@@ -30,29 +30,40 @@
     "debt": "Nợ",
     "discount": "Giảm giá",
     "discountedRate": "Tỷ giá chiết khấu",
+    "discountedPrice": "Giá bán",
     "email": "Email",
+    "level": "Mức chiết khấu",
     "importedDate": "Ngày nhập",
     "importedPrice": "Giá nhập",
     "name": "Tên",
-    "normalPrice": "Giá bán",
+    "normalPrice": "Giá hãng",
+    "pay": "Thanh toán",
     "payDebt": "Trả nợ",
     "phone": "Điện thoại",
     "productCode": "Code hàng hóa",
     "productName": "Tên hàng hóa",
     "products": "Các hàng hóa",
     "quantity": "Số lượng",
-    "salePrice": "Giá bán",
+    "salePrice": "Thành tiền",
     "status": "Trạng thái",
     "sold": "Đã bán",
     "total": "Toàn bộ",
     "totalAmount": "Tổng cộng",
     "totalDebt": "Tổng nợ",
+    "unit": "Đơn vị",
     "unitPrice": "Đơn giá",
-    "user": "Người dùng"
+    "user": "Người dùng",
+    "passwordConfirmation": "Xác nhận mật khẩu",
+    "password": "Mật khẩu",
+    "role": "Vai trò"
   },
   "newOrder": {
     "title": "Các đơn hàng",
     "smallTitle": "Tạo đơn hàng",
+    "quot": "In báo giá",
+    "quotEmail": "Gửi báo giá",
+    "quotEmailTitle": "Gửi báo giá qua Email",
+    "sendTo": "Gửi tới: ",
     "newCustomer": {
       "title": "Khách hàng",
       "placeHolder": "Tìm khách hàng",
@@ -61,10 +72,11 @@
     },
     "product": {
       "title": "Tìm sản phẩm",
-      "placeHolder": "Nhập thông tin của sản phẩm ... ",
+      "placeHolder": "Nhập tên hoặc mã của sản phẩm",
       "titleTable": "Các sản phẩm đang trong đơn hàng",
       "grandTotal": "Tổng cộng",
-      "pay": "Số tiền khách hàng trả"
+      "pay": "Số tiền thanh toán",
+      "debt": "Số tiền nợ lại"
     }
   },
 
@@ -80,7 +92,7 @@
     "THead": {
       "Name": "Tên sản phẩm",
       "Code": "Mã sản phẩm",
-      "Category": "Thể loại",
+      "Unit": "Đơn vị",
       "DefaultImportedPrice": "Giá nhập mặc định",
       "DefaultSalePrice": "Giá bán mặc định"
     },
@@ -118,7 +130,8 @@
 		"createOrder": "Tạo đơn hàng",
 		"ordersHistory": "Lịch sử đơn hàng",
 		"customers": "Khách hàng",
-		"discountedRate": "Tỷ suất chiết khấu"
+    "discountedRate": "Tỷ suất chiết khấu",
+    "user-management": "Quản lý nhân viên"
   },
 
   "store": {
@@ -140,7 +153,7 @@
     "title2": "Lịch sử nhập kho"
   },
   "rate": {
-		"title": "Tỷ suất chiết khấu",
+		"title": "Tỷ suất chiết khấu mặc định",
 		"smallTitle": "Danh sách",
 		"createBtn": "Tạo tỷ lệ mới",
 		"cancelBtn": "Hủy bỏ",
@@ -155,8 +168,27 @@
 		"logout": "Đăng xuất"
   },
   "login": {
-    "instruction": "Nhập thông tài khoản của bạn",
+    "instruction": "Nhập thông tin tài khoản của bạn",
     "remember": "Ghi nhớ tôi",
     "login": "Login"
+  },
+  "errorMessage": {
+    "email": "Email không chính xác",
+    "matched": "Mật khẩu xác nhận không khớp",
+    "required": "Phần nhập bắt buộc"
+  },
+  "user-management": {
+    "title": "Quản lý nhân viên",
+    "small-title": "Danh sách",
+    "instruc1": "Bạn đã tạo mới thành công: ",
+    "instruc2": "Ghi nhớ lại! ",
+    "instruc3": "Vì ghi chú này sẽ bị xóa.",
+    "modal-title": "Tạo người dùng mới",
+    "modal-update-title": "Cập nhật thông tin",
+    "manager": "Quản lý",
+    "staff": "Nhân viên"
+  },
+  "modal": {
+    "update-btn": "Cập nhật"
   }
 }
