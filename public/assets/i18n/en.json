@@ -21,7 +21,7 @@
     "No": "Order No.",
     "address": "Address",
     "amount": "Amount",
-    "category": "Category",
+    "unit": "Unit",
     "createdAt": "Created at",
     "customer": "Customer",
     "code": "Code",
@@ -30,11 +30,14 @@
     "debt": "Debt",
     "discount": "Discount",
     "discountedRate": "Discounted Rate",
+    "discountedPrice": "Discounted Price",
     "email": "Email",
+    "level": "Discount Level",
     "importedDate": "Imported Date",
     "importedPrice": "Imported Price",
     "name": "Name",
     "normalPrice": "Normal Price",
+    "pay": "Pay",
     "payDebt": "Pay debt",
     "phone": "Phone",
     "productCode": "Product Code",
@@ -47,12 +50,20 @@
     "total": "Total",
     "totalAmount": "Total Amount",
     "totalDebt": "Total Debt",
+    "unit": "Unit",
     "unitPrice": "Unit Price",
-    "user": "User"
+    "user": "User",
+    "passwordConfirmation": "Password Confirmation",
+    "password": "Password",
+    "role": "Role"
   },
   "newOrder": {
     "title": "Orders",
     "smallTitle": "New order",
+    "quot": "Print quotation",
+    "quotEmail": "Send to Email",
+    "quotEmailTitle": "Send Quot to Email",
+    "sendTo": "Send to: ",
     "newCustomer": {
       "title": "Customer",
       "placeHolder": "Find an existing customer",
@@ -61,10 +72,11 @@
     },
     "product": {
       "title": "Search Product",
-      "placeHolder": "Type product's info...",
+      "placeHolder": "Type product's name or code",
       "titleTable": "Products in order",
       "grandTotal": "Grand total",
-      "pay": "Pay"
+      "pay": "Pay",
+      "debt": "Debt"
     }
   },
 
@@ -80,7 +92,7 @@
     "THead": {
       "Name": "Name",
       "Code": "Code",
-      "Category": "Category",
+      "Unit": "Unit",
       "DefaultImportedPrice": "Default imported price",
       "DefaultSalePrice": " Default sale price"
     },
@@ -118,7 +130,8 @@
 		"createOrder": "Create Order",
 		"ordersHistory": "Orders History",
 		"customers": "Customers",
-		"discountedRate": "Discounted Rate"
+    "discountedRate": "Discounted Rate",
+    "user-management": "Users Management"
   },
 
   "store": {
@@ -140,7 +153,7 @@
     "title2": "History Import Storage"
   },
   "rate": {
-		"title": "Discounted Rate",
+		"title": "Discounted Rate Default",
 		"smallTitle": "List",
 		"createBtn": "Create new discounted rate",
 		"cancelBtn": "Cancel",
@@ -158,5 +171,24 @@
     "instruction": "Please Enter Your Information",
     "remember": "Remember me",
     "login": "Login"
+  },
+  "errorMessage": {
+    "email": "Email not correct",
+    "matched": "password confirmation doesn't match",
+    "required": "This field is required"
+  },
+  "user-management": {
+    "title": "Users Management",
+    "small-title": "List",
+    "instruc1": "You succeed to create new user with: ",
+    "instruc2": "Remember it!.",
+    "instruc3": " This note will not be longer.",
+    "modal-title": "Create New User",
+    "modal-update-title": "Update User",
+    "manager": "Manager",
+    "staff": "Staff"
+  },
+  "modal": {
+    "update-btn": "Update"
   }
 }

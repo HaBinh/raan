@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :update, :destroy]
   
   def index
-    @customers = Customer.all
+    @customers = Customer.all.where(active: true)
   end
 
   def create
@@ -15,16 +15,17 @@ class CustomersController < ApplicationController
   end
 
   def show
-
+    
   end
 
   def update
-    @customer.update_attributes(customer_params)
-    head :ok
+    # byebug
+    Customer.find_by_id(params[:id]).update_attributes(name: params[:name], email: params[:email], phone: params[:phone], address: params[:address], level: params[:level])
+    render json: {customer: Customer.find_by_id(params[:id])}
   end
 
   def destroy 
-    @customer.destroy 
+    @customer.deactive
     head :ok
   end
 
@@ -32,10 +33,9 @@ class CustomersController < ApplicationController
     # sql = "SELECT customer_id, id as order_id, name, phone, customer_paid
     #        FROM orders LEFT JOIN customers ON customers.id = orders.customer_id WHERE orders.fully_paid=false"
     # customers = Order.connection.select_all(sql).to_a 
-    # customers.each do |customer|
-      
+    # customers.each do |customer|     
     # end
-    # byebug
+  
     @customers_in_debt = Array.new
     customers = Customer.all 
     customers.each do |customer| 
@@ -63,6 +63,6 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-      params.permit(:name, :email, :phone, :address)
+      params.permit(:name, :email, :phone, :address, :level)
     end
 end

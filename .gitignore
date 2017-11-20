@@ -15,7 +15,11 @@
 
 .byebug_history
 config/database.yml
-db/schema.rb
 .idea
 coverage
 Gemfile.lock
+/node_modules
+
+
+# Ignore application configuration
+/config/application.yml

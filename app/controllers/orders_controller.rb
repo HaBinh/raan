@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders = Order.all
+    @orders = Order.all.order(created_at: :desc)
   end
 
   def create
@@ -58,16 +58,56 @@ class OrdersController < ApplicationController
     render 'orders/order'
   end
 
+  def return_order
+    order_items = @order.order_items
+    params[:order_items].each do |item|
+      order_item = OrderItem.find_by_id(item[:id])
+      articles_be_sold = order_item.articles.order(created_at: :desc)
+
+      # Return article 
+      item[:quantity_return].to_i.times do |n| 
+        articles_be_sold[n].beReturn
+      end
+      if ( item[:quantity_return].to_i == order_item.quantity )
+        order_item.destroy
+      else
+        order_item.return_calculate_after_return(item[:quantity_return].to_i)
+      end
+      
+    end
+
+    total_amount = @order.total_amount
+    customer_paid = @order.customer_paid
+    new_total_amount = @order.order_items.sum(:amount)
+    @paid_return_user = 0 
+
+    if new_total_amount < @order.customer_paid
+      @paid_return_user = @order.customer_paid - new_total_amount
+      customer_paid = new_total_amount
+    end
+    
+
+    @order.update_attributes(total_amount: new_total_amount.round(2), customer_paid: customer_paid)
+    @order.set_fully_paid
+    
+    render 'orders/return_order'
+  end
+
   def destroy 
     @order.destroy 
     head :ok
   end
 
-  private 
-
-  def order_params
-    params.require(:order).permit(:customer_id)
+  def search
+    @orders = Order.all.order(created_at: :desc)
+    render 'orders/search'
   end
+
+  def quote
+    OrderMailer.quote_price(params[:email], params[:code_html]).deliver_now
+  end
+
+  private 
 
   def set_order 
     @order = Order.find_by_id(params[:id])

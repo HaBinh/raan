@@ -70,44 +70,50 @@ RSpec.describe 'Customers API', type: :request do
   let(:user) { create(:user) }
   let(:user_auth_headers) { user.create_new_auth_token }
 
-  describe 'GET /customers' do
+  describe 'GET /api/customers' do
     before { 
-      post "/customers.json", params: {}, headers: user_auth_headers 
+      get "/api/customers.json", params: {}, headers: user_auth_headers 
     }
 
-    it 'return status 422' do 
-      expect_status 422
+    it 'return status 200' do 
+      expect_status 200
+      expect(response.body).not_to be_empty
+      expect(response.body).to match(/customer/)
+      # expect(response.body.size).to eq(1252)match
     end
   end
 
-  describe 'GET /customers/:id ' do 
+  describe 'GET /api/customers/:id ' do 
     before { 
-      get "/customers/#{customer_id}.json", params: {}, headers: user_auth_headers
+      get "/api/customers/#{customer_id}.json", params: {}, headers: user_auth_headers
     }
 
-    context 'when the record not exists ' do
-      let(:customer_id) { 100 }
-
-      it 'returns status code 404' do
-        expect_status 404
+    context 'when the record exists ' do
+      # let(:customer_id) { 100 }
+      it 'returns status code 200' do
+        expect_status 200
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Not found/)
+        expect(response.body).to match(/customer/)
       end
     end
   end
 
-  describe 'PUT /customers/:id ' do
+  describe 'PUT /api/customers/:id ' do
     let(:valid_attributes) { { name: 'Thuan' }}
 
     context 'when the record exists' do 
       before { 
-        put "/customers/#{customer_id}", params: valid_attributes, headers: user_auth_headers 
+        put "/api/customers/#{customer_id}", params: valid_attributes, headers: user_auth_headers 
       }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(response.body).not_to be_empty
+      end
+
+      it 'updates the record body' do
+        expect(response.body).to match(/customer/)
       end
 
       it 'return status code 200' do 
@@ -116,11 +122,12 @@ RSpec.describe 'Customers API', type: :request do
     end
   end
 
-  describe 'DELETE /customers/:id' do
+  describe 'DELETE /api/customers/:id' do
     
     before { 
-      delete "/customers/#{customer_id}", params: {}, headers: user_auth_headers 
+      delete "/api/customers/#{customer_id}", params: {}, headers: user_auth_headers 
     }
+
     it 'returns a not found message' do
       expect(response.body).to match(//)
     end
@@ -130,7 +137,7 @@ RSpec.describe 'Customers API', type: :request do
     end
   end
 
-  describe 'GET /customers_in_debt.json' do
+  describe 'GET /api/customers_in_debt.json' do
     let(:customer_NOT_fully_paid) { 1 }
     let!(:product) { create(:product) }
     let(:product_id) { product.id }
@@ -154,9 +161,9 @@ RSpec.describe 'Customers API', type: :request do
     }
 
     before {
-      post "/orders", params: not_fully_paid_params, headers: user_auth_headers 
+      post "/api/orders", params: not_fully_paid_params, headers: user_auth_headers 
       # order_id = Order.last.id
-      get "/customers_in_debt.json", params: {}, headers: user_auth_headers
+      get "/api/customers_in_debt.json", params: {}, headers: user_auth_headers
       # byebug
     }
 

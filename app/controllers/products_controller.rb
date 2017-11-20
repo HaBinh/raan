@@ -2,7 +2,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @products = Product.all
+    @product = Product.all
+    if !current_user.isManager
+         @product.each do |p|
+          p.default_imported_price = 0
+        end
+      end
+    @products=@product
   end
 
   def create
@@ -37,6 +43,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.permit(:name, :code, :category, :default_imported_price, :default_sale_price)
+      params.permit(:name, :code, :unit, :default_imported_price, :default_sale_price)
     end
 end

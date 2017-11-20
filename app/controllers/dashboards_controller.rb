@@ -14,7 +14,6 @@ class DashboardsController < ApplicationController
                 FROM (SELECT generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d 
                 left join orders on date_trunc('month', created_at) = d.month group by d.month order by d.month"
         @total_amount = Order.connection.select_all(sql2).to_a
-        # render( json: {total_amount: @total_amount})
         @result << {total_amount: @total_amount}
 
         @profit = Array.new
