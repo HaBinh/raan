@@ -56,6 +56,7 @@ RSpec.describe 'Articles API', type: :request do
       it 'return status 201' do 
         expect_status 201
       end
+      
     end
 
     describe 'POST /api/articles for staff ' do

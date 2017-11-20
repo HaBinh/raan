@@ -72,11 +72,14 @@ RSpec.describe 'Customers API', type: :request do
 
   describe 'GET /api/customers' do
     before { 
-      post "/api/customers.json", params: {}, headers: user_auth_headers 
+      get "/api/customers.json", params: {}, headers: user_auth_headers 
     }
 
-    it 'return status 422' do 
-      expect_status 422
+    it 'return status 200' do 
+      expect_status 200
+      expect(response.body).not_to be_empty
+      expect(response.body).to match(/customer/)
+      # expect(response.body.size).to eq(1252)match
     end
   end
 
@@ -85,15 +88,14 @@ RSpec.describe 'Customers API', type: :request do
       get "/api/customers/#{customer_id}.json", params: {}, headers: user_auth_headers
     }
 
-    context 'when the record not exists ' do
-      let(:customer_id) { 100 }
-
-      it 'returns status code 404' do
-        expect_status 404
+    context 'when the record exists ' do
+      # let(:customer_id) { 100 }
+      it 'returns status code 200' do
+        expect_status 200
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Not found/)
+        expect(response.body).to match(/customer/)
       end
     end
   end
@@ -110,6 +112,10 @@ RSpec.describe 'Customers API', type: :request do
         expect(response.body).not_to be_empty
       end
 
+      it 'updates the record body' do
+        expect(response.body).to match(/customer/)
+      end
+
       it 'return status code 200' do 
         expect_status 200
       end
@@ -121,6 +127,7 @@ RSpec.describe 'Customers API', type: :request do
     before { 
       delete "/api/customers/#{customer_id}", params: {}, headers: user_auth_headers 
     }
+
     it 'returns a not found message' do
       expect(response.body).to match(//)
     end

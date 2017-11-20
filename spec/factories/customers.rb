@@ -5,5 +5,6 @@ FactoryGirl.define do
     phone { '01234213232'}
     address { Faker::Address.city }
     level { 0 }
+    active { 'true'}
   end
 end

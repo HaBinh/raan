@@ -5,7 +5,6 @@ class CreateCustomers < ActiveRecord::Migration[5.1]
       t.string :email
       t.string :phone
       t.string :address
-      t.integer :level
       t.timestamps
     end
   end
