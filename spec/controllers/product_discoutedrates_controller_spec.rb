@@ -37,12 +37,4 @@ RSpec.describe 'ProductDiscoutedrates API', type: :request do
         end
       end
     end
-  
-    # describe 'DELETE /api/rates/:id' do
-    #   before { 
-    #     delete "/api/rates/#{discounted_rate_id}.json", params: {}, headers: user_auth_headers }
-    #   xit 'return status code 200' do 
-    #     expect_status 200
-    #   end
-    # end
 end
