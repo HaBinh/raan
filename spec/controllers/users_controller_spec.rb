@@ -39,4 +39,24 @@ RSpec.describe 'User API', type: :request do
         end
     end
 
+    let(:new_user_params) { {
+        email: 'thuan274@gmail.com',
+        name: 'thuan',
+        password: 'thuan274',
+        password_confirmation: 'thuan274'
+    }}
+
+    describe 'test add new user' do 
+       before {
+           post '/api/auth.json', params: new_user_params, headers: admin_auth_headers
+       } 
+
+        it 'should add new user' do 
+            new_user = User.last
+            expect(new_user.name).to eq('thuan')
+        end
+    end
+
+    
+
 end
