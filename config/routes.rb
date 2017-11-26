@@ -2,10 +2,11 @@ Rails.application.routes.draw do
 
   scope '/api' do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-      registrations: 'user/registrations'
+      registrations: 'user/registrations',
+      sessions: 'user/sessions'
     }
     
-    resources :users, only: [:index, :update]
+    resources :users, only: [:index, :update, :destroy]
     get 'search-orders', to: 'orders#search'
     put 'return-order/:id', to: 'orders#return_order'
     post 'quote-price', to: 'orders#quote'

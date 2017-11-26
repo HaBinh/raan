@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
-  before_action :only_manager, only: [:index, :update]
+  before_action :only_manager, only: [:index, :update, :destroy]
   before_action :users_params, only: [:update]
-  before_action :set_user, only: [:update]
+  before_action :set_user, only: [:update, :destroy]
   
   def index
     @users = User.all
@@ -11,6 +11,11 @@ class UsersController < ApplicationController
   def update
     @user.update_attributes(users_params)
     render json: { data: @user } 
+  end
+
+  def destroy
+    @user.update_attributes(active: false)
+    head :ok
   end
 
   private 

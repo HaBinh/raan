@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
   def isManager
     self.role === 'manager'
   end
+
+  def isActive
+  	self.active
+  end
 end
