@@ -131,7 +131,8 @@
 		"ordersHistory": "Orders History",
 		"customers": "Customers",
     "discountedRate": "Discounted Rate",
-    "user-management": "Users Management"
+    "user-management": "Users Management",
+    "return-invoice": "Return invoice"
   },
 
   "store": {
@@ -189,6 +190,16 @@
     "staff": "Staff"
   },
   "modal": {
-    "update-btn": "Update"
+    "update-btn": "Update",
+    "confirm_remove_account": "Are you sure want to remove this account?"
+  },
+  "return-order": {
+    "title": "Return invoice",
+    "title-search": "Search Order",
+    "placeholder": "Type order no or customer",
+    "alert": "Return invoice successful: <br> Order no. {{ id }} <br> Total Amount: {{ total_amount }} <br> <strong> Refunds to customer: {{ paid_return_user }} <br> </strong> <strong> Debt: {{ debt }} <br> </strong>"
+  },
+  "button": {
+    "create": "Create"
   }
 }
