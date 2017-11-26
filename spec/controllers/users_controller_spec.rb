@@ -57,6 +57,16 @@ RSpec.describe 'User API', type: :request do
         end
     end
 
+    describe 'test remove or reactive user' do 
+        before {
+            delete "/api/users/#{user.id}.json", params: {}, headers: admin_auth_headers
+        }
+
+        it 'should change active user' do 
+            expect(User.first.active).to be(false)
+        end
+    end
+
     
 
 end

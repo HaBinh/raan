@@ -11,4 +11,9 @@ class User < ActiveRecord::Base
   def isActive
   	self.active
   end
+
+  def toggle_active
+    self.active = !self.active 
+    self.save
+  end
 end

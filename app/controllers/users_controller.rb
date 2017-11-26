@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.update_attributes(active: false)
+    @user.toggle_active
     head :ok
   end
 
