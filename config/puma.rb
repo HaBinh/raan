@@ -9,7 +9,7 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'production'
 
 # daemonize
-daemonize true
+daemonize false
 
 # Store the pid of the server in the file at "path".
 #

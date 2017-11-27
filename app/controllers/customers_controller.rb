@@ -25,8 +25,13 @@ class CustomersController < ApplicationController
   end
 
   def destroy 
-    @customer.deactive
-    head :ok
+    if @customer.orders.count > 0 
+      @customer.deactive
+      render json: { permanently_delete: false, status: @customer.active }
+    else
+      @customer.destroy
+      render json: { permanently_delete: true }
+    end
   end
 
   def get_in_debt 
