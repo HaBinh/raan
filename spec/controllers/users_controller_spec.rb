@@ -67,6 +67,23 @@ RSpec.describe 'User API', type: :request do
         end
     end
 
+    let(:valid_update_params) {{
+      name: 'thuan274',
+      role: 'manager'
+    }}
+
+    describe 'test update info user' do 
+      before {
+        put "/api/users/#{user.id}.json", params: valid_update_params, headers: admin_auth_headers
+      }
+
+      it 'should update success new info to user' do 
+        user = User.first 
+        expect(user.name).to eq("thuan274")
+        expect(user.isManager).to be(true)
+      end
+    end
+
     
 
 end
