@@ -5,7 +5,7 @@ namespace :custom do
     on roles(:docker) do |host|
       execute "cp #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/"
       puts "================Starting Docker setup===================="
-      execute "cd #{deploy_to}/current && docker stop raan_web && docker rm raan_web && docker rmi raan_web && docker-compose up"
+      execute "cd #{deploy_to}/current && rake db:migrate && bundle exec pumactl -P tmp/pids/puma.pid stop && bundle exec pumactl -P tmp/pids/puma.pid start"
     end
   end
 end
