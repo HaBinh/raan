@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :update, :destroy]
   
   def index
-    @customers = Customer.all.where(active: true)
+    @customers = Customer.all
   end
 
   def create
@@ -26,7 +26,7 @@ class CustomersController < ApplicationController
 
   def destroy 
     if @customer.orders.count > 0 
-      @customer.deactive
+      @customer.toggle_active
       render json: { permanently_delete: false, status: @customer.active }
     else
       @customer.destroy
