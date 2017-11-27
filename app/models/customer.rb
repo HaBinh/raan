@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
   # validates :email, presence: false, length: { maximum: 255 },
   #                   format:     { with: VALID_EMAIL_REGEX }
   validates :phone, length: { maximum: 50 }
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   def deactive
     update_attributes(active: false)

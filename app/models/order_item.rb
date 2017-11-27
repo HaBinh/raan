@@ -1,6 +1,6 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
-  has_many :articles
+  has_many :articles, dependent: :destroy
   validates :quantity, numericality: { greater_than: 0 }
   validates :discounted_rate, numericality: { greater_than: -1 }
   
