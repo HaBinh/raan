@@ -39,4 +39,51 @@ RSpec.describe 'User API', type: :request do
         end
     end
 
+    let(:new_user_params) { {
+        email: 'thuan274@gmail.com',
+        name: 'thuan',
+        password: 'thuan274',
+        password_confirmation: 'thuan274'
+    }}
+
+    describe 'test add new user' do 
+       before {
+           post '/api/auth.json', params: new_user_params, headers: admin_auth_headers
+       } 
+
+        it 'should add new user' do 
+            new_user = User.last
+            expect(new_user.name).to eq('thuan')
+        end
+    end
+
+    describe 'test remove or reactive user' do 
+        before {
+            delete "/api/users/#{user.id}.json", params: {}, headers: admin_auth_headers
+        }
+
+        it 'should change active user' do 
+            expect(User.first.active).to be(false)
+        end
+    end
+
+    let(:valid_update_params) {{
+      name: 'thuan274',
+      role: 'manager'
+    }}
+
+    describe 'test update info user' do 
+      before {
+        put "/api/users/#{user.id}.json", params: valid_update_params, headers: admin_auth_headers
+      }
+
+      it 'should update success new info to user' do 
+        user = User.first 
+        expect(user.name).to eq("thuan274")
+        expect(user.isManager).to be(true)
+      end
+    end
+
+    
+
 end

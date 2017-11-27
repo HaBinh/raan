@@ -17,7 +17,6 @@
 config/database.yml
 .idea
 coverage
-Gemfile.lock
 /node_modules
 
 
