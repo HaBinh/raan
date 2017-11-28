@@ -6,16 +6,7 @@ preload_app!
 
 rackup      DefaultRackup
 port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'production'
-
-# daemonize
-daemonize true
-
-# Store the pid of the server in the file at "path".
-#
-pidfile '/home/raan/apps/raan/shared/pids/puma.pid'
-
-
+environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
   # Worker specific setup for Rails 4.1+
