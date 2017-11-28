@@ -191,7 +191,9 @@
   },
   "modal": {
     "update-btn": "Update",
-    "confirm_remove_account": "Are you sure want to remove this account?"
+    "confirm_remove_account": "Are you sure want to remove this account?",
+    "confirm_remove_product":"Are you sure you want to delete this product?",
+    "confirm_remove_history":"Are you sure you want to delete this history?"
   },
   "return-order": {
     "title": "Return invoice",
@@ -200,6 +202,14 @@
     "alert": "Return invoice successful: <br> Order no. {{ id }} <br> Total Amount: {{ total_amount }} <br> <strong> Refunds to customer: {{ paid_return_user }} <br> </strong> <strong> Debt: {{ debt }} <br> </strong>"
   },
   "button": {
-    "create": "Create"
+    "cancel-btn": "Cancel",
+    "create": "Create",
+    "delete": "Delete"
+  },
+  "tooltip": {
+    "edit": "Edit",
+    "reactive": "Reactive",
+    "delete": "Delete",
+    "rate": "Discounted Rate"
   }
 }
