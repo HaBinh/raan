@@ -6,39 +6,42 @@ class ArticlesController < ApplicationController
         
         if current_user.isManager
           Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-            @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
-            @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
-            @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
-            unless @store.nil?
-              if @sold > 0
-                @store.product.unit = false
-                @store.product.name = @sold
-              else 
-                @store.product.unit = true
-                @store.product.name = 0
+          if  Article.where(product_id: a[0][0], imported_price: a[0][1]).first.product.active === true
+              @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
+              @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
+              @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
+              unless @store.nil?
+                if @sold > 0
+                  @store.product.unit = false
+                  @store.product.name = @sold
+                else 
+                  @store.product.unit = true
+                  @store.product.name = 0
+                end
+                @store.status = @quantity
+                @articles << @store
+                @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
               end
-              @store.status = @quantity
-              @articles << @store
-              @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
             end
-          end
+          end    
         else
           Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-            @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).count
-            @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD, created_by: current_user.id).count
-            @store = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).order(:created_at).last
-            # byebug
-            unless @store.nil?            
-              if @sold > 0
-                @store.product.unit = false
-                @store.product.name = @sold
-              else 
-                @store.product.unit = true
-                @store.product.name = 0
+            if Article.where(product_id: a[0][0], imported_price: a[0][1]).first.product.active === true
+              @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).count
+              @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD, created_by: current_user.id).count
+              @store = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).order(:created_at).last
+              unless @store.nil?            
+                if @sold > 0
+                  @store.product.unit = false
+                  @store.product.name = @sold
+                else 
+                  @store.product.unit = true
+                  @store.product.name = 0
+                end
+                @store.status = @quantity          
+                @articles << @store
+                @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
               end
-              @store.status = @quantity          
-              @articles << @store
-              @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
             end
           end
         end

@@ -14,6 +14,12 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
+       DiscountedRate.all.sort { |x,y| x.rate <=> y.rate }.each do |a|
+        ProductDiscountedRate.create!(
+            rate: a.rate,
+            product_id:  @product.id
+          )
+      end
       render :show, status: :created, location: @product
     else
       render json: @product.errors, status: :unprocessable_entity
@@ -28,10 +34,16 @@ class ProductsController < ApplicationController
     @product.update_attributes(product_params)
     head :ok
   end
-
-  def destroy 
-    @product.destroy 
-    head :ok
+  
+  def destroy   
+    if Article.where(product_id: @product.id).count === 0
+      @product.destroy
+      render json: {message: 'deleted'}
+    else
+      @product.update_attributes(active: !@product.active)
+      render json: {message: 'inactive'}
+    end 
+    # head :ok
   end
 
   private 
