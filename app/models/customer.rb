@@ -7,7 +7,8 @@ class Customer < ApplicationRecord
   validates :phone, length: { maximum: 50 }
   has_many :orders, dependent: :destroy
 
-  def deactive
-    update_attributes(active: false)
+  def toggle_active
+    self.active = !self.active 
+    self.save
   end
 end
