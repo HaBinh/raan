@@ -191,7 +191,9 @@
   },
   "modal": {
     "update-btn": "Cập nhật",
-    "confirm_remove_account": "Bạn có chắc là muốn xóa tài khoản này không?"
+    "confirm_remove_account": "Bạn có chắc là muốn xóa tài khoản này không?",
+    "confirm_remove_product": "Bạn có chắc là muốn xóa sản phẩm này không?",
+    "confirm_remove_history": "Bạn có chắc là muốn xóa lịch sử sản phẩm này không?"
   },
   "return-order": {
     "title": "Trả hóa đơn",
@@ -200,6 +202,14 @@
     "alert": "Trả hóa đơn thành công: <br> Hóa đơn số. {{ id }} <br> Tổng tiền: {{ total_amount }} <br> <strong> Tiền trả lại cho khách hàng: {{ paid_return_user }} <br> </strong> <strong> Tiền nợ: {{ debt }} <br> </strong>"
   },
   "button": {
-    "create": "Tạo mới"
+    "cancel": "Hủy bỏ",
+    "create": "Tạo mới",
+    "delete": "Xóa"
+  },
+  "tooltip": {
+    "edit": "Chỉnh sửa",
+    "reactive": "Mở lại",
+    "delete": "Xóa",
+    "rate": "Tỉ xuất chiết khấu"
   }
 }
