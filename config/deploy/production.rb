@@ -1,7 +1,7 @@
 server 'vkh.novahub.vn', port: 22, roles: %w{docker}, primary: true
 
 namespace :custom do
-  task :setup_container do
+  task :setup_environment_then_start_server do
     on roles(:docker) do |host|
       execute "cp #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/"
       puts "================Load Ruby on Rails, migrate DB then start server===================="
