@@ -202,7 +202,7 @@
     "alert": "Trả hóa đơn thành công: <br> Hóa đơn số. {{ id }} <br> Tổng tiền: {{ total_amount }} <br> <strong> Tiền trả lại cho khách hàng: {{ paid_return_user }} <br> </strong> <strong> Tiền nợ: {{ debt }} <br> </strong>"
   },
   "button": {
-    "cancel": "Hủy bỏ",
+    "cancel-btn": "Hủy bỏ",
     "create": "Tạo mới",
     "delete": "Xóa"
   },
