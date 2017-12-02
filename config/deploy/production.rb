@@ -10,5 +10,5 @@ namespace :custom do
   end
 end
 
-after "deploy:finishing", "custom:setup_container"
+after "deploy:finishing", "custom:setup_environment_then_start_server"
       
