@@ -31,8 +31,16 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_attributes(product_params)
-    head :ok
+    @product.update_attributes(name: params[:name], code: params[:code], unit: params[:unit], 
+                               default_imported_price: params[:default_imported_price],
+                               default_sale_price: params[:default_sale_price])
+    @product.product_discounted_rates.delete_all
+    params[:rates].sort { |x,y| x <=> y }.each do |a|    
+        @product.product_discounted_rates.create!(
+          rate: a
+        )
+    end
+    render 'products/show.json.jbuilder'
   end
   
   def destroy   
@@ -57,7 +65,9 @@ class ProductsController < ApplicationController
     def product_params
       params.permit(:name, :code, :unit, :default_imported_price, :default_sale_price)
     end
+
     def rates_params
         return params[:rates].unshift(0)
     end
+    
 end
