@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @product = Product.all
+    @product = Product.where(active: true)
     if !current_user.isManager
          @product.each do |p|
           p.default_imported_price = 0
@@ -14,9 +14,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-       DiscountedRate.all.sort { |x,y| x.rate <=> y.rate }.each do |a|
+        @rate = rates_params
+        rates_params.sort { |x,y| x <=> y }.each do |a|    
         ProductDiscountedRate.create!(
-            rate: a.rate,
+            rate: a,
             product_id:  @product.id
           )
       end
@@ -56,5 +57,8 @@ class ProductsController < ApplicationController
 
     def product_params
       params.permit(:name, :code, :unit, :default_imported_price, :default_sale_price)
+    end
+    def rates_params
+        return params[:rates].unshift(0)
     end
 end
