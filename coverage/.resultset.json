@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/articles_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/articles_controller_spec.rb": [
         1,
         null,
         1,
@@ -172,7 +172,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/rails_helper.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/rails_helper.rb": [
         null,
         1,
         1,
@@ -231,8 +231,8 @@
         null,
         null,
         1,
-        112,
-        112,
+        119,
+        119,
         null,
         null,
         null,
@@ -267,14 +267,14 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/environment.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/application.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/application.rb": [
         1,
         null,
         1,
@@ -309,12 +309,12 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/boot.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/boot.rb": [
         1,
         null,
         1
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/spring.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/spring.rb": [
         null,
         null,
         null,
@@ -322,7 +322,7 @@
         null,
         5
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/environments/test.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/environments/test.rb": [
         1,
         null,
         null,
@@ -366,7 +366,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/application_controller_renderer.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/application_controller_renderer.rb": [
         null,
         null,
         null,
@@ -374,68 +374,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/backtrace_silencers.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/cors.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/devise_token_auth.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -444,16 +383,77 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/figaro.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/cors.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/filter_parameter_logging.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/devise_token_auth.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/figaro.rb": [
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/filter_parameter_logging.rb": [
         null,
         null,
         null,
         1
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/inflections.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -471,16 +471,16 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/mime_types.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/premailer_rails.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/premailer_rails.rb": [
         1
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/initializers/wrap_parameters.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -496,7 +496,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/articles.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/articles.rb": [
         1,
         1,
         1,
@@ -505,7 +505,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/customers.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/customers.rb": [
         1,
         1,
         145,
@@ -517,14 +517,14 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/discounted_rates.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/discounted_rates.rb": [
         1,
         1,
         23,
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/order.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/order.rb": [
         1,
         1,
         1,
@@ -533,7 +533,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/order_items.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/order_items.rb": [
         1,
         1,
         1,
@@ -542,7 +542,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/product_discounted_rates.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/product_discounted_rates.rb": [
         1,
         1,
         5,
@@ -551,7 +551,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/products.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/products.rb": [
         1,
         1,
         191,
@@ -562,20 +562,21 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/factories/users.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/factories/users.rb": [
         1,
         1,
-        102,
-        102,
-        102,
+        111,
+        111,
+        111,
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/config/routes.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/config/routes.rb": [
         1,
         null,
         1,
         1,
+        null,
         null,
         null,
         null,
@@ -599,7 +600,7 @@
         1,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/user.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/user.rb": [
         1,
         null,
         1,
@@ -607,16 +608,25 @@
         1,
         null,
         1,
-        11,
+        17,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/support/factory_girl.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/support/factory_girl.rb": [
         1,
         1,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/customers_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/customers_controller_spec.rb": [
         1,
         null,
         1,
@@ -797,7 +807,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/customers_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/customers_controller.rb": [
         1,
         1,
         null,
@@ -826,7 +836,12 @@
         null,
         1,
         2,
+        0,
+        0,
+        null,
         2,
+        2,
+        null,
         null,
         null,
         1,
@@ -867,7 +882,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/application_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/application_controller.rb": [
         1,
         1,
         1,
@@ -883,7 +898,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/dashboards_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/dashboards_controller_spec.rb": [
         1,
         null,
         1,
@@ -920,7 +935,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/dashboards_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/dashboards_controller.rb": [
         1,
         1,
         2,
@@ -969,7 +984,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/orders_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/orders_controller_spec.rb": [
         1,
         null,
         1,
@@ -1489,6 +1504,7 @@
         null,
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -1509,7 +1525,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/product_discoutedrates_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/product_discoutedrates_controller_spec.rb": [
         1,
         null,
         1,
@@ -1551,7 +1567,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/products_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/products_controller_spec.rb": [
         1,
         null,
         1,
@@ -1674,7 +1690,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/products_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/products_controller.rb": [
         1,
         1,
         null,
@@ -1691,6 +1707,12 @@
         1,
         1,
         1,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
         1,
         null,
         0,
@@ -1709,6 +1731,12 @@
         1,
         1,
         1,
+        1,
+        null,
+        0,
+        0,
+        null,
+        null,
         null,
         null,
         1,
@@ -1724,7 +1752,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/rates_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/rates_controller_spec.rb": [
         1,
         null,
         1,
@@ -1793,7 +1821,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/rates_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/rates_controller.rb": [
         1,
         null,
         1,
@@ -1826,7 +1854,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/stores_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/stores_controller_spec.rb": [
         1,
         null,
         1,
@@ -1861,14 +1889,14 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/controllers/users_controller_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/controllers/users_controller_spec.rb": [
         1,
         null,
         1,
-        3,
-        3,
+        6,
+        6,
         null,
-        3,
+        5,
         3,
         null,
         1,
@@ -1898,6 +1926,53 @@
         1,
         1,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         null,
@@ -1905,7 +1980,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/mailers/order_mailer_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/mailers/order_mailer_spec.rb": [
         1,
         null,
         1,
@@ -1929,7 +2004,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/mailers/order_mailer.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/mailers/order_mailer.rb": [
         1,
         null,
         null,
@@ -1944,13 +2019,13 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/mailers/application_mailer.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/mailers/application_mailer.rb": [
         1,
         1,
         1,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/article_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/article_spec.rb": [
         1,
         null,
         1,
@@ -1960,7 +2035,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/article.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/article.rb": [
         1,
         1,
         1,
@@ -1977,7 +2052,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/application_record.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/application_record.rb": [
         1,
         1,
         1,
@@ -1986,7 +2061,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/customer_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/customer_spec.rb": [
         1,
         null,
         1,
@@ -1994,7 +2069,7 @@
         2,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/customer.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/customer.rb": [
         1,
         null,
         1,
@@ -2004,27 +2079,28 @@
         1,
         1,
         null,
+        1,
+        0,
+        0,
+        null,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/discounted_rate_spec.rb": [
+        1,
+        null,
+        1,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/discounted_rate.rb": [
+        1,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/order_item_spec.rb": [
+        1,
+        null,
+        1,
         1,
         2,
-        null,
-        null
-      ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/discounted_rate_spec.rb": [
-        1,
-        null,
-        1,
-        null
-      ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/discounted_rate.rb": [
-        1,
-        null
-      ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/order_item_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        2,
         2,
         null,
         null,
@@ -2045,7 +2121,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/order_item.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/order_item.rb": [
         1,
         1,
         1,
@@ -2064,7 +2140,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/order_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/order_spec.rb": [
         1,
         null,
         1,
@@ -2089,7 +2165,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/order.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/order.rb": [
         1,
         30,
         1,
@@ -2121,9 +2197,14 @@
         null,
         2,
         null,
+        null,
+        1,
+        4,
+        4,
+        null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/product_discounted_rate_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/product_discounted_rate_spec.rb": [
         1,
         null,
         1,
@@ -2132,12 +2213,12 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/product_discounted_rate.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/product_discounted_rate.rb": [
         1,
         1,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/spec/models/product_spec.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/product_spec.rb": [
         1,
         null,
         1,
@@ -2178,7 +2259,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/models/product.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/models/product.rb": [
         1,
         1,
         1,
@@ -2187,7 +2268,34 @@
         1,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/articles_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/spec/models/user_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/articles_controller.rb": [
         1,
         1,
         1,
@@ -2196,6 +2304,7 @@
         null,
         4,
         2,
+        10,
         10,
         10,
         10,
@@ -2209,7 +2318,8 @@
         null,
         10,
         10,
-        36,
+        39,
+        null,
         null,
         null,
         null,
@@ -2217,7 +2327,7 @@
         10,
         10,
         10,
-        null,
+        10,
         10,
         4,
         2,
@@ -2229,6 +2339,7 @@
         4,
         4,
         6,
+        null,
         null,
         null,
         null,
@@ -2307,7 +2418,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/orders_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/orders_controller.rb": [
         1,
         1,
         null,
@@ -2396,7 +2507,8 @@
         3,
         null,
         null,
-        null,
+        4,
+        4,
         4,
         4,
         null,
@@ -2439,7 +2551,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/product_discoutedrates_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/product_discoutedrates_controller.rb": [
         1,
         1,
         1,
@@ -2467,7 +2579,8 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/stores_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/stores_controller.rb": [
+        1,
         1,
         1,
         1,
@@ -2482,6 +2595,7 @@
         1,
         1,
         1,
+        null,
         null,
         null,
         1,
@@ -2506,7 +2620,7 @@
         null,
         null
       ],
-      "/media/viethoc/New Volume/novastudio/Raan/besm/app/controllers/users_controller.rb": [
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/users_controller.rb": [
         1,
         null,
         1,
@@ -2518,28 +2632,64 @@
         null,
         null,
         1,
-        0,
-        0,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
         null,
         null,
         1,
         null,
         1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        4,
         2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        6,
+        2,
+        null,
+        null,
+        null
+      ],
+      "/home/binhthuan/Documents/novahub/esm/besm/app/controllers/user/registrations_controller.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1511688829
+    "timestamp": 1512353827
   }
 }

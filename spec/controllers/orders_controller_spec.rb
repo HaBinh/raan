@@ -517,6 +517,7 @@ RSpec.describe 'Orders API', type: :request do
 
       it 'order has no order items' do 
         expect(Order.last.order_items.count).to equal(0)
+        expect(Order.last.total_amount).to eq(0)
       end
     end
   end

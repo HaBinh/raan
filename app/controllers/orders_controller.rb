@@ -86,8 +86,9 @@ class OrdersController < ApplicationController
       customer_paid = new_total_amount
     end
     
-
-    @order.update_attributes(total_amount: new_total_amount.round(2), customer_paid: customer_paid)
+    @order.calculate_total_amount
+    @order.customer_paid =  customer_paid
+    @order.save
     @order.set_fully_paid
     
     render 'orders/return_order'
