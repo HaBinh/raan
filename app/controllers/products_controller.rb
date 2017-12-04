@@ -14,7 +14,6 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-        @rate = rates_params
         rates_params.sort { |x,y| x <=> y }.each do |a|    
         ProductDiscountedRate.create!(
             rate: a,
