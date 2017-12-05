@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @product = Product.all
+    @product = Product.where(active: true)
     if !current_user.isManager
          @product.each do |p|
           p.default_imported_price = 0
@@ -12,11 +12,12 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    # byebug
+    @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
     if @product.save
-       DiscountedRate.all.sort { |x,y| x.rate <=> y.rate }.each do |a|
+        rates_params.sort { |x,y| x <=> y }.each do |a|    
         ProductDiscountedRate.create!(
-            rate: a.rate,
+            rate: a,
             product_id:  @product.id
           )
       end
@@ -31,8 +32,16 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_attributes(product_params)
-    head :ok
+    @product.update_attributes(name: params[:name], code: params[:code], unit: params[:unit], 
+                               default_imported_price: params[:default_imported_price],
+                               default_sale_price: params[:default_sale_price])
+    @product.product_discounted_rates.delete_all
+    params[:rates].sort { |x,y| x <=> y }.each do |a|    
+        @product.product_discounted_rates.create!(
+          rate: a
+        )
+    end
+    render 'products/show.json.jbuilder'
   end
   
   def destroy   
@@ -54,7 +63,10 @@ class ProductsController < ApplicationController
       end
     end
 
-    def product_params
-      params.permit(:name, :code, :unit, :default_imported_price, :default_sale_price)
+    def rates_params
+        return params[:rates].each do |a|
+          a.to_f
+        end
     end
+    
 end
