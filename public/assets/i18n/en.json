@@ -155,7 +155,8 @@
   "storage": {
     "title": "Storage",
     "smallTitle": "List",
-    "title2": "History Import Storage"
+    "title2": "History Import Storage",
+    "search": "Search name or code product"
   },
   "rate": {
 		"title": "Discounted Rate Default",

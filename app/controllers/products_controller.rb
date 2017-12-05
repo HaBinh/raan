@@ -11,8 +11,12 @@ class ProductsController < ApplicationController
     @products=@product
   end
 
+  def addStorage
+    @products = Product.where(active: true)
+    render 'products/index.json.jbuilder'
+  end
+
   def create
-    # byebug
     @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
     if @product.save
         rates_params.sort { |x,y| x <=> y }.each do |a|    
