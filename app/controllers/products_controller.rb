@@ -12,7 +12,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    # byebug
+    @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
     if @product.save
         rates_params.sort { |x,y| x <=> y }.each do |a|    
         ProductDiscountedRate.create!(
@@ -62,12 +63,10 @@ class ProductsController < ApplicationController
       end
     end
 
-    def product_params
-      params.permit(:name, :code, :unit, :default_imported_price, :default_sale_price)
-    end
-
     def rates_params
-        return params[:rates].unshift(0)
+        return params[:rates].each do |a|
+          a.to_f
+        end
     end
     
 end
