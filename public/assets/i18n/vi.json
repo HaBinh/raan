@@ -30,6 +30,7 @@
     "debt": "Nợ",
     "discount": "Giảm giá",
     "discountedRate": "Tỷ giá chiết khấu",
+    "discountedRateShort": "Tỷ giá",
     "discountedPrice": "Giá bán",
     "email": "Email",
     "level": "Mức chiết khấu",
@@ -48,6 +49,7 @@
     "status": "Trạng thái",
     "sold": "Đã bán",
     "total": "Toàn bộ",
+    "level-discount": "Cấp độ",
     "totalAmount": "Tổng cộng",
     "totalDebt": "Tổng nợ",
     "unit": "Đơn vị",
@@ -97,6 +99,7 @@
       "DefaultSalePrice": "Giá bán mặc định"
     },
     "Modal": {
+      "title-update": "Cập nhật sản phẩm",
       "Title": "Tạo sản phẩm mới",
       "Cancel": "Hủy bỏ",
       "Create": "Tạo"
@@ -104,7 +107,8 @@
     "Header": {
       "Title": "Sản phẩm",
       "smallTitle": "Danh sách"
-    }
+    },
+    "header-discount-table": "Bảng chiết khấu"
   },
 
   "orderHistory": {
@@ -211,5 +215,19 @@
     "reactive": "Mở lại",
     "delete": "Xóa",
     "rate": "Tỉ xuất chiết khấu"
+  },
+  "message": {
+    "product": {
+      "add":  "Bạn vừa tạo thành công sản phẩm",
+      "edit-success": "Bạn vừa cập nhật thành công sản phẩm",
+      "delete": "Đã loại bỏ sản phẩm"
+    },
+    "new-order": {
+      "choose-customer": "Cần chọn khách hàng hoặc là tạo mới",
+      "created-order": "Đã tạo thành công đơn hàng",
+      "sent-mail": "Đã gửi mail thành công",
+      "sending-mail": "Đang gửi mail"
+    },
+    "pay-debt": "Đã thanh toán nợ"
   }
 }

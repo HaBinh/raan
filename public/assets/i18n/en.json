@@ -30,6 +30,7 @@
     "debt": "Debt",
     "discount": "Discount",
     "discountedRate": "Discounted Rate",
+    "discountedRateShort": "Discounted Rate",
     "discountedPrice": "Discounted Price",
     "email": "Email",
     "level": "Discount Level",
@@ -48,6 +49,7 @@
     "status": "Status",
     "sold": "Sold",
     "total": "Total",
+    "level-discount": "Level",
     "totalAmount": "Total Amount",
     "totalDebt": "Total Debt",
     "unit": "Unit",
@@ -97,6 +99,7 @@
       "DefaultSalePrice": " Default sale price"
     },
     "Modal": {
+      "title-update": "Update product",
       "Title": "Create new product",
       "Cancel": "Cancel",
       "Create": "Create Product"
@@ -104,7 +107,8 @@
     "Header": {
       "Title": "Products",
       "smallTitle": "List"
-    }
+    },
+    "header-discount-table": "Discount Table"
   },
 
   "orderHistory": {
@@ -211,5 +215,19 @@
     "reactive": "Reactive",
     "delete": "Delete",
     "rate": "Discounted Rate"
+  },
+  "message": {
+    "product": {
+      "add":  "You have successfully created your product",
+      "edit-success": "You have successfully updated your product",
+      "delete": "Have removed the product"
+    },
+    "new-order": {
+      "choose-customer": "Please select or add new customer",
+      "created-order": "Created order successful",
+      "sent-mail": "Have sent mail",
+      "sending-mail": "Sending mail"
+    },
+    "pay-debt": "Paid debt successful"
   }
 }
