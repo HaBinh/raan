@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post 'quote-price', to: 'orders#quote'
     resources :customers
     resources :products
+    get '/add_storage', to: 'products#addStorage'
     resources :orders
     resources :articles
     resources :stores

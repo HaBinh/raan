@@ -155,7 +155,8 @@
   "storage": {
     "title": "Kho hàng",
     "smallTitle": "Danh sách",
-    "title2": "Lịch sử nhập kho"
+    "title2": "Lịch sử nhập kho",
+    "search": "Tìm kiếm theo tên hoặc mã sản phẩm"
   },
   "rate": {
 		"title": "Tỷ suất chiết khấu mặc định",
