@@ -218,7 +218,11 @@
   },
   "message": {
     "product": {
+<<<<<<< HEAD
       "add": "Created",
+=======
+      "add":  "You have successfully created your product",
+>>>>>>> develop
       "edit-success": "You have successfully updated your product",
       "delete": "Have removed the product"
     },
