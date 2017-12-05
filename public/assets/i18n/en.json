@@ -218,7 +218,7 @@
   },
   "message": {
     "product": {
-      "add": "Created",
+      "add":  "You have successfully created your product",
       "edit-success": "You have successfully updated your product",
       "delete": "Have removed the product"
     },
