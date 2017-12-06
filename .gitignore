@@ -15,7 +15,7 @@
 
 .byebug_history
 config/database.yml
-.ideas
+.idea
 coverage
 /node_modules
 
