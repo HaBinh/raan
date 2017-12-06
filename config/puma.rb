@@ -13,7 +13,7 @@ daemonize true
 
 # Store the pid of the server in the file at "path".
 #
-pidfile '/home/raan/apps/raan/shared/pids/puma.pid'
+pidfile '~/apps/raan/shared/pids/puma.pid'
 
 
 
