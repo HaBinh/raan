@@ -1,3 +1,2 @@
-server 'vkh.novahub.vn', port: 22, roles: %w{deploy}, primary: true
-set :user, 'vkh'
+server 'vkh@vkh.novahub.vn', port: 22, roles: %w{deploy}, primary: true
 set :stage,  :production
