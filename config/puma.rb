@@ -5,7 +5,7 @@ threads threads_count, threads_count
 preload_app!
 
 rackup      DefaultRackup
-port        ENV['PORT']
+port        ENV['PORT']     || 3001
 environment ENV['RACK_ENV'] || 'production'
 
 # daemonize
