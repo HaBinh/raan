@@ -3,10 +3,18 @@ lock "~> 3.10.0"
 
 set :application, 'raan'
 set :repo_url, "git@bitbucket.org:novahub/besm.git"
-set :user, 'raan'
-set :ssh_options,     {user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-#set :linked_files, %w{config/database.yml config/secrets.yml .env}
 set :stages, ["staging", "production"]
-set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
+
+namespace :custom do
+  task :setup_environment_then_start_server do
+    on roles(:docker) do |host|
+      execute "cp #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/"
+      puts "================Load Ruby on Rails, migrate DB then start server===================="
+      execute "source ~/.bash_profile && cd #{deploy_to}/current && bundle exec rake db:migrate && bundle exec pumactl -F config/puma.rb restart"
+    end
+  end
+end
+
+after "deploy:finishing", "custom:setup_environment_then_start_server"
