@@ -195,6 +195,7 @@
     "staff": "Nhân viên"
   },
   "modal": {
+    "create-btn": "Tạo mới",
     "update-btn": "Cập nhật",
     "confirm_remove_account": "Bạn có chắc là muốn xóa tài khoản này không?",
     "confirm_remove_product": "Bạn có chắc là muốn xóa sản phẩm này không?",
