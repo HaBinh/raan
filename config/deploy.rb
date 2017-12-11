@@ -6,6 +6,7 @@ set :repo_url, "git@bitbucket.org:novahub/besm.git"
 set :stages, ["staging", "production"]
 set :deploy_via,      :remote_cache
 set :deploy_to,       "~/apps/#{fetch(:application)}"
+set :ssh_options, { :forward_agent => true }
 
 namespace :custom do
   task :setup_environment_then_start_server do
