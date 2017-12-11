@@ -195,6 +195,7 @@
     "staff": "Staff"
   },
   "modal": {
+    "create-btn": "Create Product",
     "update-btn": "Update",
     "confirm_remove_account": "Are you sure want to remove this account?",
     "confirm_remove_product":"Are you sure you want to delete this product?",
