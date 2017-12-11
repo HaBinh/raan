@@ -24,15 +24,14 @@ class StoresController < ApplicationController
     Product.where(active: true).each do |product|
       store = Object.new 
       quantity = product.articles.where(status: Status::EXIST).count
-      if quantity > 0 
-        class << store 
-          attr_accessor :product
-          attr_accessor :quantity
-        end
-        store.product = product
-        store.quantity = quantity
-        @stores << store
+      
+      class << store 
+        attr_accessor :product
+        attr_accessor :quantity
       end
+      store.product = product
+      store.quantity = quantity
+      @stores << store
     end
     render 'stores/get_products'
   end  
