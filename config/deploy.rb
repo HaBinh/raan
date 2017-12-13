@@ -12,6 +12,7 @@ namespace :custom do
   task :setup_environment_then_start_server do
     on roles(:deploy) do |host|
       execute "cp #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/"
+      execute "cp #{deploy_to}/shared/config/puma.rb #{deploy_to}/current/config/"
       puts "================Load Ruby on Rails, migrate DB then start server===================="
       execute "source ~/.bash_profile && cd #{deploy_to}/current && bundle exec rake db:migrate && bundle exec pumactl -F config/puma.rb restart"
     end
