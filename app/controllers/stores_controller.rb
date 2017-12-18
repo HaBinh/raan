@@ -20,19 +20,17 @@ class StoresController < ApplicationController
   end
 
   def get_products 
-    @stores = Array.new
-    Product.where(active: true).each do |product|
-      store = Object.new 
-      quantity = product.articles.where(status: Status::EXIST).count
-      
-      class << store 
-        attr_accessor :product
-        attr_accessor :quantity
-      end
-      store.product = product
-      store.quantity = quantity
-      @stores << store
-    end
+
+    # query = "select count(articles.id) as quantity, products.* from products inner join articles 
+    #           on products.id = articles.product_id
+    #           where products.active=true and articles.status='exist'
+    #           group by products.id"
+
+   
+
+    @results = Product.left_joins(:articles)
+                      .select("products.*, count(articles.id) as quantity")
+                      .group("products.id")
     render 'stores/get_products'
   end  
 end

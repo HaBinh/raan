@@ -25,7 +25,27 @@ class ProductsController < ApplicationController
   end
 
   def addStorage
-    @products = Product.where(active: true)
+     query = "SELECT products.*, rate FROM products INNER JOIN
+             product_discounted_rates on product_discounted_rates.product_id = products.id
+             WHERE products.active=true "
+
+    results = ActiveRecord::Base.connection.execute(query).to_a
+    results2 = results.group_by{ |i| i["id"]}
+    @products = Array.new
+    results2.each do |res| 
+      product_info = res.second.first
+      rates = res.second.group_by{ |i| i["rate"]}
+      rates = rates.map{ |k, v| k }
+      product = Object.new
+      class << product
+        attr_accessor :product
+        attr_accessor :rates
+      end
+      product.rates = rates 
+      product.product = product_info
+      @products << product
+    end
+
     render 'products/index.json.jbuilder'
   end
 
