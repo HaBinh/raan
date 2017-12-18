@@ -89,15 +89,15 @@
     default_sale_price: 99,
     created_at: '2017-08-03 09:29:13.77165'
   )
-
 @product10=Product.create!(
-    name: "Bluetooth AirPods Apple",
-    code: "MME-2450",
-    unit: "Pieces",
-    default_imported_price: 200,
-    default_sale_price: 222,
-    created_at: '2017-09-03 09:29:13.77165'
-  )
+      name: "Bluetooth AirPods Apple",
+      code: "MME-2450",
+      unit: "Pieces",
+      default_imported_price: 200,
+      default_sale_price: 222,
+      created_at: '2017-09-03 09:29:13.77165'
+    )
+
 # //discounted rate for product
 product_rates = [0.01,0.02,0.03,0.05,0.08,0.1,0.12,0.15,0.18,0.2,0.22,0.25,0.3,0.4,0.5]
 11.times do |n|
