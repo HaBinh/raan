@@ -19,18 +19,12 @@ class StoresController < ApplicationController
     @stores = @stores.sort { |x,y| y.created_at <=> x.created_at }
   end
 
-  def get_products 
-
-    # query = "select count(articles.id) as quantity, products.* from products inner join articles 
-    #           on products.id = articles.product_id
-    #           where products.active=true and articles.status='exist'
-    #           group by products.id"
-
-   
-
-    @results = Product.left_joins(:articles)
+  def get_products    
+    @results = Product.joins("left outer join( select * from articles where status='exist') as articles
+                                     ON articles.product_id = products.id")
                       .select("products.*, count(articles.id) as quantity")
                       .group("products.id")
+                      .order(:name)
     render 'stores/get_products'
   end  
 end
