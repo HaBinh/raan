@@ -1,4 +1,3 @@
-json.stores @stores.each do |store| 
-    json.partial! 'products/product', product: store.product
-    json.quantity store.quantity
+json.stores @results.each do |store| 
+    json.extract! store, :id, :name, :code, :default_sale_price, :quantity
 end

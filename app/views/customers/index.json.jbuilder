@@ -1,3 +1,3 @@
-json.customers do 
-  json.array! @customers, partial: 'customers/customer', as: :customer
+json.customers @customers.each do |customer| 
+  json.extract! customer, :id, :name, :email, :phone, :address, :level, :active
 end
