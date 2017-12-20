@@ -22,6 +22,8 @@ class ProductsController < ApplicationController
       product.product = product_info
       @products << product
     end
+
+    @products = @products.paginate(:page => params[:page], :per_page => 10)
   end
 
   def addStorage
