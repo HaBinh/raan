@@ -1,3 +1,4 @@
+json.total @total
 json.products @products.each do |product| 
   json.id product.product["id"]
   json.name product.product["name"]

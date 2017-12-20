@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   def index
     query = "SELECT products.*, rate FROM products INNER JOIN
              product_discounted_rates on product_discounted_rates.product_id = products.id
-             WHERE products.active=true "
+             WHERE products.active=true 
+             order by products.code"
 
     results = ActiveRecord::Base.connection.execute(query).to_a
     results2 = results.group_by{ |i| i["id"]}
@@ -22,8 +23,8 @@ class ProductsController < ApplicationController
       product.product = product_info
       @products << product
     end
-
-    @products = @products.paginate(:page => params[:page], :per_page => 10)
+    @total = @products.count
+    @products = @products.paginate(:page => params[:page], :per_page => 10) unless params[:page].nil?
   end
 
   def addStorage
