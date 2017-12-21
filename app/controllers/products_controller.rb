@@ -2,36 +2,22 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @ketqua = WillPaginate::Collection.create(params[:page], 10) do |pager|
-      result = ProductDiscountedRate.joins("inner join (select * from products 
-                  where active='true' 
-                  order by code 
-                  limit #{pager.per_page} offset #{pager.offset}) as products 
-                  ON product_discounted_rates.product_id = products.id")
-                 .select("products.*, rate")
-      pager.replace(result)
+    if params[:page]
+      WillPaginate::Collection.create(params[:page], 10) do |pager|
+        @ketqua = ProductDiscountedRate.joins("inner join (select * from products 
+                    where active='true' 
+                    order by code 
+                    limit #{pager.per_page} offset #{pager.offset}) as products 
+                    ON product_discounted_rates.product_id = products.id")
+                  .select("products.*, rate")
+      end
+    else 
+      @ketqua = ProductDiscountedRate.joins("inner join (select * from products 
+                    where active='true' 
+                    order by code ) as products 
+                    ON product_discounted_rates.product_id = products.id")
+                  .select("products.*, rate")
     end
-                      
-    # @photos = WillPaginate::Collection.create(current_page, per_page) do |pager|
-    #   result = @item.photos.find :all, 
-    #           :conditions => [ 'tags.id IN (?)', tag_ids] ,
-    #           :order => 'created_at DESC', 
-    #           :joins => :tags, 
-    #           :group => "photos.id HAVING COUNT(DISTINCT tags.id) = #{@tags.count}", 
-    #           :limit => pager.per_page, :offset => pager.offset
-    #   pager.replace(result)
-
-    #   unless pager.total_entries
-    #     pager.total_entries = @item.photos.find(:all, 
-    #     :conditions => [ 'tags.id IN (?)', tag_ids] ,
-    #     :order => 'created_at DESC', 
-    #     :joins => :tags, 
-    #     :group => "photos.id HAVING COUNT(DISTINCT tags.id) = #{@tags.count}").count
-    #   end
-    # end
-
-
-
     # results = ActiveRecord::Base.connection.execute(query).to_a
     results2 = @ketqua.group_by{ |i| i["id"]}
     @products = Array.new
@@ -48,8 +34,7 @@ class ProductsController < ApplicationController
       product.product = product_info
       @products << product
     end
-    @total = @products.count
-    @products = @products.paginate(:page => params[:page], :per_page => 10) unless params[:page].nil?
+    @total = Product.where(active: true).count
   end
 
   def addStorage
