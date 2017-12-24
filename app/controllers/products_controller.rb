@@ -2,23 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    if params[:page]
-      WillPaginate::Collection.create(params[:page], 10) do |pager|
-        @ketqua = ProductDiscountedRate.joins("inner join (select * from products 
-                    where active='true' 
-                    order by code 
-                    limit #{pager.per_page} offset #{pager.offset}) as products 
-                    ON product_discounted_rates.product_id = products.id")
-                  .select("products.*, rate")
-      end
-    else 
-      @ketqua = ProductDiscountedRate.joins("inner join (select * from products 
-                    where active='true' 
-                    order by code ) as products 
-                    ON product_discounted_rates.product_id = products.id")
-                  .select("products.*, rate")
-    end
-    # results = ActiveRecord::Base.connection.execute(query).to_a
+    @ketqua, @total = Product.get_pagination(params[:search], params[:page], params[:per_page])
     results2 = @ketqua.group_by{ |i| i["id"]}
     @products = Array.new
     results2.each do |res| 
@@ -34,7 +18,6 @@ class ProductsController < ApplicationController
       product.product = product_info
       @products << product
     end
-    @total = Product.where(active: true).count
   end
 
   def addStorage
