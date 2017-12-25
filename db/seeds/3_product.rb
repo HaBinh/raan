@@ -22,7 +22,7 @@
     name: "OPPO F7",
     code: "OSE-4367",
     unit: "Pieces",
-    default_imported_price: 345,
+    default_imported_price: 200,
     default_sale_price: 456,
     created_at: '2017-01-03 09:29:13.77165'
   )
@@ -90,22 +90,31 @@
     created_at: '2017-08-03 09:29:13.77165'
   )
 @product10=Product.create!(
-      name: "Bluetooth AirPods Apple",
-      code: "MME-2450",
-      unit: "Pieces",
-      default_imported_price: 200,
-      default_sale_price: 222,
-      created_at: '2017-09-03 09:29:13.77165'
-    )
+    name: "Bluetooth AirPods Apple",
+    code: "MME-2450",
+    unit: "Pieces",
+    default_imported_price: 200,
+    default_sale_price: 222,
+    created_at: '2017-09-03 09:29:13.77165'
+  )
 
+1000.times do |n| 
+  Product.create!(
+    name: "Product #{n}",
+    code: "#{n}",
+    unit: "Cai",
+    default_imported_price: n+1,
+    default_sale_price: n+100,
+  )
+end
 # //discounted rate for product
 product_rates = [0.01,0.02,0.03,0.05,0.08,0.1,0.12,0.15,0.18,0.2,0.22,0.25,0.3,0.4,0.5]
-11.times do |n|
+Product.all.each do |product| 
     discountRates = product_rates.sample(6)
     discountRates.push(0).sort!.each do |rate|
       ProductDiscountedRate.create!(
         rate: rate,
-        product_id: Product.ids[n]
+        product_id: product.id
       )
     end
 end

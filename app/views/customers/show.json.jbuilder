@@ -1,3 +1,3 @@
 json.customer do 
-  json.partial! "customers/customer", customer: @customer
+  json.extract! @customer, :id, :name, :email, :phone, :address, :level, :active
 end

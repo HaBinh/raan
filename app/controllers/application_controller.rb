@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class ApplicationController < ActionController::API
   respond_to :json
   include DeviseTokenAuth::Concerns::SetUserByToken
