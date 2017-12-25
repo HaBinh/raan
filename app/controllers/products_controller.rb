@@ -21,12 +21,8 @@ class ProductsController < ApplicationController
   end
 
   def addStorage
-     query = "SELECT products.*, rate FROM products INNER JOIN
-             product_discounted_rates on product_discounted_rates.product_id = products.id
-             WHERE products.active=true "
-
-    results = ActiveRecord::Base.connection.execute(query).to_a
-    results2 = results.group_by{ |i| i["id"]}
+    @ketqua, @total = Product.get_pagination(params[:search], params[:page], params[:per_page])
+    results2 = @ketqua.group_by{ |i| i["id"]}
     @products = Array.new
     results2.each do |res| 
       product_info = res.second.first
@@ -42,7 +38,7 @@ class ProductsController < ApplicationController
       @products << product
     end
 
-    render 'products/index.json.jbuilder'
+    render 'products/addStorage.json.jbuilder'
   end
 
   def create
