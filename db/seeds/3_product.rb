@@ -98,15 +98,15 @@
     created_at: '2017-09-03 09:29:13.77165'
   )
 
-1000.times do |n| 
-  Product.create!(
-    name: "Product #{n}",
-    code: "#{n}",
-    unit: "Cai",
-    default_imported_price: n+1,
-    default_sale_price: n+100,
-  )
-end
+# 1000.times do |n| 
+#   Product.create!(
+#     name: "Product #{n}",
+#     code: "#{n}",
+#     unit: "Cai",
+#     default_imported_price: n+1,
+#     default_sale_price: n+100,
+#   )
+# end
 # //discounted rate for product
 product_rates = [0.01,0.02,0.03,0.05,0.08,0.1,0.12,0.15,0.18,0.2,0.22,0.25,0.3,0.4,0.5]
 Product.all.each do |product| 
