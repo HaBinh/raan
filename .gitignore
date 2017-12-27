@@ -15,6 +15,7 @@
 
 .byebug_history
 config/database.yml
+config/puma.rb
 /.idea/*
 /coverage/*
 /node_modules
