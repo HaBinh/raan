@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
     if @product.save
-        rates_params.sort { |x,y| x <=> y }.each do |a|    
+        rates_params.each do |a|    
         ProductDiscountedRate.create!(
             rate: a,
             product_id:  @product.id
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
                                default_imported_price: params[:default_imported_price],
                                default_sale_price: params[:default_sale_price])
     @product.product_discounted_rates.delete_all
-    params[:rates].sort { |x,y| x <=> y }.each do |a|    
+    params[:rates].each do |a|    
         @product.product_discounted_rates.create!(
           rate: a
         )
