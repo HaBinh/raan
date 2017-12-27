@@ -5,5 +5,5 @@ json.products @products.each do |product|
   rates = product.rates 
   rate0 = [0] * (7 - rates.count) 
   rates = rate0 + rates 
-  json.rates rates.sort
+  json.rates rates
 end
