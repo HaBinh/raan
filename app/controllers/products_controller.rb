@@ -7,8 +7,7 @@ class ProductsController < ApplicationController
     @products = Array.new
     results2.each do |res| 
       product_info = res.second.first
-      rates = res.second.group_by{ |i| i["rate"]}
-      rates = rates.map{ |k, v| k }
+      rates = res.second.map{ |i| i["rate"]}
       product = Object.new
       class << product
         attr_accessor :product
@@ -26,8 +25,7 @@ class ProductsController < ApplicationController
     @products = Array.new
     results2.each do |res| 
       product_info = res.second.first
-      rates = res.second.group_by{ |i| i["rate"]}
-      rates = rates.map{ |k, v| k }
+      rates = res.second.map{ |i| i["rate"]}
       product = Object.new
       class << product
         attr_accessor :product
