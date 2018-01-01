@@ -2,7 +2,10 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders = Order.all.order(created_at: :desc)
+    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
+                   .select("orders.*, name, email, phone, address")
+                   .order("orders.created_at desc")
+    byebug
   end
 
   def create
