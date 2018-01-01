@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
     @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
                    .select("orders.*, name, email, phone, address")
                    .order("orders.created_at desc")
-    byebug
   end
 
   def create
@@ -58,7 +57,7 @@ class OrdersController < ApplicationController
 
   def update 
     @order.pay_debt(params[:payment].to_f)
-    render 'orders/order'
+    render 'orders/show.json.jbuilder'
   end
 
   def return_order
