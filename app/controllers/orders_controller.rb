@@ -102,7 +102,9 @@ class OrdersController < ApplicationController
   end
 
   def search
-    @orders = Order.all.order(created_at: :desc)
+    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
+                   .select("orders.id as id, orders.created_at as created_at, name, email, phone, address")
+                   .order("orders.created_at")
     render 'orders/search'
   end
 
