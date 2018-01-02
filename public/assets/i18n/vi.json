@@ -242,6 +242,10 @@
       "max-length-error": "Độ dài không được quá {{value}} ký tự",
       "min-length-error": "Độ dài phải nhiều hơn {{value}} ký tự"
     },
+    "return-order": {
+      "quantity-return": "Chỉ có thểm giảm số lượng sản phẩm",
+      "return-success": "Trả hóa đơn thành công"
+    },
     "import": "Số lượng bằng 0, không có gì được nhập"
   }
 }

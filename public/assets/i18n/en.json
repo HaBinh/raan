@@ -242,6 +242,10 @@
       "max-length-error": "Must be shorter than {{value}}",
       "min-length-error": "Must be longer than {{value}}"
     },
+    "return-order": {
+      "quantity-return": "Can only reduce number of products",
+      "return-success": "Return order successful"
+    },
     "import": "Quantity is 0, nothing is imported"
   }
 }
