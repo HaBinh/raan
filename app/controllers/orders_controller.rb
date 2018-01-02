@@ -2,7 +2,9 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders = Order.all.order(created_at: :desc)
+    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
+                   .select("orders.*, name, email, phone, address")
+                   .order("orders.created_at desc")
   end
 
   def create
@@ -55,7 +57,7 @@ class OrdersController < ApplicationController
 
   def update 
     @order.pay_debt(params[:payment].to_f)
-    render 'orders/order'
+    render 'orders/show.json.jbuilder'
   end
 
   def return_order
@@ -100,7 +102,9 @@ class OrdersController < ApplicationController
   end
 
   def search
-    @orders = Order.all.order(created_at: :desc)
+    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
+                   .select("orders.id as id, orders.created_at as created_at, name, email, phone, address")
+                   .order("orders.created_at")
     render 'orders/search'
   end
 
