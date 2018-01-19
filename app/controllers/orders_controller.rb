@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
         if articles.count < item[:quantity].to_i 
-          render_not_enough and return
+          render_not_enough( product, articles.count ) and return
         end
         if item[:quantity].to_i <= 0 
           render_quantity_greater_than0 and return 
@@ -121,8 +121,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  def render_not_enough 
-    render( json: { message: 'Not enough quantity' }, status: :unprocessable_entity )    
+  def render_not_enough(product, quantity)
+    render( json: { message: "#{product.name} chỉ có #{quantity} sản phẩm trong kho" }, status: :unprocessable_entity )    
   end
 
   def render_quantity_greater_than0
