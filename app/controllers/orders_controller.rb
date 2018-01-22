@@ -122,7 +122,7 @@ class OrdersController < ApplicationController
   end
 
   def render_not_enough(product, quantity)
-    render( json: { message: "#{product.name} chỉ có #{quantity} sản phẩm trong kho" }, status: :unprocessable_entity )    
+    render( json: { error_info: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
   end
 
   def render_quantity_greater_than0
