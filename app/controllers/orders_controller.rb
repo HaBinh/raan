@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
         if articles.count < item[:quantity].to_i 
-          render_not_enough and return
+          render_not_enough( product, articles.count ) and return
         end
         if item[:quantity].to_i <= 0 
           render_quantity_greater_than0 and return 
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
       end
     end
     
-    @order.update_attributes(total_amount: total_amount.round(2))
+    @order.update_attributes(total_amount: total_amount.round(-2))
     @order.set_fully_paid
     render json: { order: @order }, status: :created
   end
@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
 
     total_amount = @order.total_amount
     customer_paid = @order.customer_paid
-    new_total_amount = @order.order_items.sum(:amount)
+    new_total_amount = @order.order_items.sum(:amount).round(-2)
     @paid_return_user = 0 
 
     if new_total_amount < @order.customer_paid
@@ -121,8 +121,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  def render_not_enough 
-    render( json: { message: 'Not enough quantity' }, status: :unprocessable_entity )    
+  def render_not_enough(product, quantity)
+    render( json: { error_info: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
   end
 
   def render_quantity_greater_than0
