@@ -1,92 +1,60 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
       def index
-        @articles = Array.new
-        @exists  = Array.new
-        
-        if current_user.isManager
-          Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-          if  Article.where(product_id: a[0][0], imported_price: a[0][1]).first.product.active === true
-              @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1]).count
-              @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD).count
-              @store = Article.where(product_id: a[0][0], imported_price: a[0][1]).order(:created_at).last
-              unless @store.nil?
-                if @sold > 0
-                  @store.product.unit = false
-                  @store.product.name = @sold
-                else 
-                  @store.product.unit = true
-                  @store.product.name = 0
-                end
-                @store.status = @quantity
-                @articles << @store
-                @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
-              end
-            end
-          end    
-        else
-          Article.group(:product_id, :imported_price).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-            if Article.where(product_id: a[0][0], imported_price: a[0][1]).first.product.active === true
-              @quantity = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).count
-              @sold = Article.where(product_id: a[0][0], imported_price: a[0][1], status: Status::SOLD, created_by: current_user.id).count
-              @store = Article.where(product_id: a[0][0], imported_price: a[0][1], created_by: current_user.id).order(:created_at).last
-              unless @store.nil?            
-                if @sold > 0
-                  @store.product.unit = false
-                  @store.product.name = @sold
-                else 
-                  @store.product.unit = true
-                  @store.product.name = 0
-                end
-                @store.status = @quantity          
-                @articles << @store
-                @articles = @articles.sort { |x,y| y.created_at <=> x.created_at }
-              end
-            end
+        @article, @total1 = Article.get_pagination(params[:search], params[:page], params[:per_page])
+        @article.each do |a|
+          if a["sold"].nil?
+            a["sold"] = 0
           end
         end
+        if !current_user.isManager
+            @article.map { |a| a["imported_price"] = 0 }
+        end
+        @articles = @article
+        @total = @total1
       end
 
       def create
         params.permit(:status, :imported_price, :product_id)
+        time = Time.now
         for i in (1..params[:quantity].to_i)
           @article = Article.new(article_params)
           @article.created_by = current_user.id
+          @article.created_at = time
           @article.save
         end
         if @article.save
-          @article.id = params[:quantity].to_i
-          @article.status = @article.created_at.strftime("%A, %d/%m/%Y")
-          render json: { article: @article }, status: :created
+          render 'articles/create.json.jbuilder'
         end
       end
 
       def update
-        @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old])
-        @sold =  Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: Status::SOLD).count  
+        @article = Article.where(created_at: params[:created_at])
+        @sold =  Article.where(created_at: params[:created_at], status: Status::SOLD).count  
         if @sold === 0
           if @article.count < params[:new_quantity].to_i      
             for i in (1..params[:new_quantity].to_i - @article.count)
-              @article = Article.new(article_params)
-              @article.save    
+              article = Article.new(article_params)
+              article.created_at = @article.first.created_at
+              article.save    
             end  
-            Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
+            Article.where(created_at: params[:created_at]).update_all(imported_price: params[:imported_price])
             render json: { message: 'updated'}, status: :updated
           else
-          
             @article.limit(@article.count - params[:new_quantity].to_i).destroy_all
-            Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).update_all(imported_price: params[:imported_price])
+            Article.where(created_at: params[:created_at]).update_all(imported_price: params[:imported_price])
             render json: { message: 'updated'}, status: :updated
           end
         else
           if params[:new_quantity].to_i > @sold 
-            if params[:new_quantity].to_i >= Article.where(product_id: params[:product_id], imported_price: params[:imported_price_old]).count
+            if params[:new_quantity].to_i >= @article.count
               for i in (1..params[:new_quantity].to_i - @article.count)
-                @article = Article.new(article_params)
-                @article.save
+                article = Article.new(article_params)
+                article.created_at = @article.first.created_at
+                article.save    
               end
             else
-              Article.where(product_id:params[:product_id], imported_price: params[:imported_price_old], status: "t").limit(@article.count - params[:new_quantity].to_i).destroy_all
+              Article.where(created_at: params[:created_at]).limit(@article.count - params[:new_quantity].to_i).destroy_all
             end
           end
         end
@@ -98,7 +66,7 @@ class ArticlesController < ApplicationController
       end
 
       def destroy 
-        @article = Article.where(product_id: params[:product_id], imported_price: params[:imported_price])
+        @article = Article.where(created_at: params[:created_at])
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else

@@ -1,3 +1,10 @@
-json.articles do 
-  json.array! @articles, partial: 'articles/article', as: :article
-end
+json.total @total
+json.articles @articles.each do |article|
+	  json.id article["id"]
+	  json.code article["code"]
+	  json.name article["name"]
+	  json.imported_price article["imported_price"]
+	  json.quantity article["quantity"]
+	  json.sold article["sold"]
+	  json.created_at article["time"]
+	end
