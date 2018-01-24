@@ -11,4 +11,24 @@ class Customer < ApplicationRecord
     self.active = !self.active 
     self.save
   end
+
+  def self.get_pagination(page, per_page, search_text)
+    if search_text 
+      search_text = "%#{search_text}%"
+      khachhang = Customer.where("active = true and (name LIKE '#{search_text}' or
+                                  phone LIKE '#{search_text}' or address LIKE '#{search_text}'
+                                  or email LIKE '#{search_text}')")
+                          .paginate(:page => page, :per_page => per_page)
+      total = Customer.where("active = true and (name LIKE '#{search_text}' or
+                                  phone LIKE '#{search_text}' or address LIKE '#{search_text}'
+                                  or email LIKE '#{search_text}')").count
+    elsif page 
+      khachhang = Customer.where(active: true).paginate(:page => page, :per_page => per_page)
+      total = khachhang.count
+    else 
+      khachhang = Customer.where(active: true)
+      total = khachhang.count
+    end
+    return khachhang, total
+  end
 end

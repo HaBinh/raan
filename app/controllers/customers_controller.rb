@@ -1,8 +1,8 @@
-class CustomersController < ApplicationController
+  class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :update, :destroy]
   
   def index
-    @customers = Customer.where(active: true)
+    @customers, @total = Customer.get_pagination(params[:page], params[:per_page], params[:search_text])
   end
 
   def create
