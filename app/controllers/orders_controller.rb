@@ -8,9 +8,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if params[:order][:customer_paid].to_f <= 0 
+    if params[:order][:customer_paid].to_f < 0 
       render_customer_paid_greater_than0 and return 
     end
+    
     customer_id = params[:order][:customer_id]
     if customer_id.nil?
       params_customer = params.require(:order).permit(:name, :phone, :email, :address)
@@ -23,7 +24,7 @@ class OrdersController < ApplicationController
       params[:order_items].each do |item|
         product = Product.find_by_id(item[:product_id])
         articles = product.articles.where(status: Status::EXIST).order(:created_at)
-        if articles.count < item[:quantity].to_i 
+        if articles.count < item[:quantity].to_i  
           render_not_enough( product, articles.count ) and return
         end
         if item[:quantity].to_i <= 0 

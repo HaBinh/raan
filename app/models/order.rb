@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   belongs_to :customer
   has_many :order_items, dependent: :destroy
   validates_presence_of :customer_paid
-  validates :customer_paid, numericality: { greater_than: 0 }
+  validates :customer_paid, numericality: { greater_than: -1   }
 
   def set_fully_paid
     if (customer_paid >= self.total_amount) 
