@@ -1,23 +1,22 @@
 class StoresController < ApplicationController
   def index
-    @articles = Article.all
-    @stores = Array.new
-    Article.group(:product_id).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-      if Article.where(product_id: a[0]).first.product.active === true
-        @quantity = Article.where(product_id: a[0], status: Status::EXIST).count
-        @sold = Article.where(product_id: a[0], status: Status::SOLD).count
-        @store = Article.where(product_id: a[0], status: Status::EXIST).order(:created_at).last
-        if !current_user.isManager
-          @store.imported_price = 0
+    @ketqua, @total = Article.get_pagination(params[:search], params[:page], params[:per_page])
+    @stores = @ketqua.sort { |x,y| y["time"] <=> x["time"] }
+  end
+
+  def create
+        params.permit(:status, :imported_price, :product_id)
+        time = Time.now
+        for i in (1..params[:quantity].to_i)
+          @article = Article.new(article_params)
+          @article.created_by = current_user.id
+          @article.created_at = time
+          @article.save
         end
-        unless @store.nil?
-          @store.status = @quantity
-          @stores << @store
+        if @article.save
+          render 'stores/create.json.jbuilder'
         end
       end
-    end
-    @stores = @stores.sort { |x,y| y.created_at <=> x.created_at }
-  end
 
   def get_products    
     @results = Product.joins("left outer join( select * from articles where status='exist') as articles
@@ -27,4 +26,9 @@ class StoresController < ApplicationController
                       .order(:name)
     render 'stores/get_products'
   end  
+
+  private 
+      def article_params
+        params.permit(:status, :imported_price, :product_id)
+      end
 end
