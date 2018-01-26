@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders, @total = Order.get_paginate(params[:page], params[:per_page])
+    @orders, @total = Order.get_paginate(params[:page], params[:per_page], params[:search_text])
   end
 
   def create
