@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
       end
 
       def destroy 
-        @article = Article.where(created_at: params[:created_at])
+        @article = Article.where(created_at: params[:created_at].to_datetime)
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else
