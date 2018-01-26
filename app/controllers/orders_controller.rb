@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
       end
     end
     
-    @order.update_attributes(total_amount: total_amount.round(-2))
+    @order.update_attributes(total_amount: total_amount)
     @order.set_fully_paid
     render json: { order: @order }, status: :created
   end

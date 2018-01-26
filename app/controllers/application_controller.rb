@@ -12,4 +12,8 @@ class ApplicationController < ActionController::API
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :email])
   end
 
+  def myCeil(value)
+    (value / 100.0).ceil * 100
+  end
+
 end
