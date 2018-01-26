@@ -5,5 +5,5 @@ json.stores @stores.each do |store|
 	  json.name store["name"]
 	  json.imported_price store["imported_price"]
 	  json.quantity store["quantity"]
-	  json.created_at store["time"]
+	  json.created_at store["time"].to_datetime.strftime("%d-%m-%Y %H:%M")
 	end

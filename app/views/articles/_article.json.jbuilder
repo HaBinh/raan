@@ -1,5 +1,5 @@
 json.extract! article, :id, :status, :imported_price
-json.created_at article.created_at.strftime("%A, %d/%m/%Y")
+json.created_at article.created_at.strftime("%d-%m-%Y %H:%M")
 product = Product.find_by_id(article.product_id)
 json.product_id product.id
 json.exist article.product.unit
