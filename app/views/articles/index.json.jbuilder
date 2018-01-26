@@ -6,5 +6,5 @@ json.articles @articles.each do |article|
 	  json.imported_price article["imported_price"]
 	  json.quantity article["quantity"]
 	  json.sold article["sold"]
-	  json.created_at article["time"].to_datetime.strftime("%d-%m-%Y %H:%M")
+	  json.created_at article["time"]
 	end

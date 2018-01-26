@@ -5,5 +5,5 @@ json.store do
 	  json.name article.product.name
 	  json.imported_price article.imported_price
 	  json.quantity params[:quantity]
-	  json.created_at article.created_at.to_datetime.strftime("%d-%m-%Y %H:%M")
+	  json.created_at article.created_at
 end
