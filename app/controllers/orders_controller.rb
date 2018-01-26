@@ -2,9 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
-                   .select("orders.*, name, email, phone, address")
-                   .order("orders.created_at desc")
+    @orders, @total = Order.get_paginate(params[:page], params[:per_page], params[:search_text])
   end
 
   def create
@@ -47,7 +45,7 @@ class OrdersController < ApplicationController
       end
     end
     
-    @order.update_attributes(total_amount: total_amount.round(-2))
+    @order.update_attributes(total_amount: total_amount)
     @order.set_fully_paid
     render json: { order: @order }, status: :created
   end
@@ -123,14 +121,14 @@ class OrdersController < ApplicationController
   end
 
   def render_not_enough(product, quantity)
-    render( json: { error_info: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
+    render( json: { key_message: "message.new-order.not-enough-quantity", params: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
   end
 
   def render_quantity_greater_than0
-    render( json: { message: 'Quantity should be greater than 0' }, status: :unprocessable_entity )        
+    render( json: { key_message: "message.new-order.quantity_greater_than0" }, status: :unprocessable_entity )        
   end
 
   def render_customer_paid_greater_than0
-    render( json: { message: 'Customer paid should be greater than 0' }, status: :unprocessable_entity )            
+    render( json: { key_message: "message.new-order.customer_paid_greater_than_1" }, status: :unprocessable_entity )            
   end
 end
