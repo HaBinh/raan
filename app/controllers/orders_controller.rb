@@ -120,14 +120,14 @@ class OrdersController < ApplicationController
   end
 
   def render_not_enough(product, quantity)
-    render( json: { error_info: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
+    render( json: { key_message: "message.new-order.not-enough-quantity", params: { name: product.name, quantity: quantity } }, status: :unprocessable_entity )    
   end
 
   def render_quantity_greater_than0
-    render( json: { message: 'Quantity should be greater than 0' }, status: :unprocessable_entity )        
+    render( json: { key_message: "message.new-order.quantity_greater_than0" }, status: :unprocessable_entity )        
   end
 
   def render_customer_paid_greater_than0
-    render( json: { message: 'Customer paid should be greater than 0' }, status: :unprocessable_entity )            
+    render( json: { key_message: "message.new-order.customer_paid_greater_than_1" }, status: :unprocessable_entity )            
   end
 end
