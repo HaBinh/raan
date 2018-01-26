@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
   def index
-    @ketqua, @total = Article.get_pagination(params[:search], params[:page], params[:per_page])
+    @ketqua, @total = Store.get_pagination(params[:search], params[:page], params[:per_page])
     @stores = @ketqua.sort { |x,y| y["time"] <=> x["time"] }
   end
 
