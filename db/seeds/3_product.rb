@@ -1,7 +1,7 @@
 @prng = Random.new
 
 
-10000.times do |n| 
+100.times do |n| 
   Product.create!(
     name: "Product #{n}",
     code: "#{n}",
