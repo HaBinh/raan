@@ -2,9 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy, :return_order]
 
   def index
-    @orders = Order.joins("inner join customers on customers.id = orders.customer_id")
-                   .select("orders.*, name, email, phone, address")
-                   .order("orders.created_at desc")
+    @orders, @total = Order.get_paginate(params[:page], params[:per_page])
   end
 
   def create

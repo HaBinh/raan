@@ -34,4 +34,20 @@ class Order < ApplicationRecord
     self.total_amount = self.order_items.sum(:amount)
     self.save
   end
+
+  def self.get_paginate(page, per_page) 
+    if page
+      @donhang = Order.joins("inner join customers on customers.id = orders.customer_id")
+          .select("orders.*, name, email, phone, address")
+          .order("orders.created_at desc")            
+          .paginate(:page => page, :per_page => per_page)
+      @total = Order.count
+    else
+      @donhang = Order.joins("inner join customers on customers.id = orders.customer_id")
+                .select("orders.*, name, email, phone, address")
+                .order("orders.created_at desc")
+      @total = Order.count
+    end
+    return @donhang, @total
+  end
 end
