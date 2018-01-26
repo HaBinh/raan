@@ -6,3 +6,4 @@ json.stores @stores.each do |store|
 	  json.imported_price store["imported_price"]
 	  json.quantity store["quantity"]
 	  json.created_at store["time"]
+end
