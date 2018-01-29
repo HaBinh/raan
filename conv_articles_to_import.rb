@@ -19,7 +19,7 @@ while (i<x.count)
      (x[i].imported_price == current.imported_price) 
      
     import.quantity += 1
-    import.quantity_sold += x[i].status == 'exist' ? 1 : 0
+    import.quantity_sold += x[i].status == 'sold' ? 1 : 0
   else 
 
     import.save
@@ -29,7 +29,7 @@ while (i<x.count)
       product_id:     x[i].product_id, 
       imported_price: x[i].imported_price,
       quantity: 1,
-      quantity_sold:  x[i].status == 'exist' ? 1 : 0
+      quantity_sold:  x[i].status == 'sold' ? 1 : 0
     )
     current = x[i]
   end
