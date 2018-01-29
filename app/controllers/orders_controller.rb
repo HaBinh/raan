@@ -20,10 +20,12 @@ class OrdersController < ApplicationController
     total_amount = 0
     if params[:order_items]
       params[:order_items].each do |item|
-        product = Product.find_by_id(item[:product_id])
-        articles = product.articles.where(status: Status::EXIST).order(:created_at)
-        if articles.count < item[:quantity].to_i  
-          render_not_enough( product, articles.count ) and return
+
+        quantity_remain = Import.sum("quantity - quantity_sold")
+                                .where("product_id=#{item[:product_id]} and quantity > quantity_sold")
+
+        if quantity_remain < item[:quantity].to_i  
+          render_not_enough( product, quantity_remain ) and return
         end
         if item[:quantity].to_i <= 0 
           render_quantity_greater_than0 and return 
@@ -33,15 +35,14 @@ class OrdersController < ApplicationController
       @order = Order.create!(customer_id: customer_id, customer_paid: params[:order][:customer_paid].to_f)
 
       params[:order_items].each do |item| 
-        product = Product.find_by_id(item[:product_id])
-        articles = product.articles.where(status: Status::EXIST).order(:created_at)
-        order_item = @order.order_items.create!(quantity: item[:quantity], 
-                                                discounted_rate: item[:discounted_rate])
+
+        order_item = @order.order_items.create!(quantity:         item[:quantity], 
+                                                discounted_rate:  item[:discounted_rate],
+                                                product_id:       item[:product_id])
         order_item.calculate_amount(item[:price_sale].to_f)
         total_amount += order_item.amount
-        item[:quantity].to_i.times do |n|
-          articles[n].beSold(order_item.id)
-        end
+
+        sold_in_import(item[:product_id], item[:quantity].to_i)
       end
     end
     
@@ -117,6 +118,19 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(params[:id])
     if @order.nil? 
       render json: { message: 'Not found'}, status: :not_found
+    end
+  end
+
+
+  def sold_in_import(product_id, quantity)
+    imports = Import.select("*")
+                    .where("product_id=#{product_id} and quantity > quantity_sold")
+                    .order(create_at: :desc)
+
+    imports.each do |import|
+      if (import.quantity - import.quantity_sold) >= quantity 
+        
+      end
     end
   end
 
