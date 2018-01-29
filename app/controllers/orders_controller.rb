@@ -140,8 +140,9 @@ class OrdersController < ApplicationController
   end
 
   def return_product_to_imports(product_id, quantity_return)
+    # Tra hang vao kho moi nhat
     imports = Import.select("*")
-                    .where("product_id=#{product_id} and quantity > quantity_sold")
+                    .where("product_id=#{product_id} AND NOT quantity_sold = 0 ")
                     .order(created_at: :desc)
     imports.each do |import|
       if import.quantity_sold >= quantity_return 

@@ -462,8 +462,8 @@ RSpec.describe 'Orders API', type: :request do
 
   describe 'Test return order ' do 
     context ' with fully paid ' do 
-      let(:quantity) { 3 }
-      let(:quantity_return) { 1 }
+      let(:quantity) { 12 }
+      let(:quantity_return) { 11 }
       let(:not_fully_paid_params) { { 
         order: { 
           customer_id: customer_id,  
@@ -500,6 +500,13 @@ RSpec.describe 'Orders API', type: :request do
       it 'should return correct data' do 
         expect_json('order', total_amount: price_sale * (quantity - quantity_return),
                             paid_return_user: price_sale * quantity_return )
+      end
+
+      it 'check import' do 
+        import_2.reload
+        import.reload
+        expect(import_2.quantity_sold).to eq(0)
+        expect(import.quantity_sold).to eq(5)
       end
     end
 
