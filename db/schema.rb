@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128032749) do
+ActiveRecord::Schema.define(version: 20180129030511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20171128032749) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "imports", force: :cascade do |t|
+    t.float "imported_price"
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.integer "quantity"
+    t.integer "quatity_sold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_imports_on_product_id"
+    t.index ["user_id"], name: "index_imports_on_user_id"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.string "order_id"
     t.integer "quantity"
@@ -51,6 +63,8 @@ ActiveRecord::Schema.define(version: 20171128032749) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "discounted_rate"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", id: :string, force: :cascade do |t|
@@ -116,7 +130,10 @@ ActiveRecord::Schema.define(version: 20171128032749) do
 
   add_foreign_key "articles", "order_items"
   add_foreign_key "articles", "products"
+  add_foreign_key "imports", "products"
+  add_foreign_key "imports", "users"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "product_discounted_rates", "products"
 end
