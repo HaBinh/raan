@@ -5,7 +5,7 @@ class CreateImports < ActiveRecord::Migration[5.1]
       t.references :product, foreign_key: true
       t.references :user, foreign_key: true
       t.integer :quantity
-      t.integer :quatity_sold
+      t.integer :quantity_sold
 
       t.timestamps
     end

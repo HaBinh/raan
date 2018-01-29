@@ -1,7 +1,7 @@
 x = Article.all
 current = x[0]
 
-import = Import.new (
+import = Import.new(
   created_at:     current.created_at, 
   user_id:        current.created_by, 
   product_id:     current.product_id, 
@@ -23,7 +23,7 @@ while (i<x.count)
   else 
 
     import.save
-    import = Import.new (
+    import = Import.new(
       created_at:     x[i].created_at, 
       user_id:        x[i].created_by, 
       product_id:     x[i].product_id, 
@@ -31,7 +31,9 @@ while (i<x.count)
       quantity: 1,
       quantity_sold:  x[i].status == 'exist' ? 1 : 0
     )
+    current = x[i]
   end
 
   i +=1
 end
+import.save
