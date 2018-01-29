@@ -384,7 +384,7 @@ RSpec.describe 'Orders API', type: :request do
     end
 
     it 'return correct data order' do 
-      expect_json('order', total_amount: customer_paid_fully, 
+      expect_json('order', total_amount: quantity * price_sale, 
                            fully_paid: true,
                            customer_paid: customer_paid_fully,
                            debt: 0)
@@ -402,9 +402,10 @@ RSpec.describe 'Orders API', type: :request do
     end
 
     it 'correct types order items' do 
-      expect_json('order.order_items.0', amount: customer_paid_fully,
-                                               quantity: quantity,
-                                               discounted_rate: discounted_rate)
+      expect_json('order.order_items.0', amount: quantity * price_sale,
+                                         quantity: quantity,
+                                         discounted_rate: discounted_rate,
+                                         product_id: product_id)
     end
 
     it 'correct types order items' do 
