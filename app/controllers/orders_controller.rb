@@ -20,11 +20,15 @@ class OrdersController < ApplicationController
     total_amount = 0
     if params[:order_items]
       params[:order_items].each do |item|
-
-        quantity_remain = Import.sum("quantity - quantity_sold")
-                                .where("product_id=#{item[:product_id]} and quantity > quantity_sold")
-
+        # query de lay tong so hang con lai o trong kho ung voi product id
+        quantity_remain = ActiveRecord::Base.connection.execute("SELECT
+                                                                   sum( quantity - quantity_sold )
+                                                                 FROM imports
+                                                                 WHERE product_id = #{item[:product_id]}
+                                                                 AND quantity > quantity_sold").to_a
+        quantity_remain = quantity_remain.first["sum"].to_i
         if quantity_remain < item[:quantity].to_i  
+          product = Product.find_by_id(item[:product_id])
           render_not_enough( product, quantity_remain ) and return
         end
         if item[:quantity].to_i <= 0 
@@ -125,12 +129,17 @@ class OrdersController < ApplicationController
   def sold_in_import(product_id, quantity)
     imports = Import.select("*")
                     .where("product_id=#{product_id} and quantity > quantity_sold")
-                    .order(create_at: :desc)
-
+                    .order(created_at: :asc)
     imports.each do |import|
-      if (import.quantity - import.quantity_sold) >= quantity 
-        
+      if (import.quantity - import.quantity_sold) >= quantity # neu import do du so luong cho 
+        import.quantity_sold += quantity 
+        import.save
+        break 
       end
+      quantity -= import.quantity - import.quantity_sold
+      # neu ko du so luong thi 
+      import.quantity_sold = import.quantity 
+      import.save
     end
   end
 
