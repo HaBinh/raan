@@ -68,12 +68,8 @@ class OrdersController < ApplicationController
     order_items = @order.order_items
     params[:order_items].each do |item|
       order_item = OrderItem.find_by_id(item[:id])
-      articles_be_sold = order_item.articles.order(created_at: :desc)
+      return_product_to_imports(order_item.product_id, item[:quantity_return].to_i)
 
-      # Return article 
-      item[:quantity_return].to_i.times do |n| 
-        articles_be_sold[n].beReturn
-      end
       if ( item[:quantity_return].to_i == order_item.quantity )
         order_item.destroy
       else
@@ -139,6 +135,22 @@ class OrdersController < ApplicationController
       quantity -= import.quantity - import.quantity_sold
       # neu ko du so luong thi 
       import.quantity_sold = import.quantity 
+      import.save
+    end
+  end
+
+  def return_product_to_imports(product_id, quantity_return)
+    imports = Import.select("*")
+                    .where("product_id=#{product_id} and quantity > quantity_sold")
+                    .order(created_at: :desc)
+    imports.each do |import|
+      if import.quantity_sold >= quantity_return 
+        import.quantity_sold -= quantity_return
+        import.save
+        break
+      end
+      quantity_return -= import.quantity_sold
+      import.quantity_sold = 0 
       import.save
     end
   end
