@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :destroy]
+  before_action :set_article, only: [:show, :destroy, :update]
       def index
         @article, @total1 = Article.get_pagination(params[:search], params[:page], params[:per_page])
         
@@ -22,36 +22,9 @@ class ArticlesController < ApplicationController
       end
 
       def update
-        @article = Article.where(created_at: params[:created_at])
-        @sold =  Article.where(created_at: params[:created_at], status: Status::SOLD).count  
-        if @sold === 0
-          if @article.count < params[:new_quantity].to_i      
-            for i in (1..params[:new_quantity].to_i - @article.count)
-              article = Article.new(article_params)
-              article.created_at = @article.first.created_at
-              article.save    
-            end  
-            Article.where(created_at: params[:created_at]).update_all(imported_price: params[:imported_price])
-            render json: { message: 'updated'}, status: :updated
-          else
-            @article.limit(@article.count - params[:new_quantity].to_i).destroy_all
-            Article.where(created_at: params[:created_at]).update_all(imported_price: params[:imported_price])
-            render json: { message: 'updated'}, status: :updated
-          end
-        else
-          if params[:new_quantity].to_i > @sold 
-            if params[:new_quantity].to_i >= @article.count
-              for i in (1..params[:new_quantity].to_i - @article.count)
-                article = Article.new(article_params)
-                article.created_at = @article.first.created_at
-                article.save    
-              end
-            else
-              Article.where(created_at: params[:created_at]).limit(@article.count - params[:new_quantity].to_i).destroy_all
-            end
-          end
+        if @article.present?
+          @article.update_attributes(quantity: params[:quantity], imported_price: params[:imported_price])
         end
-        head :ok
       end
     
       def show 
