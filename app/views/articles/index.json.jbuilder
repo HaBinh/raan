@@ -5,6 +5,6 @@ json.articles @articles.each do |article|
 	  json.name article["name"]
 	  json.imported_price article["imported_price"]
 	  json.quantity article["quantity"]
-	  json.sold article["sold"]
-	  json.created_at article["time"]
+	  json.sold article["quantity_sold"]
+	  json.created_at article["created_at"]
 	end
