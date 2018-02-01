@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show]
+  before_action :set_article, only: [:show, :destroy]
       def index
         @article, @total1 = Article.get_pagination(params[:search], params[:page], params[:per_page])
         
@@ -58,12 +58,11 @@ class ArticlesController < ApplicationController
     
       end
 
-      def destroy 
-        @article = Article.where(created_at: params[:created_at].to_datetime)
+      def destroy
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         else
-          @article.delete_all
+          @article.delete
           head :ok
         end
       end
@@ -74,7 +73,7 @@ class ArticlesController < ApplicationController
       end
     
       def set_article
-        @article = Article.find_by_id(params[:id])
+        @article = Import.find_by_id(params[:id])
         if @article.nil? 
           render json: { message: 'Not found'}, status: :not_found
         end
