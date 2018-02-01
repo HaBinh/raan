@@ -16,7 +16,7 @@ class StoresController < ApplicationController
       end
 
   def get_products    
-    @results = Product.joins("left outer join( select * from articles where status='exist') as articles
+    @results = Product.joins("left outer join( select * from imports where quantity > quantity_sold) as articles
                                      ON articles.product_id = products.id")
                       .select("products.*, count(articles.id) as quantity")
                       .group("products.id")
