@@ -2,11 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
       def index
         @article, @total1 = Article.get_pagination(params[:search], params[:page], params[:per_page])
-        @article.each do |a|
-          if a["sold"].nil?
-            a["sold"] = 0
-          end
-        end
+        
         if !current_user.isManager
             @article.map { |a| a["imported_price"] = 0 }
         end
@@ -15,14 +11,11 @@ class ArticlesController < ApplicationController
       end
 
       def create
-        params.permit(:status, :imported_price, :product_id)
-        time = Time.now
-        for i in (1..params[:quantity].to_i)
-          @article = Article.new(article_params)
-          @article.created_by = current_user.id
-          @article.created_at = time
-          @article.save
-        end
+        import_params = params.permit(:imported_price, :product_id, :quantity)
+        @article = Import.new(import_params)
+        @article.user_id = current_user.id
+        @article.quantity_sold = 0
+        @article.save
         if @article.save
           render 'articles/create.json.jbuilder'
         end
