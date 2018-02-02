@@ -2,12 +2,11 @@ class DashboardsController < ApplicationController
     def index
         @result = Array.new
         @imported_price = []
-        sql1 = "SELECT d.month, SUM(imported_price) AS total 
+        sql1 = "SELECT d.month, SUM(quantity*imported_price) AS total 
               FROM (SELECT generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d 
-              left join articles on date_trunc('month', created_at) = d.month group by d.month order by d.month"
+              left join imports on date_trunc('month', created_at) = d.month group by d.month order by d.month"
         @imported_price = Article.connection.select_all(sql1).to_a
         @result << {imported_price: @imported_price}
-        # render( json: {imported_price: @imported_price})
 
         @total_amount = []
         sql2 = "SELECT d.month, SUM(total_amount) AS total 
@@ -30,18 +29,17 @@ class DashboardsController < ApplicationController
         @result << {profit: @profit}
         
         @inventory = []
-        sql3 = "SELECT SUM(imported_price) AS total 
-                FROM articles
-                WHERE status='exist'"
+        sql3 = "SELECT SUM(imported_price*(quantity-quantity_sold)) AS total 
+                FROM imports"
         @inventory = Article.connection.select_all(sql3).to_a
         @result << {inventory: @inventory}
         
         @expected = Array.new
-        sql4 = "SELECT SUM(default_sale_price) AS total 
-                FROM articles LEFT JOIN products ON articles.product_id = products.id AND articles.status='exist' "
+        sql4 = "SELECT SUM(default_sale_price*(quantity-quantity_sold)) AS total 
+                FROM imports LEFT JOIN products ON imports.product_id = products.id AND imports.quantity > imports.quantity_sold"
         @expected = Article.connection.select_all(sql4).to_a
         @result <<  {expected: @expected}
         render( json:{result:@result})
     end
 end
-# Article.connection.select_all("SELECT d.month, SUM(imported_price) as total from (select generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d left join articles on date_trunc('month', created_at) = d.month group by d.month order by d.month").to_ary
+
