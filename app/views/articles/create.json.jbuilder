@@ -6,5 +6,5 @@ json.article do
 	  json.imported_price article.imported_price
 	  json.quantity params[:quantity]
 	  json.sold 0
-	  json.created_at article.created_at
+	  json.created_at article.created_at.to_datetime
 end

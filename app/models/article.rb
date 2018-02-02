@@ -16,17 +16,17 @@ class Article < ApplicationRecord
 	  if page
       WillPaginate::Collection.create(page, per_page) do |pager|
         if search_text.blank?
-          sql2="select * from imports
+          sql2="select *, imports.created_at as time from imports
 					      JOIN products ON products.id = imports.product_id
 					      LIMIT #{pager.per_page} OFFSET #{pager.offset}"
           @ketqua = ActiveRecord::Base.connection.execute(sql2).to_a
         else
           search_text = "%#{search_text}%"
-          sql="select * from imports
+          sql="select *, imports.created_at as time from imports
 					    JOIN products ON products.id = imports.product_id
               WHERE (name LIKE '#{search_text}' or code LIKE '#{search_text}')
               LIMIT #{pager.per_page} OFFSET #{pager.offset}"
-          sql1="select * from imports
+          sql1="select *, imports.created_at as time from imports
 					      JOIN products ON products.id = imports.product_id
               WHERE (name LIKE '#{search_text}' or code LIKE '#{search_text}')"
 
@@ -35,13 +35,13 @@ class Article < ApplicationRecord
         end
       end
     else 
-  			sql3="select * from imports
+  			sql3="select *, imports.created_at as time from imports
 					    JOIN products ON products.id = imports.product_id"
   		  @ketqua = ActiveRecord::Base.connection.execute(sql3).to_a
   	end
   	
 		if search_text.blank?
-			sql4="select * from imports
+			sql4="select *, imports.created_at as time from imports
 					  JOIN products ON products.id = imports.product_id"
 
 		  @total = Article.connection.select_all(sql4).to_a.count
