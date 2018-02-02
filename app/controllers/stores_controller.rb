@@ -16,11 +16,19 @@ class StoresController < ApplicationController
       end
 
   def get_products    
-    @results = Product.joins("left outer join( select * from imports where quantity > quantity_sold) as articles
-                                     ON articles.product_id = products.id")
-                      .select("products.*, count(articles.id) as quantity")
-                      .group("products.id")
-                      .order(:name)
+    sql =  "select products.id, products.name, code, unit, quantity, default_sale_price
+            from products 
+            left outer join ( select 
+                sum(quantity - quantity_sold) as quantity,
+                min(product_id) as product_id
+            from imports 
+            where quantity > quantity_sold
+            group by product_id
+            order by product_id
+            ) as remain 
+            on remain.product_id = products.id"
+    @results = ActiveRecord::Base.connection.execute(sql).to_a
+
     render 'stores/get_products'
   end  
 
