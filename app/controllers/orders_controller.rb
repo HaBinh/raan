@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    # byebug
     if params[:order][:customer_paid].to_f < 0 
       render_customer_paid_greater_than0 and return 
     end
@@ -42,7 +43,8 @@ class OrdersController < ApplicationController
 
         order_item = @order.order_items.create!(quantity:         item[:quantity], 
                                                 discounted_rate:  item[:discounted_rate],
-                                                product_id:       item[:product_id])
+                                                product_id:       item[:product_id],
+                                                price_sale:       item[:price_sale].to_f)
         order_item.calculate_amount(item[:price_sale].to_f)
         total_amount += order_item.amount
 
