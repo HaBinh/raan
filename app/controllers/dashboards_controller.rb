@@ -33,11 +33,17 @@ class DashboardsController < ApplicationController
                 FROM imports"
         @inventory =ActiveRecord::Base.connection.execute(sql3).to_a
         @result << {inventory: @inventory}
+
+        @sales = []
+        sql4 = "SELECT SUM(imported_price*quantity_sold) AS total 
+                FROM imports"
+        @sales =ActiveRecord::Base.connection.execute(sql4).to_a
+        @result << {sales: @sales}
         
         @expected = Array.new
-        sql4 = "SELECT SUM(default_sale_price*(quantity-quantity_sold)) AS total 
+        sql5 = "SELECT SUM(default_sale_price*(quantity-quantity_sold)) AS total 
                 FROM imports LEFT JOIN products ON imports.product_id = products.id AND imports.quantity > imports.quantity_sold"
-        @expected =ActiveRecord::Base.connection.execute(sql4).to_a
+        @expected =ActiveRecord::Base.connection.execute(sql5).to_a
         @result <<  {expected: @expected}
         render( json:{result:@result})
     end

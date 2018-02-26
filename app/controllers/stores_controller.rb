@@ -26,7 +26,8 @@ class StoresController < ApplicationController
             group by product_id
             order by product_id
             ) as remain 
-            on remain.product_id = products.id"
+            on remain.product_id = products.id
+            where active = 'true'"
     @results = ActiveRecord::Base.connection.execute(sql).to_a
 
     render 'stores/get_products'
