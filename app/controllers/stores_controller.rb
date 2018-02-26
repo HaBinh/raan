@@ -22,6 +22,7 @@ class StoresController < ApplicationController
   def get_products    
     @results = Product.joins("left outer join( select * from articles where status='exist') as articles
                                      ON articles.product_id = products.id")
+                      .where("products.status = true")
                       .select("products.*, count(articles.id) as quantity")
                       .group("products.id")
                       .order(:name)
