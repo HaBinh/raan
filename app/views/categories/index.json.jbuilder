@@ -1,4 +1,5 @@
 json.total @total
 json.categories @categories.each do |category|
-	  json.category category["category"]
+	json.id	category["id"]
+	json.category category["category"]
 end
