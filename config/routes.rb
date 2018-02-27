@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/add_storage', to: 'products#addStorage'
     resources :orders
     resources :articles
+    resources :categories
     resources :stores
     resources :dashboards
     put 'articles/update', to: 'articles#update'
