@@ -7,7 +7,6 @@ class Category < ApplicationRecord
           sql2="select * from categories
 					      LIMIT #{pager.per_page} OFFSET #{pager.offset}"
           @ketqua = ActiveRecord::Base.connection.execute(sql2).to_a
-          @total = @ketqua.count
         else
           search_text = "%#{search_text}%"
           sql="select * from categories
@@ -24,6 +23,11 @@ class Category < ApplicationRecord
   			sql3="select * from categories"
   		  @ketqua = ActiveRecord::Base.connection.execute(sql3).to_a
   	end
+  	
+		if search_text.blank?
+			sql4="select * from categories"
+		  @total = Article.connection.select_all(sql4).to_a.count
+		end
 
 		return @ketqua, @total
     end
