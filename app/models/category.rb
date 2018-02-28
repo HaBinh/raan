@@ -10,7 +10,7 @@ class Category < ApplicationRecord
         else
           search_text = "%#{search_text}%"
           sql="select * from categories
-              WHERE (category LIKE '#{search_text}' or code LIKE '#{search_text}')
+              WHERE (category LIKE '#{search_text}' )
               LIMIT #{pager.per_page} OFFSET #{pager.offset}"
           sql1="select * from categories
               WHERE (category LIKE '#{search_text}')"

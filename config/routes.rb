@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :orders
     resources :articles
     resources :categories
+    resources :category_discounts
     resources :stores
     resources :dashboards
     put 'articles/update', to: 'articles#update'

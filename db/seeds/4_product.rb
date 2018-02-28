@@ -8,6 +8,7 @@
     unit: "Cai",
     default_imported_price: n+1,
     default_sale_price: n+100,
+    category_id: Category.last.id
   )
 end
 # //discounted rate for product
