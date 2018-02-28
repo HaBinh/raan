@@ -1,0 +1,2 @@
+class CategoryDiscount < ApplicationRecord
+end

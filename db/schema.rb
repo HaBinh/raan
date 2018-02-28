@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227130830) do
+ActiveRecord::Schema.define(version: 20180228040156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(version: 20180227130830) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_discount_id"
+    t.index ["category_discount_id"], name: "index_categories_on_category_discount_id"
+  end
+
+  create_table "category_discounts", force: :cascade do |t|
+    t.float "rate0"
+    t.float "rate1"
+    t.float "rate2"
+    t.float "rate3"
+    t.float "rate4"
+    t.float "rate5"
+    t.float "rate6"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -96,6 +110,7 @@ ActiveRecord::Schema.define(version: 20180227130830) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.string "category"
     t.float "default_imported_price"
     t.float "default_sale_price"
     t.datetime "created_at", null: false
@@ -139,6 +154,7 @@ ActiveRecord::Schema.define(version: 20180227130830) do
 
   add_foreign_key "articles", "order_items"
   add_foreign_key "articles", "products"
+  add_foreign_key "categories", "category_discounts"
   add_foreign_key "imports", "products"
   add_foreign_key "imports", "users"
   add_foreign_key "order_items", "orders"
