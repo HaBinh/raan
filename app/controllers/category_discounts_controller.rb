@@ -1,0 +1,2 @@
+class CategoryDiscountsController < ApplicationController
+end
