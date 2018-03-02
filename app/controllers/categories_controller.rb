@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
 
     def update
         @category.update_attributes(category_params)
-        render :show, status: :updated, location: @category
+        render 'categories/show.json.jbuilder'
     end
 
     def destroy
