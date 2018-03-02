@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128032749) do
+ActiveRecord::Schema.define(version: 20180228040156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,26 @@ ActiveRecord::Schema.define(version: 20171128032749) do
     t.bigint "order_item_id"
     t.index ["order_item_id"], name: "index_articles_on_order_item_id"
     t.index ["product_id"], name: "index_articles_on_product_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_discount_id"
+    t.index ["category_discount_id"], name: "index_categories_on_category_discount_id"
+  end
+
+  create_table "category_discounts", force: :cascade do |t|
+    t.float "rate0"
+    t.float "rate1"
+    t.float "rate2"
+    t.float "rate3"
+    t.float "rate4"
+    t.float "rate5"
+    t.float "rate6"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -44,6 +64,18 @@ ActiveRecord::Schema.define(version: 20171128032749) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "imports", force: :cascade do |t|
+    t.float "imported_price"
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.integer "quantity"
+    t.integer "quantity_sold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_imports_on_product_id"
+    t.index ["user_id"], name: "index_imports_on_user_id"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.string "order_id"
     t.integer "quantity"
@@ -51,6 +83,9 @@ ActiveRecord::Schema.define(version: 20171128032749) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "discounted_rate"
+    t.bigint "product_id"
+    t.float "price_sale"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", id: :string, force: :cascade do |t|
@@ -75,12 +110,15 @@ ActiveRecord::Schema.define(version: 20171128032749) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.string "category"
     t.float "default_imported_price"
     t.float "default_sale_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "unit"
     t.boolean "active", default: true
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -116,7 +154,12 @@ ActiveRecord::Schema.define(version: 20171128032749) do
 
   add_foreign_key "articles", "order_items"
   add_foreign_key "articles", "products"
+  add_foreign_key "categories", "category_discounts"
+  add_foreign_key "imports", "products"
+  add_foreign_key "imports", "users"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "product_discounted_rates", "products"
+  add_foreign_key "products", "categories"
 end

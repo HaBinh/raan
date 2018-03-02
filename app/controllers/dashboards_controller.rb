@@ -2,18 +2,17 @@ class DashboardsController < ApplicationController
     def index
         @result = Array.new
         @imported_price = []
-        sql1 = "SELECT d.month, SUM(imported_price) AS total 
+        sql1 = "SELECT d.month, SUM(quantity*imported_price) AS total 
               FROM (SELECT generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d 
-              left join articles on date_trunc('month', created_at) = d.month group by d.month order by d.month"
-        @imported_price = Article.connection.select_all(sql1).to_a
+              left join imports on date_trunc('month', created_at) = d.month group by d.month order by d.month"
+        @imported_price = ActiveRecord::Base.connection.execute(sql1).to_a
         @result << {imported_price: @imported_price}
-        # render( json: {imported_price: @imported_price})
 
         @total_amount = []
         sql2 = "SELECT d.month, SUM(total_amount) AS total 
                 FROM (SELECT generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d 
                 left join orders on date_trunc('month', created_at) = d.month group by d.month order by d.month"
-        @total_amount = Order.connection.select_all(sql2).to_a
+        @total_amount = ActiveRecord::Base.connection.execute(sql2).to_a
         @result << {total_amount: @total_amount}
 
         @profit = Array.new
@@ -30,18 +29,23 @@ class DashboardsController < ApplicationController
         @result << {profit: @profit}
         
         @inventory = []
-        sql3 = "SELECT SUM(imported_price) AS total 
-                FROM articles
-                WHERE status='exist'"
-        @inventory = Article.connection.select_all(sql3).to_a
+        sql3 = "SELECT SUM(imported_price*(quantity-quantity_sold)) AS total 
+                FROM imports"
+        @inventory =ActiveRecord::Base.connection.execute(sql3).to_a
         @result << {inventory: @inventory}
+
+        @sales = []
+        sql4 = "SELECT SUM(imported_price*quantity_sold) AS total 
+                FROM imports"
+        @sales =ActiveRecord::Base.connection.execute(sql4).to_a
+        @result << {sales: @sales}
         
         @expected = Array.new
-        sql4 = "SELECT SUM(default_sale_price) AS total 
-                FROM articles LEFT JOIN products ON articles.product_id = products.id AND articles.status='exist' "
-        @expected = Article.connection.select_all(sql4).to_a
+        sql5 = "SELECT SUM(default_sale_price*(quantity-quantity_sold)) AS total 
+                FROM imports LEFT JOIN products ON imports.product_id = products.id AND imports.quantity > imports.quantity_sold"
+        @expected =ActiveRecord::Base.connection.execute(sql5).to_a
         @result <<  {expected: @expected}
         render( json:{result:@result})
     end
 end
-# Article.connection.select_all("SELECT d.month, SUM(imported_price) as total from (select generate_series( date_trunc('month','#{11.months.ago}'::date), date_trunc('month','#{Date.today}'::date), '1 month') as month) d left join articles on date_trunc('month', created_at) = d.month group by d.month order by d.month").to_ary
+

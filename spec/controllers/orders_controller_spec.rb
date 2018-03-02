@@ -12,17 +12,24 @@ RSpec.describe 'Orders API', type: :request do
   let!(:product) { create(:product) }
   let(:product_id) { product.id }
 
+  let!(:import) { create(:import, :product_id => product_id) } 
+  # import co 10 hang trong kho va chua ban cai nao ca
+  let!(:import_2) { create(:import, :product_id => product_id, quantity_sold: 0)}
+  
+
   let!(:articles) { create_list(:article, 10, product_id: product_id)}
   let(:status) { 'exist' }
   let(:price_sale) { 2000 }
   let(:quantity) { 1 }
+  let(:quantity_1) { 1 } 
+  let(:quantity_12) { 12 } 
   let(:not_enough_quantity) { 1000 }
   let(:discounted_rate) { 0 }
 
   let(:attr_for_customer) { attributes_for(:customer) }
 
   let(:total_amount) { price_sale * quantity }
-  let(:customer_paid_fully) { price_sale * quantity }
+  let(:customer_paid_fully) { 1000000 }
   let(:customer_NOT_fully_paid) { 1 }
 
   let(:user) { create(:user) }
@@ -39,7 +46,39 @@ RSpec.describe 'Orders API', type: :request do
         order_items: [
           {
             product_id: product_id,
-            quantity: quantity,
+            quantity: quantity_1,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+      } 
+    }
+
+    let(:params_with_quantity_10) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: customer_paid_fully
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity_12,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+      } 
+    }
+
+    let(:valid_params) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: customer_paid_fully
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity_1,
             price_sale: price_sale,
             discounted_rate: discounted_rate
           }
@@ -48,36 +87,36 @@ RSpec.describe 'Orders API', type: :request do
     }
 
     let(:paid_am1) { { 
-      order: { 
-        customer_id: customer_id,  
-        customer_paid: -1
-      },
-      order_items: [
-        {
-          product_id: product_id,
-          quantity: quantity,
-          price_sale: price_sale,
-          discounted_rate: discounted_rate
-        }
-      ]
-    } 
-  }
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: -1
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: quantity,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+      } 
+    }
 
-  let(:quantity_less_than_0) { { 
-    order: { 
-      customer_id: customer_id,  
-      customer_paid: 1
-    },
-    order_items: [
-      {
-        product_id: product_id,
-        quantity: -1,
-        price_sale: price_sale,
-        discounted_rate: discounted_rate
-      }
-    ]
-  } 
-}
+    let(:quantity_less_than_0) { { 
+        order: { 
+          customer_id: customer_id,  
+          customer_paid: 1
+        },
+        order_items: [
+          {
+            product_id: product_id,
+            quantity: -1,
+            price_sale: price_sale,
+            discounted_rate: discounted_rate
+          }
+        ]
+      } 
+    }
 
     let(:not_fully_paid_params) { { 
       order: { 
@@ -137,7 +176,7 @@ RSpec.describe 'Orders API', type: :request do
       end
   
       it 'return correct types' do 
-        expect_json({ :message => "Customer paid should be greater than 0" })
+        expect_json(key_message: regex("customer_paid_greater_than_1"))
       end
     end
 
@@ -151,7 +190,7 @@ RSpec.describe 'Orders API', type: :request do
       end
   
       it 'return correct types' do 
-        expect_json({ :message => "Quantity should be greater than 0" })
+        expect_json(key_message: regex("quantity_greater_than0"))
       end
     end
     describe 'with valid params' do 
@@ -178,6 +217,39 @@ RSpec.describe 'Orders API', type: :request do
       it 'should add complete ' do 
         expect(Order.count).not_to eq(@before_order_count)
         expect(OrderItem.count).not_to eq(@before_order_item)
+        #trong kho da ban 4 ban di 1 thi trong kho tang len da ban la 5
+        import.reload()
+        expect(import.quantity_sold).to eq(5)
+      end
+    end
+    describe 'with params sold 12 quantity' do 
+      before { 
+        @before_order_count = Order.count
+        @before_order_item  = OrderItem.count
+        post "/api/orders", params: params_with_quantity_10, headers: user_auth_headers 
+      }
+      
+      it 'return status 201' do 
+        expect_status 201
+      end
+  
+      it 'return correct types' do 
+        expect_json_types('order',
+                                   total_amount: :float, 
+                                   customer_paid: :float, 
+                                   fully_paid: :boolean)
+        expect_json('order', { :customer_id => customer_id, 
+                               :total_amount => price_sale * quantity_12,
+                               fully_paid: true })
+      end
+  
+      it 'should add complete ' do 
+        expect(Order.count).not_to eq(@before_order_count)
+        expect(OrderItem.count).not_to eq(@before_order_item)
+        import.reload()
+        import_2.reload()
+        expect(import.quantity_sold).to eq(10)
+        expect(import_2.quantity_sold).to eq(6)
       end
     end
 
@@ -193,7 +265,7 @@ RSpec.describe 'Orders API', type: :request do
       end
 
       it 'return message show instruction not enough quantity' do 
-        expect_json ( { message: 'Not enough quantity'})
+        expect_json(key_message: regex("not-enough-quantity"))
       end
 
       it 'cannot create order' do 
@@ -312,7 +384,7 @@ RSpec.describe 'Orders API', type: :request do
     end
 
     it 'return correct data order' do 
-      expect_json('order', total_amount: customer_paid_fully, 
+      expect_json('order', total_amount: quantity * price_sale, 
                            fully_paid: true,
                            customer_paid: customer_paid_fully,
                            debt: 0)
@@ -330,9 +402,10 @@ RSpec.describe 'Orders API', type: :request do
     end
 
     it 'correct types order items' do 
-      expect_json('order.order_items.0', amount: customer_paid_fully,
-                                               quantity: quantity,
-                                               discounted_rate: discounted_rate)
+      expect_json('order.order_items.0', amount: quantity * price_sale,
+                                         quantity: quantity,
+                                         discounted_rate: discounted_rate,
+                                         product_id: product_id)
     end
 
     it 'correct types order items' do 
@@ -389,8 +462,8 @@ RSpec.describe 'Orders API', type: :request do
 
   describe 'Test return order ' do 
     context ' with fully paid ' do 
-      let(:quantity) { 3 }
-      let(:quantity_return) { 1 }
+      let(:quantity) { 12 }
+      let(:quantity_return) { 11 }
       let(:not_fully_paid_params) { { 
         order: { 
           customer_id: customer_id,  
@@ -427,6 +500,13 @@ RSpec.describe 'Orders API', type: :request do
       it 'should return correct data' do 
         expect_json('order', total_amount: price_sale * (quantity - quantity_return),
                             paid_return_user: price_sale * quantity_return )
+      end
+
+      it 'check import' do 
+        import_2.reload
+        import.reload
+        expect(import_2.quantity_sold).to eq(0)
+        expect(import.quantity_sold).to eq(5)
       end
     end
 

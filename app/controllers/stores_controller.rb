@@ -1,31 +1,40 @@
 class StoresController < ApplicationController
   def index
-    @articles = Article.all
-    @stores = Array.new
-    Article.group(:product_id).count.to_a.each do |a| #{ |a| puts "#{a[0][0]} #{a[0][1]} #{a[1]}" }
-      if Article.where(product_id: a[0]).first.product.active === true
-        @quantity = Article.where(product_id: a[0], status: Status::EXIST).count
-        @sold = Article.where(product_id: a[0], status: Status::SOLD).count
-        @store = Article.where(product_id: a[0], status: Status::EXIST).order(:created_at).last
-        if !current_user.isManager
-          @store.imported_price = 0
-        end
-        unless @store.nil?
-          @store.status = @quantity
-          @stores << @store
-        end
-      end
-    end
-    @stores = @stores.sort { |x,y| y.created_at <=> x.created_at }
+    @ketqua, @total = Store.get_pagination(params[:search], params[:page], params[:per_page])
+    @stores = @ketqua.sort { |x,y| y["time"] <=> x["time"] }
   end
 
+  def create
+        import_params = params.permit(:imported_price, :product_id, :quantity)
+        @article = Import.new(import_params)
+        @article.user_id = current_user.id
+        @article.quantity_sold = 0
+        @article.save
+        if @article.save
+          render 'stores/create.json.jbuilder'
+        end
+      end
+
   def get_products    
-    @results = Product.joins("left outer join( select * from articles where status='exist') as articles
-                                     ON articles.product_id = products.id")
-                      .where("products.status = true")
-                      .select("products.*, count(articles.id) as quantity")
-                      .group("products.id")
-                      .order(:name)
+    sql =  "select products.id, products.name, code, unit, quantity, default_sale_price
+            from products 
+            left outer join ( select 
+                sum(quantity - quantity_sold) as quantity,
+                min(product_id) as product_id
+            from imports 
+            where quantity > quantity_sold
+            group by product_id
+            order by product_id
+            ) as remain 
+            on remain.product_id = products.id
+            where active = 'true'"
+    @results = ActiveRecord::Base.connection.execute(sql).to_a
+
     render 'stores/get_products'
   end  
+
+  private 
+      def article_params
+        params.permit(:status, :imported_price, :product_id)
+      end
 end
