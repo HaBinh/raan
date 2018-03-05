@@ -1,5 +1,4 @@
 class Category < ApplicationRecord
-    has_many :products
     def self.get_pagination(page, per_page, search_text)
       if page
       WillPaginate::Collection.create(page, per_page) do |pager|

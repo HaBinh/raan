@@ -46,13 +46,16 @@
     customers.each do |customer| 
       customer_in_debt = Object.new
       order_not_fully_paid = customer.orders.where(fully_paid: false)
+      total_debt = order_not_fully_paid.sum(:total_amount) - order_not_fully_paid.sum(:customer_paid)
       if order_not_fully_paid.count > 0 
         class << customer_in_debt
           attr_accessor :customer
           attr_accessor :orders
+          attr_accessor :total_debt
         end
         customer_in_debt.customer = customer 
         customer_in_debt.orders = order_not_fully_paid
+        customer_in_debt.total_debt = total_debt
         @customers_in_debt << customer_in_debt 
       end
     end

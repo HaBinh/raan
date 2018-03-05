@@ -51,7 +51,6 @@ class Store < ApplicationRecord
 
 		  @total = Article.connection.select_all(sql4).to_a.count
 		end
-
 		return @ketqua, @total
   end
 end 

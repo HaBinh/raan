@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     put 'rates/update', to: 'rates#update'
     get '/get_products', to: 'stores#get_products'
     get '/customers_in_debt', to: 'customers#get_in_debt'
+    put 'pay_total_debt/:customer_id', to: 'orders#pay_total_debt'
   end
   get '*path' => redirect('/')
 end

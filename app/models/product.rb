@@ -1,7 +1,6 @@
 class Product < ApplicationRecord
     has_many :articles, dependent: :destroy
     has_many :imports
-    belongs_to :category
     has_many :product_discounted_rates, dependent: :destroy
     validates_presence_of :name, :code, :default_imported_price, :default_sale_price
     validates :default_imported_price, numericality: { greater_than: 0 }
@@ -41,7 +40,6 @@ class Product < ApplicationRecord
     if search_text.blank?
       @total = Product.where(active: true).count
     end
-
         return @ketqua, @total
     end
 end
