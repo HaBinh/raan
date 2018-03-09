@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309072322) do
+ActiveRecord::Schema.define(version: 20180309100020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,7 @@ ActiveRecord::Schema.define(version: 20180309072322) do
     t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_discount_id"
     t.json "rates"
-    t.index ["category_discount_id"], name: "index_categories_on_category_discount_id"
   end
 
   create_table "category_discounts", force: :cascade do |t|
@@ -154,7 +152,6 @@ ActiveRecord::Schema.define(version: 20180309072322) do
 
   add_foreign_key "articles", "order_items"
   add_foreign_key "articles", "products"
-  add_foreign_key "categories", "category_discounts"
   add_foreign_key "imports", "products"
   add_foreign_key "imports", "users"
   add_foreign_key "order_items", "orders"
