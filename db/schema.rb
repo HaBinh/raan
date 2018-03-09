@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309100020) do
+ActiveRecord::Schema.define(version: 20180309100555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,18 +32,6 @@ ActiveRecord::Schema.define(version: 20180309100020) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "rates"
-  end
-
-  create_table "category_discounts", force: :cascade do |t|
-    t.float "rate0"
-    t.float "rate1"
-    t.float "rate2"
-    t.float "rate3"
-    t.float "rate4"
-    t.float "rate5"
-    t.float "rate6"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
