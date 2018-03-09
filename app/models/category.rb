@@ -4,9 +4,9 @@ class Category < ApplicationRecord
     
     if page.presence
       @ketqua = Category.paginate(:page => page, :per_page => per_page)
+    else 
+      @ketqua = Category.all
     end
-
-    @ketqua = Category.all
     @total = Category.count
   return @ketqua, @total
   end
