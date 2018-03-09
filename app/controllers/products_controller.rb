@@ -40,7 +40,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
+    @product = Product.new(
+        name: params[:name], 
+        code: params[:code], 
+        unit: params[:unit], 
+        default_imported_price: params[:default_imported_price],
+        default_sale_price: params[:default_sale_price])
+    byebug
     if @product.save
         rates_params.each do |a|    
         ProductDiscountedRate.create!(
@@ -83,6 +89,10 @@ class ProductsController < ApplicationController
   end
 
   private 
+    def product_params
+      params.require(:name, :code, :unit, :default_imported_price, :default_sale_price)
+    end
+
     def set_product 
       @product = Product.find_by_id(params[:id])
       if @product.nil? 
