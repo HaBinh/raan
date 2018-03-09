@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
 
     private 
     def category_params
-        params.permit(:category)
+        params.permit(:category, :rates)
     end
 
     def set_category

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228040156) do
+ActiveRecord::Schema.define(version: 20180309072322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180228040156) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_discount_id"
+    t.json "rates"
     t.index ["category_discount_id"], name: "index_categories_on_category_discount_id"
   end
 
