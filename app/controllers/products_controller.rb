@@ -45,8 +45,8 @@ class ProductsController < ApplicationController
         code: params[:code], 
         unit: params[:unit], 
         default_imported_price: params[:default_imported_price],
-        default_sale_price: params[:default_sale_price])
-    byebug
+        default_sale_price: params[:default_sale_price],
+        category_id: params[:category_id])
     if @product.save
         rates_params.each do |a|    
         ProductDiscountedRate.create!(
