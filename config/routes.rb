@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     put 'return-order/:id', to: 'orders#return_order'
     post 'quote-price', to: 'orders#quote'
     resources :customers
-    resources :products
+    resources :products do 
+      get 'category', to: 'products#get_category'
+    end
     get '/add_storage', to: 'products#addStorage'
     resources :orders
     resources :articles

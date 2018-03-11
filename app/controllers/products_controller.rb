@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
-
+  before_action :set_product_v2, only: [:get_category]
   def index
     @ketqua, @total = Product.get_pagination(params[:search], params[:page], params[:per_page])
     results2 = @ketqua.group_by{ |i| i["id"]}
@@ -60,6 +60,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def get_category
+    @category = @product.category
+  end
+
   def show
     
   end
@@ -95,6 +99,13 @@ class ProductsController < ApplicationController
 
     def set_product 
       @product = Product.find_by_id(params[:id])
+      if @product.nil? 
+        render json: { message: 'Not found'}, status: :not_found
+      end
+    end
+
+    def set_product_v2
+      @product = Product.find_by_id(params[:product_id])
       if @product.nil? 
         render json: { message: 'Not found'}, status: :not_found
       end
