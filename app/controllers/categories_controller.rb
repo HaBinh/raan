@@ -24,6 +24,9 @@ class CategoriesController < ApplicationController
     end
 
     def destroy
+        @category.products.each do |product|
+            product.update_attributes(category_id: nil)
+        end
         @category.destroy
         render json: { permanently_delete: true }
     end
