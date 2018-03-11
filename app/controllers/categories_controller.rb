@@ -1,12 +1,13 @@
 class CategoriesController < ApplicationController
-    before_action :category_params ,only: [:create]
     before_action :set_category ,only: [:destroy, :update, :show]
     def index
         @categories, @total = Category.get_pagination(params[:page], params[:per_page], params[:search_text])
     end
 
     def create
-        @category = Category.new(category_params)
+
+        @category = Category.new(category: params[:category], 
+                                rates: params[:rates].to_json )
         if @category.save
         render :show, status: :created, location: @category
         else
@@ -32,10 +33,7 @@ class CategoriesController < ApplicationController
         render json: { permanently_delete: true }
     end
 
-    private 
-    def category_params
-        params.permit(:category, :rates)
-    end
+    private
 
     def set_category
       @category = Category.find_by_id(params[:id])
