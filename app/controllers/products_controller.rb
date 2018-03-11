@@ -72,6 +72,7 @@ class ProductsController < ApplicationController
     @product.update_attributes(name: params[:name], code: params[:code], unit: params[:unit], 
                                default_imported_price: params[:default_imported_price],
                                default_sale_price: params[:default_sale_price])
+    @product.category.update_attributes(category: params[:category])
     @product.product_discounted_rates.delete_all
     params[:rates].each do |a|    
         @product.product_discounted_rates.create!(
