@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-    before_action :category_params ,only: [:create, :update]
+    before_action :category_params ,only: [:create]
     before_action :set_category ,only: [:destroy, :update, :show]
     def index
         @categories, @total = Category.get_pagination(params[:page], params[:per_page], params[:search_text])
@@ -19,7 +19,8 @@ class CategoriesController < ApplicationController
     end
 
     def update
-        @category.update_attributes(category_params)
+        @category.update_attributes(category: params[:category],
+                                    rates: params[:rates].to_json)
         render 'categories/show.json.jbuilder'
     end
 
