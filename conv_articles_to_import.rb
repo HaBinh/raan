@@ -1,4 +1,4 @@
-x = Article.all
+x = Article.all.order(:created_at)
 current = x[0]
 
 import = Import.new(
@@ -13,14 +13,14 @@ import = Import.new(
 i=1
 while (i<x.count) 
   
-  if  (x[i].created_at == current.created_at) && 
-      (x[i].created_by == current.created_by) && 
+  if  (x[i].created_by == current.created_by) && 
       (x[i].product_id == current.product_id) && 
       (x[i].imported_price == current.imported_price)
         import.quantity += 1
         import.quantity_sold += x[i].status == 'sold' ? 1 : 0
   else 
     import.save
+    puts i
     import = Import.new(
       created_at:     x[i].created_at, 
       user_id:        x[i].created_by, 
@@ -31,7 +31,6 @@ while (i<x.count)
     )
     current = x[i]
   end
-
   i +=1
 end
 import.save

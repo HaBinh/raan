@@ -1,5 +1,5 @@
 imports = []
-x = Article.all
+x = Article.all.order(:created_at)
 current = x[0]
 
 i=1
