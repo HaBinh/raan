@@ -1,4 +1,4 @@
 json.category do 
-  json.id @category.id
-  json.category @category.category
+  json.extract! @category, :id, :category
+  json.rates JSON.parse(@category.rates)
 end

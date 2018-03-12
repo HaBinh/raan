@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
-
+  before_action :set_product_v2, only: [:get_category]
   def index
     @ketqua, @total = Product.get_pagination(params[:search], params[:page], params[:per_page])
     results2 = @ketqua.group_by{ |i| i["id"]}
@@ -40,7 +40,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(name: params[:name], code: params[:code], unit: params[:unit], default_imported_price: params[:default_imported_price],default_sale_price: params[:default_sale_price])
+    @product = Product.new(
+        name: params[:name], 
+        code: params[:code], 
+        unit: params[:unit], 
+        default_imported_price: params[:default_imported_price],
+        default_sale_price: params[:default_sale_price],
+        category_id: params[:category_id])
     if @product.save
         rates_params.each do |a|    
         ProductDiscountedRate.create!(
@@ -54,6 +60,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def get_category
+    @category = @product.category
+  end
+
   def show
     
   end
@@ -62,6 +72,7 @@ class ProductsController < ApplicationController
     @product.update_attributes(name: params[:name], code: params[:code], unit: params[:unit], 
                                default_imported_price: params[:default_imported_price],
                                default_sale_price: params[:default_sale_price])
+    @product.category.update_attributes(category: params[:category])
     @product.product_discounted_rates.delete_all
     params[:rates].each do |a|    
         @product.product_discounted_rates.create!(
@@ -83,8 +94,19 @@ class ProductsController < ApplicationController
   end
 
   private 
+    def product_params
+      params.require(:name, :code, :unit, :default_imported_price, :default_sale_price)
+    end
+
     def set_product 
       @product = Product.find_by_id(params[:id])
+      if @product.nil? 
+        render json: { message: 'Not found'}, status: :not_found
+      end
+    end
+
+    def set_product_v2
+      @product = Product.find_by_id(params[:product_id])
       if @product.nil? 
         render json: { message: 'Not found'}, status: :not_found
       end

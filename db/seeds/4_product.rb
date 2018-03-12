@@ -1,14 +1,14 @@
 @prng = Random.new
 
 
-100.times do |n| 
+200.times do |n| 
   Product.create!(
     name: "Product #{n}",
     code: "#{n}",
     unit: "Cai",
     default_imported_price: n+1,
     default_sale_price: n+100,
-    category_id: Category.last.id
+    category_id: Category.all.sample(1).first.id
   )
 end
 # //discounted rate for product

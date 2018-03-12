@@ -1,3 +1,4 @@
+byebug
 json.id product.product["id"]
 json.name product.product["name"]
 json.code product.product["code"]

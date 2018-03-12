@@ -66,6 +66,24 @@ class OrdersController < ApplicationController
     render 'orders/show.json.jbuilder'
   end
 
+  def pay_total_debt
+    payment = params[:payment].to_f
+    customer = Customer.find_by_id(params[:customer_id])
+    orders_no_fully_paid = customer.orders.where(fully_paid: false).order(created_at: :desc)
+    total_debt = (orders_no_fully_paid.sum(:total_amount) - orders_no_fully_paid.sum(:customer_paid)) - payment
+    orders_no_fully_paid.each do |order|
+      break if payment <= 0
+      if payment > order.debt 
+        payment -= order.debt
+        order.pay_debt(order.debt)     
+      else
+        order.pay_debt(payment)
+        payment = 0
+      end
+    end
+    render_paid_total_debt(params[:customer_id])
+  end
+
   def return_order
     order_items = @order.order_items
     params[:order_items].each do |item|
@@ -115,6 +133,26 @@ class OrdersController < ApplicationController
   end
 
   private 
+
+  def render_paid_total_debt(id)
+    @customers_in_debt = Array.new
+    customer = Customer.find_by_id(id)
+    customer_in_debt = Object.new
+    order_not_fully_paid = customer.orders.where(fully_paid: false)
+    total_debt = order_not_fully_paid.sum(:total_amount) - order_not_fully_paid.sum(:customer_paid)
+    if order_not_fully_paid.count > 0 
+      class << customer_in_debt
+        attr_accessor :customer
+        attr_accessor :orders
+        attr_accessor :total_debt
+      end
+      customer_in_debt.customer = customer 
+      customer_in_debt.orders = order_not_fully_paid
+      customer_in_debt.total_debt = total_debt
+      @customers_in_debt << customer_in_debt 
+    end
+    render 'customers/customer_in_debt'
+  end
 
   def set_order 
     @order = Order.find_by_id(params[:id])

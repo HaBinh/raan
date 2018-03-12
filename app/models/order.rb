@@ -30,6 +30,7 @@ class Order < ApplicationRecord
     self.save
   end
 
+
   def calculate_total_amount
     self.total_amount = self.order_items.sum(:amount)
     self.save

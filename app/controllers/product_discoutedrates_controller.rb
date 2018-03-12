@@ -14,6 +14,20 @@ class ProductDiscoutedratesController < ApplicationController
         render json: {discoutedRates: @discoutedRates}
     end
 
+    def change
+        @category = Category.find_by_id(params[:_json])
+        @rate = JSON.parse(@category.rates)
+        @products = @category.products
+        @products.each do |product|
+            @discount_rates = product.product_discounted_rates.order(:id)
+            count = 0
+            @discount_rates.each do |rate|
+                rate.update_attributes(rate: @rate[count])
+                count += 1
+            end
+        end
+    end
+
     private
         def set_discoutedRates
             @discoutedRates = ProductDiscountedRate.find_by_id(params[:id])

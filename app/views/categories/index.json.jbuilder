@@ -1,5 +1,9 @@
 json.total @total
 json.categories @categories.each do |category|
-	json.id	category["id"]
-	json.category category["category"]
+	json.extract! category, :id, :category
+	if category.rates != nil
+		json.rates JSON.parse(category.rates)
+	else
+		json.rates ""
+	end
 end
