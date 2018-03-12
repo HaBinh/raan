@@ -85,7 +85,7 @@ class ProductsController < ApplicationController
   end
   
   def destroy   
-    if Article.where(product_id: @product.id).count === 0
+    if Import.where(product_id: @product.id).count === 0
       @product.destroy
       render json: {message: 'deleted'}
     else
