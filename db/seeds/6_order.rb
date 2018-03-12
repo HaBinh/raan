@@ -1,6 +1,8 @@
 # imported_price = [999,888,345,899,786,1100,2009,678,123,90,200]
 pro = [2100,2000,750,1820,1620,2150,4050,1500,450,430,540]
+@rates = [0, 0.02, 0.05, 0.1, 0.2,0.3, 0.5]
 
+@prng = Random.new
 12.times do |n|
     # code order
     orderId = SecureRandom.hex(3).upcase
@@ -11,7 +13,7 @@ pro = [2100,2000,750,1820,1620,2150,4050,1500,450,430,540]
       #time ago
       time = Time.now - n.month
       #customer create
-      customerId = @prng.rand(1..10)
+      customerId = @prng.rand(Customer.first.id..Customer.last.id)
       total = 0
       arr_quantity=[]
       arr_rate=[]

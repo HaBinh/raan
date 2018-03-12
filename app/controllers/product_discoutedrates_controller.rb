@@ -15,15 +15,15 @@ class ProductDiscoutedratesController < ApplicationController
     end
 
     def change
-        @category = Category.where(id:  params[:_json]).first
+        @category = Category.find_by_id(params[:_json])
         @rate = JSON.parse(@category.rates)
-        @products = Product.where(category_id: params[:_json])
+        @products = @category.products
         @products.each do |product|
-            @discount_rate = product.product_discounted_rates
-            count = 7
-            @discount_rate.each do |rate|
-                count -= 1
-                rate.update_attributes(rate: @rate [count])
+            @discount_rates = product.product_discounted_rates.order(:id)
+            count = 0
+            @discount_rates.each do |rate|
+                rate.update_attributes(rate: @rate[count])
+                count += 1
             end
         end
     end

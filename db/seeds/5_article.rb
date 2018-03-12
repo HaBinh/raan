@@ -1,3 +1,4 @@
+@prng = Random.new
 Product.all.each do |product|
   user_id = @prng.rand(1..4)
   exist = @prng.rand(1..10)
